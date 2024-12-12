@@ -36,6 +36,8 @@
     "hastscript": "^9.0.0",
     "markdown-it": "^14.1.0",
     "mdast-util-to-string": "^4.0.0",
+    "mdi": "link:@@iconify-json/mdi",
+    "mdi:qqchat": "link:@iconify-json/mdi:qqchat",
     "overlayscrollbars": "^2.10.0",
     "pagefind": "^1.1.1",
     "photoswipe": "^5.4.4",
@@ -60,6 +62,8 @@
   "devDependencies": {
     "@astrojs/ts-plugin": "^1.10.4",
     "@biomejs/biome": "1.8.3",
+    "@iconify-json/mdi": "^1.2.1",
+    "@iconify-json/tabler": "^1.2.11",
     "@rollup/plugin-yaml": "^4.1.2",
     "@types/markdown-it": "^14.1.2",
     "@types/mdast": "^4.0.4",
