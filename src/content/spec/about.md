@@ -1,9 +1,62 @@
-# About
-This is the demo site for [Fuwari](https://github.com/saicaca/fuwari).
+## **关于页面**
 
-::github{repo="saicaca/fuwari"}
+你好！我是时歌（Lapis0x0），来自中国。
 
-> ### Sources of images used in this site
-> - [Unsplash](https://unsplash.com/)
-> - [星と少女](https://www.pixiv.net/artworks/108916539) by [Stella](https://www.pixiv.net/users/93273965)
-> - [Rabbit - v1.4 Showcase](https://civitai.com/posts/586908) by [Rabbit_YourMajesty](https://civitai.com/user/Rabbit_YourMajesty)
+- LNU金融学在读
+- 现在是一位老师
+- 关注金融学、法学、机器学习领域相关的专业知识
+- 可能关注的其他领域：BA蔚蓝档案（沙勒sensei）、GalGame（柚子社废萌+颜艺社）、偶像大师学院（学P）、其他泛二游市场、开源情报、心理学、社会学
+- 可能会对传媒工程比较感兴趣
+- Win/MacOS/Linux三端用户
+- 恐音症，极其厌恶吧唧嘴和嗦手指等行为
+
+📬 邮箱：[**lapiscafe@foxmail.com**](mailto:lapiscafe@foxmail.com)
+
+> 我会信奉正义，但我所学尽是压榨抗辩之说
+> 
+> 
+> 我以为我会向往黑暗，但我仍然追逐着太阳的光辉
+> 
+> 我以为现状总是最好的，但我也向往圣人口中的耀眼远方
+> 
+> 我以为我可以永远做自己，但时代的浪潮推动着每一个人前进
+> 
+> 他们和我说那会是个伟大的时代，但是在那之前需要更多的人在地上才能走到对岸
+> 
+> 我以为我能心安理得的等待那样的未来，只是作为一个过客看着
+> 
+> 但我是个骄傲的人，我是个傲慢的人
+> 
+> 我想要用我一生的思考来为这个文明的火炉添一桶油
+> 
+> 我大概是也是一个自私的庸人
+> 
+> 我也想沽名钓誉
+> 
+> 我也想封狼居胥，饮马瀚海，在历史中刻下自己的名字
+> 
+> 功成不必在我，功成必定有我。
+> 
+
+---
+
+# 友链申请建议标准
+
+- 我希望贵站可以有一定内容的严肃思考输出（例如读书笔记或者自己在技术方面的钻研探索）
+- 我希望贵站建站时间应尽量大于半年，更新博文大于十篇
+- 我希望贵站的商业化内容不会过多
+- 我希望您的现实中应尽量完成高中教育（非必需），总之不能让我感到“无趣”
+
+# 本站信息
+
+名称：时歌的博客
+
+地址: https://www.lapis.cafe
+
+头像: https://www.lapis.cafe/upload/bloglogo.png
+
+描述：理解以真实为本，但真实本身并不会自动呈现
+
+RSS: https://lapis.cafe/rss.xml
+
+友链申请在这里提交即可，欢迎交流思考。
