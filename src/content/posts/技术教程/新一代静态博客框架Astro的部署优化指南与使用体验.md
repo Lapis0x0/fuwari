@@ -7,6 +7,17 @@ tags: []
 category: 技术教程
 draft: false
 ---
+
+# 信源
+## 1.仓库
+::github{repo="withastro/astro"}
+::github{repo="saicaca/fuwari"}
+
+## 2.参考文章
+- [Astro官方文档](https://docs.astro.build/zh-cn/guides/deploy/)
+- [给你的Fuwari添加一个友链页面](https://arc.net/l/quote/fpwpojzh)
+- [利用giscus给你的网站添加评论功能](https://blog.aulypc0x0.online/posts/add_comment_for_your_website_in_fuwari/)
+
 # 一、前言
 
 我一直以来都在寻找一个既能满足写作需求，又简单易懂容易上手的博客框架。
@@ -17,7 +28,7 @@ draft: false
 * 文章数量多的话，对于博客框架的性能和稳定性会有影响
 
 因为我是一个懒人，懒得去维护服务器和数据库，受益于现代前端技术的发展，我开始在静态博客框架中寻求替代方案。
-最终，我在群友得推荐下选择了**Astro**框架和**fuwari**主题。
+最终，我在群友的推荐下选择了**Astro**框架和**fuwari**主题。
 
 # 二、Astro和fuwari介绍
 
