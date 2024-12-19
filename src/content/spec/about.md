@@ -53,7 +53,7 @@
 
 地址: https://www.lapis.cafe
 
-头像: https://www.lapis.cafe/upload/bloglogo.png
+头像: https://www.lapis.cafe/_astro/avatar.exAKhE7w_1xwha6.webp
 
 描述：理解以真实为本，但真实本身并不会自动呈现
 
