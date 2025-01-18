@@ -6,11 +6,12 @@ import I18nKey from '../i18n/i18nKey';
 // Read and parse the books data
 const response = await fetch(new URL('/data/books.json', Astro.url));
 const booksData = await response.json();
-const books = booksData.data.items;
+// Filter books with reading progress "1"
+const books = booksData.data.items.filter(book => book.fields['阅读进度'] === "1");
 
-// Group books by category (二级分支)
+// Group books by category (领域)
 const booksByCategory = books.reduce((acc, book) => {
-  const category = book.fields['二级分支'] || '未分类';
+  const category = book.fields['领域'] || '未分类';
   if (!acc[category]) {
     acc[category] = [];
   }
@@ -29,6 +30,21 @@ function getCoverUrl(book) {
 ---
 
 <MainGridLayout title={i18n(I18nKey.bookshelf)} description={i18n(I18nKey.bookshelf)}>
+  <style>
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 4px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background-color: rgba(255, 255, 255, 0.3);
+      border-radius: 2px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+      background-color: rgba(255, 255, 255, 0.5);
+    }
+  </style>
   <div class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative">
     <div class="card-base z-10 px-6 py-6 relative w-full">
       {Object.entries(booksByCategory).map(([category, books]) => (
@@ -64,16 +80,22 @@ function getCoverUrl(book) {
                     </div>
                   </div>
                 </div>
-                <div class="overlay absolute inset-0 bg-black/80 opacity-0 transition-opacity duration-300 rounded-lg invisible group-hover:visible group-hover:opacity-100 flex items-center justify-center">
-                  <div class="p-4 text-white">
-                    <h3 class="text-sm font-bold mb-2">{book.fields['书名']}</h3>
-                    <p class="text-xs text-zinc-300 line-clamp-6">{book.fields['书籍简介']}</p>
-                    {book.fields['书评'] && (
-                      <div class="mt-3 pt-3 border-t border-white/20">
-                        <p class="text-xs italic text-zinc-400 line-clamp-3">
-                          {book.fields['书评']}
-                        </p>
-                      </div>
+                <div class="overlay absolute inset-0 bg-black/80 opacity-0 transition-opacity duration-300 rounded-lg invisible group-hover:visible group-hover:opacity-100 flex items-center justify-center overflow-hidden">
+                  <div class="p-4 text-white h-full overflow-y-auto custom-scrollbar">
+                    <h3 class="text-sm font-bold mb-2 sticky top-0 bg-black/80 py-2">{book.fields['书名']}</h3>
+                    {book.fields['书评'] ? (
+                      <>
+                        <p class="text-sm text-zinc-100 mb-3">{book.fields['书评']}</p>
+                        {book.fields['书籍简介'] && (
+                          <div class="pt-3 border-t border-white/20">
+                            <p class="text-xs text-zinc-400">
+                              {book.fields['书籍简介']}
+                            </p>
+                          </div>
+                        )}
+                      </>
+                    ) : (
+                      <p class="text-xs text-zinc-300">{book.fields['书籍简介']}</p>
                     )}
                   </div>
                 </div>
