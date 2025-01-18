@@ -1,0 +1,62 @@
+---
+import Layout from '../layouts/Layout.astro';
+import '../styles/main.css';
+
+// Read and parse the books data
+const response = await fetch(new URL('/data/books.json', Astro.url));
+const booksData = await response.json();
+const books = booksData.data.items;
+
+// Group books by category (二级分支)
+const booksByCategory = books.reduce((acc, book) => {
+  const category = book.fields['二级分支'] || '未分类';
+  if (!acc[category]) {
+    acc[category] = [];
+  }
+  acc[category].push(book);
+  return acc;
+}, {});
+---
+
+<Layout title="我的书架 | My Bookshelf">
+  <main class="max-w-6xl mx-auto px-4 py-8">
+    <h1 class="text-4xl font-bold text-center mb-12">我的书架</h1>
+    
+    {Object.entries(booksByCategory).map(([category, books]) => (
+      <section class="mb-12">
+        <h2 class="text-2xl font-semibold mb-6 pb-2 border-b-2 border-gray-200">{category}</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {books.map((book) => (
+            <article class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+              <h3 class="text-xl font-semibold mb-3">{book.fields['书名']}</h3>
+              <p class="text-gray-600 text-sm mb-4 line-clamp-3">{book.fields['书籍简介']}</p>
+              {book.fields['书评'] && (
+                <div class="mt-4 pt-4 border-t border-gray-100">
+                  <p class="text-sm text-gray-700 italic line-clamp-2">
+                    读后感：{book.fields['书评']}
+                  </p>
+                </div>
+              )}
+            </article>
+          ))}
+        </div>
+      </section>
+    ))}
+  </main>
+</Layout>
+
+<style>
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+</style>
