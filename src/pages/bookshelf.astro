@@ -2,10 +2,8 @@
 import MainGridLayout from '../layouts/MainGridLayout.astro';
 import { i18n } from '../i18n/translation';
 import I18nKey from '../i18n/i18nKey';
+import booksData from '../../public/data/books.json';
 
-// Read and parse the books data
-const response = await fetch(new URL('/data/books.json', Astro.url));
-const booksData = await response.json();
 // Filter books with reading progress "1"
 const books = booksData.data.items.filter(book => book.fields['阅读进度'] === "1");
 
