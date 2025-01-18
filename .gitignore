@@ -20,6 +20,9 @@ pnpm-debug.log*
 # macOS-specific files
 .DS_Store
 
+# python virtual environment
+venv/
+
 .vercel
 
 package-lock.json
