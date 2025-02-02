@@ -2070,10 +2070,83 @@
         },
         "id": "recuz72lU0ubw0",
         "record_id": "recuz72lU0ubw0"
+      },
+      {
+        "fields": {
+          "书名": "动物化的后现代（一）",
+          "书籍简介": "美国式消费社会的逻辑自二战以后稳步扩大，如今已经覆盖全世界。无需他人的介入或是麻烦的社交，消费者的需求就可以非常简便地获得满足。在此意义上，我们的社会正朝着科耶夫所说的“动物化”的道路迈进。\n日本自20世纪50至70年代经历了经济高度发展期，以及美国亚文化的“国产化”，从中诞生的“御宅族系文化”如今获得了超越国界的支持。御宅族系文化的特征呼应着1970年代至今的后现代潮流，也包含着现代化与后现代化所引发的人性扭曲，大叙事凋零后人们如何想象世界、如何进行文化生产与消费等诸多与当下密切相关的议题。\n日本新一代思想家、争议性奇才东浩纪的成名之作《动物化的后现代》，初版于2001年，如今已成为当代文化研究的根基性经典，书中原创性地运用“数据库消费”“萌要素”“动物的时代”等概念，精辟地分析了御宅族系文化影响下的日本社会和日本思想，并从中理出御宅族系文化的形成与未来的可能性。我们可以从中了解御宅族对于动漫甚至当代文化造成了怎样的影响，这些被误解的族群，其行为模式是文化的脉络之一，也正在改变人类的整个历史文化。",
+          "二级分支": "社会学-现代资本主义",
+          "作者": [
+            "东浩纪"
+          ],
+          "封面": [
+            {
+              "file_token": "LBgfbiqigoWcOlxfEvvcydAonFI",
+              "name": "image.png",
+              "size": 387225,
+              "tmp_url": "https://open.feishu.cn/open-apis/drive/v1/medias/batch_get_tmp_download_url?file_tokens=LBgfbiqigoWcOlxfEvvcydAonFI",
+              "type": "image/png",
+              "url": "https://open.feishu.cn/open-apis/drive/v1/medias/LBgfbiqigoWcOlxfEvvcydAonFI/download",
+              "local_path": "/images/books/09d082418d8d08af25fac54cc732c0eb.webp"
+            }
+          ],
+          "领域": "社会学"
+        },
+        "id": "recuAXRKb77rD7",
+        "record_id": "recuAXRKb77rD7"
+      },
+      {
+        "fields": {
+          "书名": "动物化的后现代（二）：游戏性写实主义的诞生",
+          "书籍简介": "本书既是后现代论，也是御宅族论，同时更是文学论。\n这是在轻小说流行浪潮构想下执笔的专书，做为一个书写者，在二○○○年代前半期的五年之间，能被卷入如此的社会现实，可说是我意料之外的喜悦，也是个珍贵的经验。\n若没了这个经验，大概就没有《游戏性写实主义的诞生：动物化的后现代2》的产生。即便能写出来，大概也会变成完全不同的内容吧。",
+          "二级分支": "社会学-现代资本主义",
+          "作者": [
+            "东浩纪"
+          ],
+          "封面": [
+            {
+              "file_token": "UKhRbpUitoVPR8xxSQicCGJYnBg",
+              "name": "image.png",
+              "size": 16836,
+              "tmp_url": "https://open.feishu.cn/open-apis/drive/v1/medias/batch_get_tmp_download_url?file_tokens=UKhRbpUitoVPR8xxSQicCGJYnBg",
+              "type": "image/png",
+              "url": "https://open.feishu.cn/open-apis/drive/v1/medias/UKhRbpUitoVPR8xxSQicCGJYnBg/download",
+              "local_path": "/images/books/0b04440f81a3cf5b90c29d918f398a37.webp"
+            }
+          ],
+          "领域": "社会学"
+        },
+        "id": "recuAXRT4saXk8",
+        "record_id": "recuAXRT4saXk8"
+      },
+      {
+        "fields": {
+          "书名": "人类简史",
+          "书籍简介": "《人类简史》是一部深入探讨人类历史发展的著作。作者尤瓦尔·赫拉利以独特的视角，将人类历史划分为认知革命、农业革命、人类的融合统一与科学革命四个阶段，全面讲述了从石器时代智人演化至21世纪政治和技术革命的历程，揭示了人类历史上重要的三大革命：认知革命、农业革命、科学革命，展现了人类社会的演变与进步。",
+          "二级分支": "社会学-人类学分支",
+          "作者": [
+            "尤瓦尔·赫拉利"
+          ],
+          "封面": [
+            {
+              "file_token": "Dz2Wbf2CWoKw80xjgqccL7mcnJb",
+              "name": "image.png",
+              "size": 62195,
+              "tmp_url": "https://open.feishu.cn/open-apis/drive/v1/medias/batch_get_tmp_download_url?file_tokens=Dz2Wbf2CWoKw80xjgqccL7mcnJb",
+              "type": "image/png",
+              "url": "https://open.feishu.cn/open-apis/drive/v1/medias/Dz2Wbf2CWoKw80xjgqccL7mcnJb/download",
+              "local_path": "/images/books/2f5154fa1683b8b4500c2311421ca599.webp"
+            }
+          ],
+          "阅读进度": "0.1",
+          "领域": "社会学"
+        },
+        "id": "recuBxG38JaAQG",
+        "record_id": "recuBxG38JaAQG"
       }
     ],
-    "total": 83
+    "total": 86
   },
   "msg": "success",
-  "last_updated": "2025-01-26T01:17:09.851099"
+  "last_updated": "2025-02-02T01:18:38.323593"
 }
