@@ -2138,15 +2138,43 @@
               "local_path": "/images/books/2f5154fa1683b8b4500c2311421ca599.webp"
             }
           ],
-          "阅读进度": "0.1",
+          "阅读进度": "0.25",
           "领域": "社会学"
         },
         "id": "recuBxG38JaAQG",
         "record_id": "recuBxG38JaAQG"
+      },
+      {
+        "fields": {
+          "书名": "经济学研究入门指南",
+          "书籍简介": "《经济学研究入门指南》是一本专为初学者设计的经济学入门书籍。书中详细介绍了经济学的基本概念、研究方法和分析工具，帮助读者快速掌握经济学的基本知识和研究技巧。书中内容丰富，语言通俗易懂，适合广大经济学爱好者、大学生以及希望了解经济学的读者阅读。",
+          "书评": "一本非常棒的经济学研究入门导论",
+          "二级分支": "政治经济学-理论研究",
+          "作者": [
+            "史蒂文·A.格林劳"
+          ],
+          "完成阅读时期": "2025年第一季度",
+          "封面": [
+            {
+              "file_token": "Iw5VbePwQoUJhpxZwcychEi9nhf",
+              "name": "image.png",
+              "size": 131385,
+              "tmp_url": "https://open.feishu.cn/open-apis/drive/v1/medias/batch_get_tmp_download_url?file_tokens=Iw5VbePwQoUJhpxZwcychEi9nhf",
+              "type": "image/png",
+              "url": "https://open.feishu.cn/open-apis/drive/v1/medias/Iw5VbePwQoUJhpxZwcychEi9nhf/download",
+              "local_path": "/images/books/26e77f814a1becbc4c8971f3dbc6d023.webp"
+            }
+          ],
+          "推荐状态": "推荐",
+          "阅读进度": "1",
+          "领域": "政治经济学"
+        },
+        "id": "recuBL6RjJii1W",
+        "record_id": "recuBL6RjJii1W"
       }
     ],
-    "total": 86
+    "total": 87
   },
   "msg": "success",
-  "last_updated": "2025-02-02T01:18:38.323593"
+  "last_updated": "2025-02-09T01:19:46.633615"
 }
