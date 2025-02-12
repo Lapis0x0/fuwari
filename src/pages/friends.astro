@@ -1,13 +1,14 @@
 ---
-
 import MainGridLayout from '../layouts/MainGridLayout.astro'
-import { getEntry } from 'astro:content'
+import { getCollection } from 'astro:content'
 import { i18n } from '../i18n/translation'
 import I18nKey from '../i18n/i18nKey'
 import Markdown from '@components/misc/Markdown.astro'
 
-const friendsPost = await getEntry('spec', 'friends')
+const specPosts = await getCollection('spec')
+const friendsPost = specPosts.find(post => post.id === 'friends.md')
 const { Content } = await friendsPost.render()
+
 const items = [
   {  
     title: 'Astro',  
