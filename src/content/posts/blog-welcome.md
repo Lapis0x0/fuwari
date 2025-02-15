@@ -23,6 +23,8 @@ pinned: true
 
 [模型考古学（二）：视觉大模型发展梳理与Qwen2-VL论文解读](https://www.lapis.cafe/posts/ai--deep-learning/deeplearning-research-002/)
 
+[模型考古学（三）：Agent 系统概述](https://www.lapis.cafe/posts/ai--deep-learning/deeplearning-research-003/)
+
 # Trading101 璿玑楮痕系列
 
 此系列旨在拆解投资与量化交易中的核心概念与操作逻辑，系统化地介绍技术指标与策略设计的基本原理。文章结合理论与实践，为读者提供清晰的工具与框架，以助其更科学地理解市场行为。
