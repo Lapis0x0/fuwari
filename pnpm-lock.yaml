@@ -71,12 +71,6 @@ importers:
       mdast-util-to-string:
         specifier: ^4.0.0
         version: 4.0.0
-      mdi:
-        specifier: link:@@iconify-json/mdi
-        version: link:@@iconify-json/mdi
-      mdi:qqchat:
-        specifier: link:@iconify-json/mdi:qqchat
-        version: link:@iconify-json/mdi:qqchat
       overlayscrollbars:
         specifier: ^2.10.0
         version: 2.10.1
@@ -6709,7 +6703,7 @@ snapshots:
       unist-util-visit: 5.0.0
       vfile: 6.0.3
       vite: 5.4.11(@types/node@22.10.2)(lightningcss@1.27.0)(stylus@0.63.0)(terser@5.36.0)
-      vitefu: 1.0.4(vite@5.4.11(@types/node@22.10.2)(lightningcss@1.27.0)(stylus@0.63.0)(terser@5.36.0))
+      vitefu: 1.0.4(vite@5.4.11(@types/node@22.10.2)(lightningcss@1.27.0)(stylus@0.63.0)(terser@5.37.0))
       which-pm: 3.0.0
       xxhash-wasm: 1.1.0
       yargs-parser: 21.1.1
@@ -10306,10 +10300,6 @@ snapshots:
       lightningcss: 1.27.0
       stylus: 0.63.0
       terser: 5.37.0
-
-  vitefu@1.0.4(vite@5.4.11(@types/node@22.10.2)(lightningcss@1.27.0)(stylus@0.63.0)(terser@5.36.0)):
-    optionalDependencies:
-      vite: 5.4.11(@types/node@22.10.2)(lightningcss@1.27.0)(stylus@0.63.0)(terser@5.36.0)
 
   vitefu@1.0.4(vite@5.4.11(@types/node@22.10.2)(lightningcss@1.27.0)(stylus@0.63.0)(terser@5.37.0)):
     optionalDependencies:
