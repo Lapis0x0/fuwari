@@ -317,7 +317,8 @@ function initCustomScrollbar() {
 			autoHideSuspend: false,
 		},
 	});
-	document.querySelectorAll('pre').forEach((ele) => {
+	const preElements = document.querySelectorAll('pre');
+ 	preElements.forEach((ele) => {
 		OverlayScrollbars(ele, {
 			scrollbars: {
 				theme: 'scrollbar-base scrollbar-dark px-2',
@@ -327,7 +328,15 @@ function initCustomScrollbar() {
 			}
 		});
 	});
-}
+	const katexElements = document.querySelectorAll('.katex-display') as NodeListOf<HTMLElement>;
+ 	katexElements.forEach((ele) => {
+ 		OverlayScrollbars(ele, {
+ 			scrollbars: {
+ 				theme: 'scrollbar-base scrollbar-auto py-1',
+ 			}
+ 		});
+ 	});
+ }
 
 function showBanner() {
 	const banner = document.getElementById('banner')
