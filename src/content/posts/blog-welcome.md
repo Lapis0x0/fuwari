@@ -52,3 +52,5 @@ pinned: true
 水面之下，方见真章。
 
 [暗涌系列：Ark Invest《Big Ideas 2025》报告浅析 Part 1](https://www.lapis.cafe/posts/finance--economics/darkwave-bigideas2025-p1/)
+
+[暗涌系列：Ark Invest《Big Ideas 2025》报告浅析 Part 2](https://www.lapis.cafe/posts/finance--economics/darkwave-bigideas2025-p2/)
