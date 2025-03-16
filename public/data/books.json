@@ -2174,10 +2174,38 @@
         },
         "id": "recuBL6RjJii1W",
         "record_id": "recuBL6RjJii1W"
+      },
+      {
+        "fields": {
+          "书名": "数字货币交易盈利策略",
+          "书籍简介": "《数字货币交易盈利策略》是一本关于数字货币交易领域的经验总结。全书共分为八个部分，系统梳理了数字货币交易的交易原理，从最基本的入市方法开始介绍，再到数字货币基本的K线形态及数字货币交易系统的构成。作者结合自己的经验，总结了数字货币交易的正确理念，并探讨了如何踏准时代趋势，在新领域里获取盈利。本书适合对数字货币交易感兴趣的读者阅读。",
+          "书评": "傻逼。\n只能说管理科学研究院的含金量仍然在不断凸显。别管什么人，只要和他有联系的人的title里有管理科学研究院，那么这一撮人都不需要再关注了。",
+          "二级分支": "金融学-二级市场",
+          "作者": [
+            "济卿凭"
+          ],
+          "完成阅读时期": "2025年第一季度",
+          "封面": [
+            {
+              "file_token": "U9XDb2kRkoLwOmxrCEKcCu0UnNd",
+              "name": "image.png",
+              "size": 106825,
+              "tmp_url": "https://open.feishu.cn/open-apis/drive/v1/medias/batch_get_tmp_download_url?file_tokens=U9XDb2kRkoLwOmxrCEKcCu0UnNd",
+              "type": "image/png",
+              "url": "https://open.feishu.cn/open-apis/drive/v1/medias/U9XDb2kRkoLwOmxrCEKcCu0UnNd/download",
+              "local_path": "/images/books/f766315578e042e34a8e9f996afb8af8.webp"
+            }
+          ],
+          "推荐状态": "不行",
+          "阅读进度": "1",
+          "领域": "金融学"
+        },
+        "id": "recuFroFthWM4N",
+        "record_id": "recuFroFthWM4N"
       }
     ],
-    "total": 87
+    "total": 88
   },
   "msg": "success",
-  "last_updated": "2025-03-09T01:09:44.283207"
+  "last_updated": "2025-03-16T01:25:55.388091"
 }
