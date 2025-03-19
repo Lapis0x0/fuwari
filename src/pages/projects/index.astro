@@ -210,37 +210,47 @@ const getProjectPosts = (item: ProjectItem) => {
     const toggleButtons = document.querySelectorAll('.toggle-button');
     
     toggleButtons.forEach(button => {
-      button.addEventListener('click', () => {
-        const targetId = button.getAttribute('data-target');
-        const contentElement = document.getElementById(targetId);
-        const iconElement = button.querySelector('svg');
-        
-        if (contentElement) {
-          // 切换展开/折叠状态
-          const isExpanded = button.getAttribute('aria-expanded') === 'true';
-          const newExpandedState = !isExpanded;
-          
-          // 更新aria属性
-          button.setAttribute('aria-expanded', newExpandedState.toString());
-          
-          // 更新图标旋转
-          if (newExpandedState) {
-            iconElement.style.transform = 'rotate(180deg)';
-          } else {
-            iconElement.style.transform = 'rotate(0)';
-          }
-          
-          // 更新内容区域高度
-          if (newExpandedState) {
-            // 获取内容的实际高度
-            const contentHeight = contentElement.querySelector('div').offsetHeight;
-            contentElement.style.maxHeight = `${contentHeight}px`;
-          } else {
-            contentElement.style.maxHeight = '0';
-          }
-        }
-      });
+      // 移除旧的事件监听器，防止重复绑定
+      button.removeEventListener('click', toggleContent);
+      // 添加新的事件监听器
+      button.addEventListener('click', toggleContent);
     });
+  }
+
+  function toggleContent(event) {
+    const button = event.currentTarget;
+    const targetId = button.getAttribute('data-target');
+    const contentElement = document.getElementById(targetId);
+    const iconElement = button.querySelector('svg');
+    
+    if (contentElement) {
+      // 切换展开/折叠状态
+      const isExpanded = button.getAttribute('aria-expanded') === 'true';
+      const newExpandedState = !isExpanded;
+      
+      // 更新aria属性
+      button.setAttribute('aria-expanded', newExpandedState.toString());
+      
+      // 更新图标旋转
+      if (newExpandedState) {
+        iconElement.style.transform = 'rotate(180deg)';
+      } else {
+        iconElement.style.transform = 'rotate(0)';
+      }
+      
+      // 更新内容区域高度
+      if (newExpandedState) {
+        // 先设置一个很大的高度，让内容完全展开
+        contentElement.style.maxHeight = '2000px';
+        // 然后获取实际高度并设置
+        setTimeout(() => {
+          const contentHeight = contentElement.scrollHeight;
+          contentElement.style.maxHeight = `${contentHeight}px`;
+        }, 10);
+      } else {
+        contentElement.style.maxHeight = '0';
+      }
+    }
   }
 </script>
 
@@ -253,5 +263,6 @@ const getProjectPosts = (item: ProjectItem) => {
   /* 内容区域展开/折叠动画 */
   .content-section {
     transition: max-height 0.3s ease-in-out;
+    overflow: hidden;
   }
 </style>
