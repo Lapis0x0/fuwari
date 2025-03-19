@@ -41,11 +41,11 @@ export const siteConfig: SiteConfig = {
 export const navBarConfig: NavBarConfig = {
   links: [
     LinkPreset.Home,
+    LinkPreset.Projects,
     LinkPreset.Archive,
     LinkPreset.About,
     LinkPreset.Friends,
     LinkPreset.Bookshelf,
-    LinkPreset.Projects,
     {
       name: '开往',
       url: 'https://www.travellings.cn/go.html',     // Internal links should not include the base path, as it is automatically added
