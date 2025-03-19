@@ -5,33 +5,41 @@ projects:
     title: 技术项目
     description: 我的技术相关项目
     items:
+
       - id: fuwari
-        title: Fuwari博客
-        description: 个人博客
+        title: Fuwari博客修改
+        description: 博客的自定义与美化
         image: /images/projects/fuwari.png
-        url: https://github.com/yourusername/fuwari
-        tags:
-          - Astro
-          - TypeScript
-          - 博客
-      - id: project2
-        title: 示例项目2
-        description: 这是一个示例项目
-        tags:
-          - 示例
-          - 项目
-  - id: writing
-    title: 写作项目
-    description: 我的写作相关项目
+        url: https://github.com/Lapis0x0/fuwari
+        posts:
+          - 不再依赖平台：如何打造自己专属的博客网站？
+          - 新一代静态博客框架Astro的部署优化指南与使用体验
+          
+      - id: projects
+        title: 其他小项目
+        description: 日常随手写的小工具
+        posts:
+          - 使用 Qwen VL 系列模型实现图片分类和OCR任务
+
+  - id: finance
+    title: 金融经济
+    description: 包含我的交易投资笔记、金融经济领域的报告等
     items:
-      - id: blog
-        title: 技术博客
-        description: 我的技术文章集合
-        categories:
-          - 技术教程
-        tags:
-          - 编程
-          - 教程
+
+      - id: trading
+        title: 交易笔记
+        description: 日常交易经验总结
+        posts:
+          - 2025年1月投资月报：耐心、预期管理与认知局限
+          - Trading101：简析投资中常见的技术指标和其背后的逻辑
+          - Trading101：策略交易解析
+
+      - id: China & World
+        title: 中国与世界的现代化
+        description: 包含我的中国与世界的现代化专题文章
+        posts:
+          - 中国与世界的现代化专题（一）：萝卜快跑，社会结构与国际价值链分工
+          - 中国与世界的现代化专题（二）：货币的本质与中国的税收体系
 ---
 
 这里展示了我的各种项目集合，包括技术项目和写作项目。你可以点击项目卡片查看详细信息。

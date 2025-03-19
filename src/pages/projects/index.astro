@@ -1,16 +1,18 @@
 ---
 import MainGridLayout from '@/layouts/MainGridLayout.astro'
-import { getEntry } from 'astro:content'
+import { getEntry, getCollection } from 'astro:content'
 import Markdown from '@components/misc/Markdown.astro'
 import I18nKey from '@i18n/i18nKey'
 import { i18n } from '@i18n/translation'
 import { url } from '@utils/url-utils'
 import { Icon } from 'astro-icon/components'
-import type { Project } from '@/types/config'
+import type { Project, ProjectItem } from '@/types/config'
+import type { CollectionEntry } from 'astro:content'
 
 // 从Markdown文件中获取项目配置
 let Content;
 let projectsData: Project[] = [];
+let allPosts: CollectionEntry<'posts'>[] = [];
 
 try {
   const projectsPost = await getEntry('spec', 'projects');
@@ -19,65 +21,237 @@ try {
     Content = rendered.Content;
     projectsData = projectsPost.data.projects || [];
   }
+  
+  // 获取所有文章
+  allPosts = await getCollection('posts', (post) => !post.data.draft);
 } catch (error) {
   console.error('无法渲染项目内容:', error);
 }
+
+// 获取项目相关文章
+const getProjectPosts = (item: ProjectItem) => {
+  let posts: CollectionEntry<'posts'>[] = [];
+  
+  // 获取直接指定的文章（通过标题匹配）
+  if (item.posts && item.posts.length > 0) {
+    const relatedPosts = allPosts.filter(post => 
+      item.posts?.some(postTitle => 
+        post.data.title.includes(postTitle) || 
+        postTitle.includes(post.data.title)
+      )
+    );
+    posts = [...posts, ...relatedPosts];
+  }
+  
+  // 获取分类文章
+  if (item.categories && item.categories.length > 0) {
+    const categoryPosts = allPosts.filter(post => 
+      post.data.category && item.categories?.includes(post.data.category)
+    ).filter(post => !posts.some(p => p.id === post.id));
+    posts = [...posts, ...categoryPosts];
+  }
+  
+  // 获取标签文章
+  if (item.tags && item.tags.length > 0) {
+    const tagPosts = allPosts.filter(post => 
+      post.data.tags && post.data.tags.some((tag: string) => item.tags?.includes(tag))
+    ).filter(post => !posts.some(p => p.id === post.id));
+    posts = [...posts, ...tagPosts];
+  }
+  
+  return posts;
+};
 ---
 
 <MainGridLayout title={i18n(I18nKey.projects)} description={i18n(I18nKey.projects)}>
   <div class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative min-h-32">
-    <div class="card-base z-10 px-9 py-6 relative w-full">
-      <div class="grid grid-cols-1 gap-x-6 gap-y-8 my-4">
+    <div class="card-base z-10 px-6 md:px-9 py-8 relative w-full">
+      <!-- 页面标题 -->
+      <div class="text-center mb-10">
+        <h1 class="text-4xl font-bold mb-3 text-[var(--primary)]">{i18n(I18nKey.projects)}</h1>
+        <div class="w-24 h-1 bg-[var(--primary)] mx-auto rounded-full opacity-70"></div>
+        <p class="mt-4 text-50 max-w-2xl mx-auto">这里展示了我的各种项目集合，主要是对博客内容的分类汇总，帮助你更好地浏览相关主题的文章。</p>
+      </div>
+      
+      <!-- 项目列表 -->
+      <div class="grid grid-cols-1 gap-x-6 gap-y-16 my-8">
         {projectsData.map((project) => (
           <div class="w-full">
-            <div class="flex items-center gap-2 mb-4">
-              <h2 class="text-2xl font-bold">{project.title}</h2>
+            <div class="flex items-center gap-3 mb-6 border-l-4 border-[var(--primary)] pl-4">
+              <h2 class="text-2xl font-bold text-neutral-900 dark:text-neutral-100">{project.title}</h2>
             </div>
-            <p class="text-50 mb-4">{project.description}</p>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-8">
-              {project.items.map((item) => (
-                <div class="flex flex-nowrap items-stretch h-28 gap-4 rounded-[var(--radius-large)]">
-                  <div class="w-28 h-28 flex-shrink-0 rounded-lg overflow-hidden bg-zinc-200 dark:bg-zinc-900">
-                    {item.image && <img src={item.image} alt={item.title} class="w-full h-full object-cover" />}
-                    {!item.image && (
-                      <div class="w-full h-full flex items-center justify-center">
-                        <Icon name="mdi:folder-outline" class="text-4xl text-[var(--primary)]" />
+            <p class="text-50 mb-6 text-lg text-neutral-900 dark:text-neutral-100">{project.description}</p>
+            
+            <!-- 项目卡片网格 -->
+            <div class="grid grid-cols-1 gap-6">
+              {project.items.map((item) => {
+                const projectPosts = getProjectPosts(item);
+                return (
+                  <div class="group flex flex-col h-full overflow-hidden rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 shadow-sm hover:shadow-md transition-all duration-300">
+                    <!-- 项目卡片头部 -->
+                    <div class="p-6 border-b border-zinc-200 dark:border-zinc-800">
+                      <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                          <Icon name="mdi:bookmark-outline" class="text-xl text-[var(--primary)]" />
+                          <h3 class="text-xl font-bold text-neutral-900 dark:text-neutral-100">{item.title}</h3>
+                        </div>
+                        
+                        <!-- 展开/折叠按钮 -->
+                        <button 
+                          class="toggle-button w-8 h-8 flex items-center justify-center rounded-full bg-[oklch(95%_0.03_var(--hue))] dark:bg-[oklch(30%_0.03_var(--hue))] text-[var(--primary)] hover:opacity-90 transition-all duration-300"
+                          data-target={`content-${item.id}`}
+                          aria-label="展开/折叠"
+                          aria-expanded="false"
+                        >
+                          <Icon name="mdi:chevron-down" class="text-lg transform transition-transform duration-300" />
+                        </button>
                       </div>
-                    )}
-                  </div>
-                  <div class="grow w-full">
-                    <div class="font-bold transition text-lg text-neutral-900 dark:text-neutral-100 mb-1">{item.title}</div>
-                    <div class="text-50 text-sm font-medium">{item.description}</div>
-                    <div class="items-center flex">
-                      <div class="flex flex-row flex-nowrap items-center">
-                        {(item.tags && item.tags.length > 0) && item.tags.map((tag, i) => (
-                          <>
-                            {i > 0 && <div class="mx-1.5 text-[var(--meta-divider)] text-sm">/</div>}
-                            <span class="transition text-50 text-sm font-medium">
+                      
+                      <p class="text-50 text-sm mt-3 mb-4 text-neutral-900 dark:text-neutral-100">{item.description}</p>
+                      
+                      <!-- 标签区域 -->
+                      {(item.tags && item.tags.length > 0) && (
+                        <div class="flex flex-wrap gap-2 mb-4">
+                          {item.tags.map(tag => (
+                            <span class="px-3 py-1 text-xs rounded-full bg-[oklch(95%_0.03_var(--hue))] dark:bg-[oklch(30%_0.03_var(--hue))] text-[var(--primary)]">
                               {tag}
                             </span>
-                          </>
-                        ))}
-                        {!(item.tags && item.tags.length > 0) && <div class="transition text-50 text-sm font-medium">{i18n(I18nKey.noTags)}</div>}
+                          ))}
+                        </div>
+                      )}
+                      
+                      <!-- 统计信息 -->
+                      <div class="flex items-center gap-4 text-50 text-sm text-neutral-900 dark:text-neutral-100">
+                        <div class="flex items-center gap-1">
+                          <Icon name="mdi:file-document-outline" class="text-base" />
+                          <span>{projectPosts.length} 篇文章</span>
+                        </div>
+                        
+                        {item.url && (
+                          <a 
+                            href={item.url} 
+                            target="_blank" 
+                            rel="noopener noreferrer" 
+                            class="inline-flex items-center gap-1 text-[var(--primary)] hover:underline"
+                          >
+                            <Icon name="mdi:link-variant" class="text-base" />
+                            <span>项目链接</span>
+                          </a>
+                        )}
+                      </div>
+                    </div>
+                    
+                    <!-- 展开后的文章列表 -->
+                    <div id={`content-${item.id}`} class="content-section max-h-0 overflow-hidden transition-all duration-500 ease-in-out">
+                      <div class="p-6">
+                        {projectPosts.length > 0 ? (
+                          <div class="grid grid-cols-1 gap-4">
+                            {projectPosts.map(post => (
+                              <a href={`/posts/${post.slug}/`} class="block p-4 rounded-lg border border-zinc-200 dark:border-zinc-800 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors">
+                                <h4 class="text-lg font-medium mb-2 text-neutral-900 dark:text-neutral-100">{post.data.title}</h4>
+                                <div class="flex items-center gap-4 text-sm text-50 text-neutral-900 dark:text-neutral-100">
+                                  <div class="flex items-center gap-1">
+                                    <Icon name="mdi:calendar" class="text-base" />
+                                    <span>{new Date(post.data.published).toLocaleDateString('zh-CN')}</span>
+                                  </div>
+                                  {post.data.category && (
+                                    <div class="flex items-center gap-1">
+                                      <Icon name="mdi:folder-outline" class="text-base" />
+                                      <span>{post.data.category}</span>
+                                    </div>
+                                  )}
+                                </div>
+                                {post.data.description && (
+                                  <p class="text-50 text-sm mt-2 line-clamp-2 text-neutral-900 dark:text-neutral-100">{post.data.description}</p>
+                                )}
+                              </a>
+                            ))}
+                          </div>
+                        ) : (
+                          <div class="text-center py-6 text-50 text-neutral-900 dark:text-neutral-100">
+                            <Icon name="mdi:file-alert-outline" class="text-4xl mx-auto mb-2 opacity-50" />
+                            <p>暂无相关文章</p>
+                          </div>
+                        )}
                       </div>
                     </div>
                   </div>
-                  <a href={item.url ? item.url : url(`/projects/${item.id}`)} target={item.url ? "_blank" : "_self"} rel={item.url ? "noopener noreferrer" : ""} class="flex btn-regular w-[3.25rem] rounded-lg bg-[var(--enter-btn-bg)] hover:bg-[var(--enter-btn-bg-hover)] active:bg-[var(--enter-btn-bg-active)] active:scale-95">
-                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="transition text-[var(--primary)] text-4xl mx-auto iconify iconify--material-symbols" width="1em" height="1em" viewBox="0 0 24 24">
-                      <path fill="currentColor" d="M12.6 12L8.7 8.1q-.275-.275-.275-.7t.275-.7t.7-.275t.7.275l4.6 4.6q.15.15.213.325t.062.375t-.062.375t-.213.325l-4.6 4.6q-.275.275-.7.275t-.7-.275t-.275-.7t.275-.7z"></path>
-                    </svg>
-                  </a>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         ))}
       </div>
+      
+      <!-- Markdown 内容 -->
       {Content && (
-        <Markdown class="mt-2">
-          <Content />
-        </Markdown>
+        <div class="mt-12 pt-8 border-t border-zinc-200 dark:border-zinc-800">
+          <Markdown class="prose dark:prose-invert max-w-none">
+            <Content />
+          </Markdown>
+        </div>
       )}
     </div>
   </div>
 </MainGridLayout>
+
+<script is:inline>
+  // 页面加载完成后执行
+  document.addEventListener('DOMContentLoaded', () => {
+    setupToggleButtons();
+  });
+  
+  // Astro页面切换后也执行
+  document.addEventListener('astro:page-load', () => {
+    setupToggleButtons();
+  });
+  
+  function setupToggleButtons() {
+    const toggleButtons = document.querySelectorAll('.toggle-button');
+    
+    toggleButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const targetId = button.getAttribute('data-target');
+        const contentElement = document.getElementById(targetId);
+        const iconElement = button.querySelector('svg');
+        
+        if (contentElement) {
+          // 切换展开/折叠状态
+          const isExpanded = button.getAttribute('aria-expanded') === 'true';
+          const newExpandedState = !isExpanded;
+          
+          // 更新aria属性
+          button.setAttribute('aria-expanded', newExpandedState.toString());
+          
+          // 更新图标旋转
+          if (newExpandedState) {
+            iconElement.style.transform = 'rotate(180deg)';
+          } else {
+            iconElement.style.transform = 'rotate(0)';
+          }
+          
+          // 更新内容区域高度
+          if (newExpandedState) {
+            // 获取内容的实际高度
+            const contentHeight = contentElement.querySelector('div').offsetHeight;
+            contentElement.style.maxHeight = `${contentHeight}px`;
+          } else {
+            contentElement.style.maxHeight = '0';
+          }
+        }
+      });
+    });
+  }
+</script>
+
+<style>
+  /* 添加按钮旋转动画 */
+  .toggle-button svg {
+    transition: transform 0.3s ease;
+  }
+  
+  /* 内容区域展开/折叠动画 */
+  .content-section {
+    transition: max-height 0.5s ease-in-out;
+  }
+</style>
