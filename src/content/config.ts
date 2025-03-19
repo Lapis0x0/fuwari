@@ -25,6 +25,26 @@ const specCollection = defineCollection({
   schema: z.object({
     title: z.string().optional(),
     description: z.string().optional(),
+    projects: z.array(
+      z.object({
+        id: z.string(),
+        title: z.string(),
+        description: z.string(),
+        image: z.string().optional(),
+        items: z.array(
+          z.object({
+            id: z.string(),
+            title: z.string(),
+            description: z.string(),
+            image: z.string().optional(),
+            url: z.string().optional(),
+            categories: z.array(z.string()).optional(),
+            tags: z.array(z.string()).optional(),
+            posts: z.array(z.string()).optional()
+          })
+        )
+      })
+    ).optional()
   }),
 })
 

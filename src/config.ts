@@ -3,6 +3,7 @@ import type {
   NavBarConfig,
   ProfileConfig,
   SiteConfig,
+  ProjectsConfig,
 } from './types/config'
 import { LinkPreset } from './types/config'
 
@@ -44,6 +45,7 @@ export const navBarConfig: NavBarConfig = {
     LinkPreset.About,
     LinkPreset.Friends,
     LinkPreset.Bookshelf,
+    LinkPreset.Projects,
     {
       name: '开往',
       url: 'https://www.travellings.cn/go.html',     // Internal links should not include the base path, as it is automatically added
@@ -81,4 +83,47 @@ export const licenseConfig: LicenseConfig = {
   enable: true,
   name: 'CC BY-NC-SA 4.0',
   url: 'https://creativecommons.org/licenses/by-nc-sa/4.0/',
+}
+
+export const projectsConfig: ProjectsConfig = {
+  enable: true,
+  projects: [
+    {
+      id: 'tech',
+      title: '技术项目',
+      description: '我的技术相关项目',
+      image: 'assets/images/tech-project.webp',
+      items: [
+        {
+          id: 'fuwari',
+          title: 'Fuwari博客',
+          description: '基于Astro和Fuwari主题的个人博客',
+          image: 'assets/images/blog-banner.webp',
+          url: 'https://github.com/Lapis0x0/fuwari',
+          categories: ['Web开发'],
+          tags: ['Astro', 'Fuwari', '博客']
+        },
+        {
+          id: 'project-sample',
+          title: '示例项目',
+          description: '这是一个示例项目，展示项目功能的使用方法',
+          categories: ['示例'],
+          tags: ['示例', '教程']
+        }
+      ]
+    },
+    {
+      id: 'writing',
+      title: '写作项目',
+      description: '我的写作相关项目',
+      items: [
+        {
+          id: 'tech-tutorials',
+          title: '技术教程',
+          description: '各种技术相关的教程和指南',
+          posts: ['TechnicalTutorials/新一代静态博客框架Astro的部署优化指南与使用体验']
+        }
+      ]
+    }
+  ]
 }

@@ -40,6 +40,7 @@ export enum LinkPreset {
   About = 2,
   Friends = 3,
   Bookshelf = 4,
+  Projects = 5,
 }
 
 export type NavBarLink = {
@@ -61,6 +62,30 @@ export type ProfileConfig = {
     url: string
     icon: string
   }[]
+}
+
+export type ProjectItem = {
+  id: string
+  title: string
+  description: string
+  image?: string
+  url?: string
+  categories?: string[]
+  tags?: string[]
+  posts?: string[]
+}
+
+export type Project = {
+  id: string
+  title: string
+  description: string
+  image?: string
+  items: ProjectItem[]
+}
+
+export type ProjectsConfig = {
+  enable: boolean
+  projects: Project[]
 }
 
 export type LicenseConfig = {

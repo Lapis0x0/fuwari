@@ -34,6 +34,7 @@ enum I18nKey {
   license = 'license',
   friends = 'friends',
   bookshelf = 'bookshelf',
+  projects = 'projects',
 }
 
 export default I18nKey

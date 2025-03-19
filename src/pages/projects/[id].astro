@@ -1,0 +1,224 @@
+---
+import MainGridLayout from '@/layouts/MainGridLayout.astro'
+import { getEntry, getCollection } from 'astro:content'
+import PostCard from '@/components/PostCard.astro'
+import { Icon } from 'astro-icon/components'
+import I18nKey from '@i18n/i18nKey'
+import { i18n } from '@i18n/translation'
+import type { ProjectItem } from '@/types/config'
+import type { CollectionEntry } from 'astro:content'
+
+interface Props {
+  item: ProjectItem;
+  projectTitle: string;
+}
+
+export async function getStaticPaths() {
+  try {
+    const projectsPost = await getEntry('spec', 'projects');
+    if (!projectsPost || !projectsPost.data.projects) {
+      console.error('项目配置不存在');
+      return [];
+    }
+    
+    const allProjects = projectsPost.data.projects.flatMap(project => 
+      project.items.map(item => ({
+        params: { id: item.id },
+        props: { 
+          item,
+          projectTitle: project.title
+        }
+      }))
+    );
+    
+    return allProjects;
+  } catch (error) {
+    console.error('获取项目路径时出错:', error);
+    return [];
+  }
+}
+
+const { id } = Astro.params;
+const { item, projectTitle } = Astro.props as Props;
+
+// 获取相关文章
+let relatedPosts: CollectionEntry<'posts'>[] = [];
+try {
+  if (item.posts && item.posts.length > 0) {
+    const allPosts = await getCollection('posts', (post) => !post.data.draft);
+    relatedPosts = allPosts.filter(post => 
+      item.posts?.includes(post.slug)
+    );
+  }
+} catch (error) {
+  console.error('获取相关文章时出错:', error);
+}
+
+// 获取相关分类文章
+let categoryPosts: CollectionEntry<'posts'>[] = [];
+try {
+  if (item.categories && item.categories.length > 0) {
+    const allPosts = await getCollection('posts', (post) => !post.data.draft);
+    categoryPosts = allPosts.filter(post => 
+      post.data.category && item.categories?.includes(post.data.category)
+    ).filter(post => !relatedPosts.some(p => p.id === post.id));
+  }
+} catch (error) {
+  console.error('获取相关分类文章时出错:', error);
+}
+
+// 获取相关标签文章
+let tagPosts: CollectionEntry<'posts'>[] = [];
+try {
+  if (item.tags && item.tags.length > 0) {
+    const allPosts = await getCollection('posts', (post) => !post.data.draft);
+    tagPosts = allPosts.filter(post => 
+      post.data.tags && post.data.tags.some((tag: string) => item.tags?.includes(tag))
+    ).filter(post => 
+      !relatedPosts.some(p => p.id === post.id) && 
+      !categoryPosts.some(p => p.id === post.id)
+    );
+  }
+} catch (error) {
+  console.error('获取相关标签文章时出错:', error);
+}
+
+// 处理文章数据以适配PostCard组件
+const processPostForCard = (post: CollectionEntry<'posts'>) => {
+  return {
+    entry: post,
+    title: post.data.title,
+    url: `/posts/${post.slug}/`,
+    published: post.data.published,
+    updated: post.data.updated,
+    tags: post.data.tags || [],
+    category: post.data.category || '',
+    image: post.data.image || '',
+    description: post.data.description || '',
+    draft: post.data.draft || false,
+    style: '',
+    pinned: post.data.pinned || false
+  };
+};
+---
+
+<MainGridLayout title={item.title} description={item.description}>
+  <div class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative min-h-32">
+    <div class="card-base z-10 px-9 py-6 relative w-full">
+      <div class="mb-6">
+        <div class="text-sm text-50 mb-1">
+          <a href="/projects/" class="hover:text-[var(--primary)]">{i18n(I18nKey.projects)}</a> / {projectTitle}
+        </div>
+        <h1 class="text-3xl font-bold mb-2">{item.title}</h1>
+        <p class="text-lg text-50">{item.description}</p>
+        
+        {(item.tags && item.tags.length > 0) && (
+          <div class="flex flex-wrap gap-2 mt-3">
+            {item.tags.map(tag => (
+              <span class="px-2 py-1 text-xs rounded-full bg-[oklch(95%_0.03_var(--hue))] dark:bg-[oklch(30%_0.03_var(--hue))] text-[var(--primary)]">
+                {tag}
+              </span>
+            ))}
+          </div>
+        )}
+        
+        {item.url && (
+          <div class="mt-4">
+            <a href={item.url} target="_blank" rel="noopener noreferrer" 
+               class="inline-flex items-center gap-1 px-4 py-2 rounded-lg bg-[var(--primary)] text-white hover:opacity-90">
+              <Icon name="mdi:link-variant" class="text-lg" />
+              访问项目
+            </a>
+          </div>
+        )}
+      </div>
+      
+      {item.image && (
+        <div class="w-full h-64 mb-8 rounded-lg overflow-hidden">
+          <img src={item.image} alt={item.title} class="w-full h-full object-cover" />
+        </div>
+      )}
+      
+      {relatedPosts.length > 0 && (
+        <div class="mb-8">
+          <h2 class="text-xl font-bold mb-4">相关文章</h2>
+          <div class="grid grid-cols-1 gap-6">
+            {relatedPosts.map(post => {
+              const postData = processPostForCard(post);
+              return (
+                <PostCard 
+                  entry={postData.entry}
+                  title={postData.title}
+                  url={postData.url}
+                  published={postData.published}
+                  updated={postData.updated}
+                  tags={postData.tags}
+                  category={postData.category}
+                  image={postData.image}
+                  description={postData.description}
+                  draft={postData.draft}
+                  style={postData.style}
+                  pinned={postData.pinned}
+                />
+              );
+            })}
+          </div>
+        </div>
+      )}
+      
+      {categoryPosts.length > 0 && (
+        <div class="mb-8">
+          <h2 class="text-xl font-bold mb-4">相关分类文章</h2>
+          <div class="grid grid-cols-1 gap-6">
+            {categoryPosts.map(post => {
+              const postData = processPostForCard(post);
+              return (
+                <PostCard 
+                  entry={postData.entry}
+                  title={postData.title}
+                  url={postData.url}
+                  published={postData.published}
+                  updated={postData.updated}
+                  tags={postData.tags}
+                  category={postData.category}
+                  image={postData.image}
+                  description={postData.description}
+                  draft={postData.draft}
+                  style={postData.style}
+                  pinned={postData.pinned}
+                />
+              );
+            })}
+          </div>
+        </div>
+      )}
+      
+      {tagPosts.length > 0 && (
+        <div class="mb-8">
+          <h2 class="text-xl font-bold mb-4">相关标签文章</h2>
+          <div class="grid grid-cols-1 gap-6">
+            {tagPosts.map(post => {
+              const postData = processPostForCard(post);
+              return (
+                <PostCard 
+                  entry={postData.entry}
+                  title={postData.title}
+                  url={postData.url}
+                  published={postData.published}
+                  updated={postData.updated}
+                  tags={postData.tags}
+                  category={postData.category}
+                  image={postData.image}
+                  description={postData.description}
+                  draft={postData.draft}
+                  style={postData.style}
+                  pinned={postData.pinned}
+                />
+              );
+            })}
+          </div>
+        </div>
+      )}
+    </div>
+  </div>
+</MainGridLayout>
