@@ -196,6 +196,27 @@ const getProjectPosts = (item: ProjectItem) => {
 </MainGridLayout>
 
 <script is:inline>
+  // 检查是否需要刷新页面
+  (function() {
+    // 只在生产环境执行
+    if (location.hostname !== 'localhost' && location.hostname !== '127.0.0.1') {
+      // 获取referrer信息
+      const referrer = document.referrer;
+      // 检查是否是从其他页面跳转过来的
+      if (referrer && 
+          referrer.includes(location.hostname) && 
+          !referrer.includes('/projects/') && 
+          !sessionStorage.getItem('projectPageRefreshed')) {
+        // 标记已刷新，防止刷新循环
+        sessionStorage.setItem('projectPageRefreshed', 'true');
+        // 延迟一点执行刷新，确保sessionStorage已保存
+        setTimeout(() => {
+          location.reload();
+        }, 10);
+      }
+    }
+  })();
+
   // 主要初始化函数
   function initToggleButtons() {
     const toggleButtons = document.querySelectorAll('.toggle-button');
