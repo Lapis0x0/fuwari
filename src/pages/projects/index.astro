@@ -196,61 +196,140 @@ const getProjectPosts = (item: ProjectItem) => {
 </MainGridLayout>
 
 <script is:inline>
+  // 全局变量，用于跟踪初始化状态
+  window.projectsToggleInitialized = false;
+
   // 页面加载完成后执行
   document.addEventListener('DOMContentLoaded', () => {
-    setupToggleButtons();
+    console.log('DOMContentLoaded 触发，初始化项目折叠功能');
+    initializeProjectsToggle();
   });
   
   // Astro页面切换后也执行
   document.addEventListener('astro:page-load', () => {
-    setupToggleButtons();
+    console.log('astro:page-load 触发，初始化项目折叠功能');
+    initializeProjectsToggle();
   });
+
+  // 使用MutationObserver监听DOM变化
+  function observeDOMChanges() {
+    const targetNode = document.querySelector('.card-base');
+    if (!targetNode) {
+      console.log('未找到.card-base元素，无法监听DOM变化');
+      return;
+    }
+
+    const observer = new MutationObserver((mutations) => {
+      for (const mutation of mutations) {
+        if (mutation.type === 'childList' && 
+            mutation.addedNodes.length > 0 &&
+            !window.projectsToggleInitialized) {
+          console.log('检测到DOM变化，重新初始化项目折叠功能');
+          initializeProjectsToggle();
+          break;
+        }
+      }
+    });
+
+    observer.observe(targetNode, { childList: true, subtree: true });
+    console.log('已设置DOM变化监听');
+  }
   
-  function setupToggleButtons() {
+  // 初始化函数
+  function initializeProjectsToggle() {
+    // 使用事件委托，将事件监听器绑定到父元素
+    const container = document.querySelector('.card-base');
+    if (!container) {
+      console.log('未找到.card-base容器，无法初始化项目折叠功能');
+      return;
+    }
+
+    // 检查是否有折叠按钮
     const toggleButtons = document.querySelectorAll('.toggle-button');
+    console.log(`找到 ${toggleButtons.length} 个折叠按钮`);
     
+    if (toggleButtons.length === 0) {
+      console.log('未找到折叠按钮，将在DOM变化时重试');
+      observeDOMChanges();
+      return;
+    }
+
+    // 移除旧的事件监听器（如果有）
+    container.removeEventListener('click', delegateToggleClick);
+    
+    // 添加新的事件监听器
+    container.addEventListener('click', delegateToggleClick);
+    
+    // 标记为已初始化
+    window.projectsToggleInitialized = true;
+    console.log('项目折叠功能初始化完成');
+    
+    // 初始化每个按钮的状态
     toggleButtons.forEach(button => {
-      // 移除旧的事件监听器，防止重复绑定
-      button.removeEventListener('click', toggleContent);
-      // 添加新的事件监听器
-      button.addEventListener('click', toggleContent);
+      const targetId = button.getAttribute('data-target');
+      const contentElement = document.getElementById(targetId);
+      if (contentElement) {
+        contentElement.style.maxHeight = '0';
+        button.setAttribute('aria-expanded', 'false');
+      }
     });
   }
 
-  function toggleContent(event) {
-    const button = event.currentTarget;
+  // 事件委托处理函数
+  function delegateToggleClick(event) {
+    // 检查点击的是否是折叠按钮或其子元素
+    const button = event.target.closest('.toggle-button');
+    if (!button) return;
+    
+    console.log('折叠按钮被点击');
+    
     const targetId = button.getAttribute('data-target');
     const contentElement = document.getElementById(targetId);
     const iconElement = button.querySelector('svg');
     
-    if (contentElement) {
-      // 切换展开/折叠状态
-      const isExpanded = button.getAttribute('aria-expanded') === 'true';
-      const newExpandedState = !isExpanded;
-      
-      // 更新aria属性
-      button.setAttribute('aria-expanded', newExpandedState.toString());
-      
-      // 更新图标旋转
-      if (newExpandedState) {
-        iconElement.style.transform = 'rotate(180deg)';
-      } else {
-        iconElement.style.transform = 'rotate(0)';
-      }
-      
-      // 更新内容区域高度
-      if (newExpandedState) {
-        // 先设置一个很大的高度，让内容完全展开
-        contentElement.style.maxHeight = '2000px';
-        // 然后获取实际高度并设置
-        setTimeout(() => {
-          const contentHeight = contentElement.scrollHeight;
-          contentElement.style.maxHeight = `${contentHeight}px`;
-        }, 10);
-      } else {
-        contentElement.style.maxHeight = '0';
-      }
+    if (!contentElement) {
+      console.error(`未找到目标内容元素: #${targetId}`);
+      return;
     }
+    
+    // 切换展开/折叠状态
+    const isExpanded = button.getAttribute('aria-expanded') === 'true';
+    const newExpandedState = !isExpanded;
+    
+    console.log(`切换状态: ${isExpanded ? '折叠' : '展开'}`);
+    
+    // 更新aria属性
+    button.setAttribute('aria-expanded', newExpandedState.toString());
+    
+    // 更新图标旋转
+    if (iconElement) {
+      iconElement.style.transform = newExpandedState ? 'rotate(180deg)' : 'rotate(0)';
+    } else {
+      console.warn('未找到图标元素');
+    }
+    
+    // 更新内容区域高度
+    if (newExpandedState) {
+      // 先设置一个很大的高度，让内容完全展开
+      contentElement.style.maxHeight = '9999px';
+      
+      // 然后获取实际高度并设置
+      setTimeout(() => {
+        const contentHeight = contentElement.scrollHeight;
+        console.log(`内容实际高度: ${contentHeight}px`);
+        contentElement.style.maxHeight = `${contentHeight}px`;
+      }, 50);
+    } else {
+      contentElement.style.maxHeight = '0';
+    }
+  }
+
+  // 页面加载后立即尝试初始化
+  if (document.readyState === 'loading') {
+    console.log('文档正在加载中，等待DOMContentLoaded事件');
+  } else {
+    console.log('文档已加载完成，立即初始化项目折叠功能');
+    initializeProjectsToggle();
   }
 </script>
 
@@ -262,7 +341,7 @@ const getProjectPosts = (item: ProjectItem) => {
   
   /* 内容区域展开/折叠动画 */
   .content-section {
-    transition: max-height 0.3s ease-in-out;
+    transition: max-height 0.5s ease-in-out;
     overflow: hidden;
   }
 </style>
