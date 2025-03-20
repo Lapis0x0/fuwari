@@ -20,6 +20,16 @@ projects:
         description: 日常随手写的小工具
         posts:
           - 使用 Qwen VL 系列模型实现图片分类和OCR任务
+      
+      - id: deeplearning-research
+        title: 模型考古学
+        description: 模型考古学系列文章
+        posts:
+          - 模型考古学（一）：大模型原理探赜
+          - 模型考古学（二）：视觉大模型发展梳理与Qwen2-VL论文解读
+          - 模型考古学（三）：Agent 系统概述
+          - 模型考古学（四）：RAG技术解析
+        
 
   - id: finance
     title: 金融经济

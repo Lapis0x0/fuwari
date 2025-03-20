@@ -16,7 +16,7 @@ pinned: true
 :::
 
 :::note
-因为博客的聚类逻辑变动，现在你也可以通过访问[项目](/projects)来查看隶属于不同项目的部分文章。
+因为博客的聚类逻辑变动，现在你也可以通过访问[项目](/projects/)来查看隶属于不同项目的部分文章。
 :::
 
 # 模型考古学系列
@@ -28,6 +28,8 @@ pinned: true
 [模型考古学（二）：视觉大模型发展梳理与Qwen2-VL论文解读](https://www.lapis.cafe/posts/ai--deep-learning/deeplearning-research-002/)
 
 [模型考古学（三）：Agent 系统概述](https://www.lapis.cafe/posts/ai--deep-learning/deeplearning-research-003/)
+
+[模型考古学（四）：RAG技术解析](https://www.lapis.cafe/posts/ai--deep-learning/deeplearning-research-004/)
 
 # Trading101 璿玑楮痕系列
 
