@@ -109,17 +109,6 @@ const getProjectPosts = (item: ProjectItem) => {
                       
                       <p class="text-50 text-sm mt-3 mb-4 text-neutral-900 dark:text-neutral-100">{item.description}</p>
                       
-                      <!-- 标签区域 -->
-                      {(item.tags && item.tags.length > 0) && (
-                        <div class="flex flex-wrap gap-2 mb-4">
-                          {item.tags.map(tag => (
-                            <span class="px-3 py-1 text-xs rounded-full bg-[oklch(95%_0.03_var(--hue))] dark:bg-[oklch(30%_0.03_var(--hue))] text-[var(--primary)]">
-                              {tag}
-                            </span>
-                          ))}
-                        </div>
-                      )}
-                      
                       <!-- 统计信息 -->
                       <div class="flex items-center gap-4 text-50 text-sm text-neutral-900 dark:text-neutral-100">
                         <div class="flex items-center gap-1">
