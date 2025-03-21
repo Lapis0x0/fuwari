@@ -4,7 +4,7 @@ published: 2025-03-21
 description: "我正在使用的AI服务和一些感受。"
 image: ""
 tags: []
-category: 日常
+category: 随笔
 draft: false
 ---
 
