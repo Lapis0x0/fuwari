@@ -31,6 +31,8 @@ pinned: true
 
 [模型考古学（四）：RAG技术解析](https://www.lapis.cafe/posts/ai--deep-learning/deeplearning-research-004/)
 
+[模型考古学（五）：Minimax-01 模型技术报告简读](https://www.lapis.cafe/posts/ai--deep-learning/minimax-01-report/)
+
 # Trading101 璿玑楮痕系列
 
 此系列旨在拆解投资与量化交易中的核心概念与操作逻辑，系统化地介绍技术指标与策略设计的基本原理。文章结合理论与实践，为读者提供清晰的工具与框架，以助其更科学地理解市场行为。
