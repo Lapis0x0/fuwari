@@ -1,6 +1,6 @@
 ---
 title: 模型考古学（六）：DeepSeek V3和R1技术报告浅析
-published: 2025-03-22
+published: 2025-03-23
 description: "本文深入解析 DeepSeek V3 和 R1 两大模型的创新点，涵盖架构、训练策略与推理能力，展现中国开源模型的强劲进展与高性价比潜力。"
 image: ""
 tags: ["模型考古学"]
