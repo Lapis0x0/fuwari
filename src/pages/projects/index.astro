@@ -59,8 +59,16 @@ const getProjectPosts = (item: ProjectItem) => {
     posts = [...posts, ...tagPosts];
   }
   
+  // 按照发布时间从老到新排序（较早发布的文章排在前面）
+  posts.sort((a, b) => {
+    const dateA = new Date(a.data.published).getTime();
+    const dateB = new Date(b.data.published).getTime();
+    return dateA - dateB; // 从老到新排序
+  });
+  
   return posts;
 };
+
 ---
 
 <MainGridLayout title={i18n(I18nKey.projects)} description={i18n(I18nKey.projects)}>
