@@ -2202,10 +2202,86 @@
         },
         "id": "recuFroFthWM4N",
         "record_id": "recuFroFthWM4N"
+      },
+      {
+        "fields": {
+          "书名": "21世纪货币政策",
+          "书籍简介": "《21世纪货币政策》是一本全面解析美联储内部运作与21世纪货币政策的著作。书中详细梳理了从战后早期至今美联储的运作与演变，以及历任美联储主席的决策过程。作者深入解读了美联储如何应对不断变化的经济和政治环境，总结了应对历次金融危机的经验与教训，并前瞻性地思考了未来美联储的作用以及21世纪全球货币政策和金融稳定政策的前景。本书适合对货币政策、金融稳定以及宏观经济政策感兴趣的读者阅读。",
+          "书评": "一本还算不错的梳理美联储发展史和历代美联储主席决策过程的回忆录",
+          "二级分支": "政治经济学-欧美",
+          "作者": [
+            "本·伯南克"
+          ],
+          "完成阅读时期": "2025年第一季度",
+          "封面": [
+            {
+              "file_token": "IBH5biX9xorcfTxshx2cOakTnLh",
+              "name": "image.png",
+              "size": 130849,
+              "tmp_url": "https://open.feishu.cn/open-apis/drive/v1/medias/batch_get_tmp_download_url?file_tokens=IBH5biX9xorcfTxshx2cOakTnLh",
+              "type": "image/png",
+              "url": "https://open.feishu.cn/open-apis/drive/v1/medias/IBH5biX9xorcfTxshx2cOakTnLh/download",
+              "local_path": "/images/books/9bdeb1d45b873364d011693edab6df50.webp"
+            }
+          ],
+          "推荐状态": "中庸",
+          "阅读进度": "1",
+          "领域": "政治经济学"
+        },
+        "id": "recuGmOAYmNLyk",
+        "record_id": "recuGmOAYmNLyk"
+      },
+      {
+        "fields": {
+          "书名": "基督教神学导论",
+          "书籍简介": "《基督教神学导论》是一本系统神学领域的经典之作，由米拉德·J.艾利克森所著。该书获得了福音派出版联盟的图书金奖，成为了一本最常用的神学教材。书中简洁而清晰地阐述了基督教神学的基本知识，包括对启示、上帝、创造、护理、人、罪、耶稣基督、救赎与救恩、教会以及末世等教义的清晰概述。作者在牛津大学教授基督教神学几十余年的心得之作，适合神学学习者、研究者以及感兴趣的读者阅读。",
+          "二级分支": "神学-基督教",
+          "作者": [
+            "[美] 米拉德·J.艾利克森 (Millard J.Erickson)"
+          ],
+          "封面": [
+            {
+              "file_token": "TTK5bQyhzoHR3DxI1HMcKcDGnpd",
+              "name": "image.png",
+              "size": 67755,
+              "tmp_url": "https://open.feishu.cn/open-apis/drive/v1/medias/batch_get_tmp_download_url?file_tokens=TTK5bQyhzoHR3DxI1HMcKcDGnpd",
+              "type": "image/png",
+              "url": "https://open.feishu.cn/open-apis/drive/v1/medias/TTK5bQyhzoHR3DxI1HMcKcDGnpd/download",
+              "local_path": "/images/books/60a43432d62256880c4d2971117204db.webp"
+            }
+          ],
+          "领域": "神学"
+        },
+        "id": "recuGKvyD6YoRr",
+        "record_id": "recuGKvyD6YoRr"
+      },
+      {
+        "fields": {
+          "书名": "基督教神学思想史",
+          "书籍简介": "《基督教神学思想史》是一本全面介绍基督教神学发展历程的著作。作者罗杰·奥尔森以讲故事的方式，生动地展现了从公元元年至现代的两千年间，基督教神学思想的发展与演变。书中不仅涵盖了古代、中世纪、近代和现代四个时期的重要神学思想，还深入探讨了各个时期的主要神学家及其理论。本书适合神学生、教牧人员和所有对基督教神学感兴趣的读者阅读。",
+          "二级分支": "神学-基督教",
+          "作者": [
+            "[美国] 奥尔森"
+          ],
+          "封面": [
+            {
+              "file_token": "GDY5bFslPoznYcxGLgeclLe7nlf",
+              "name": "image.png",
+              "size": 54691,
+              "tmp_url": "https://open.feishu.cn/open-apis/drive/v1/medias/batch_get_tmp_download_url?file_tokens=GDY5bFslPoznYcxGLgeclLe7nlf",
+              "type": "image/png",
+              "url": "https://open.feishu.cn/open-apis/drive/v1/medias/GDY5bFslPoznYcxGLgeclLe7nlf/download",
+              "local_path": "/images/books/587e4f1eb9de6f97a3b2b5088e447a4a.webp"
+            }
+          ],
+          "领域": "神学"
+        },
+        "id": "recuGKvJggKNJO",
+        "record_id": "recuGKvJggKNJO"
       }
     ],
-    "total": 88
+    "total": 91
   },
   "msg": "success",
-  "last_updated": "2025-03-23T01:26:22.469818"
+  "last_updated": "2025-03-30T01:35:25.671628"
 }
