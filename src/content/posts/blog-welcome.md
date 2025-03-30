@@ -35,6 +35,8 @@ pinned: true
 
 [模型考古学（六）：DeepSeek V3和R1技术报告浅析](https://www.lapis.cafe/posts/ai--deep-learning/deepseek-v3-r1-report/)
 
+[模型考古学（七）：Qwen2.5-Omni技术报告解读](https://www.lapis.cafe/posts/ai--deep-learning/qwen-25-omni-r1-report/)
+
 # Trading101 璿玑楮痕系列
 
 此系列旨在拆解投资与量化交易中的核心概念与操作逻辑，系统化地介绍技术指标与策略设计的基本原理。文章结合理论与实践，为读者提供清晰的工具与框架，以助其更科学地理解市场行为。
@@ -64,3 +66,11 @@ pinned: true
 [暗涌系列：Ark Invest《Big Ideas 2025》报告浅析 Part 1](https://www.lapis.cafe/posts/finance--economics/darkwave-bigideas2025-p1/)
 
 [暗涌系列：Ark Invest《Big Ideas 2025》报告浅析 Part 2](https://www.lapis.cafe/posts/finance--economics/darkwave-bigideas2025-p2/)
+
+[一份关于美联储的报告（上）：联储介绍与基本经济概念的厘定](https://www.lapis.cafe/posts/finance--economics/fed-report-01/)
+
+# 人类研究
+
+此系列聚焦于对人类自身的研究与探讨，尝试从不同维度理解“人”这一复杂系统。内容可能涵盖生理健康、心理认知、行为模式乃至社会文化现象。我希望运用科学方法与批判性思维，深入剖析与人类生存、发展及福祉相关的议题，提供独特的观察视角与知识参考。
+
+[参考：抗失眠与抑郁药物清单](https://www.lapis.cafe/posts/HumanSciences/insomnia-depression-pharmacology/)
