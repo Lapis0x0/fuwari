@@ -13,6 +13,7 @@ import PostMetadata from '../../components/PostMeta.astro'
 import ImageWrapper from '../../components/misc/ImageWrapper.astro'
 import { profileConfig, siteConfig } from '../../config'
 import { formatDateToYYYYMMDD } from '../../utils/date-utils'
+import PasswordProtection from '../../components/PasswordProtection.astro'
 
 export async function getStaticPaths() {
   const blogEntries = await getCollection('posts', ({ data }) => {
@@ -99,10 +100,16 @@ const jsonLd = {
                 <ImageWrapper id="post-cover" src={entry.data.image} basePath={path.join("content/posts/", getDir(entry.id))} class="mb-8 rounded-xl banner-container onload-animation"/>
             }
 
-
-            <Markdown class="mb-6 markdown-content onload-animation">
-                <Content />
-            </Markdown>
+            <!-- 为加密文章同时包含密码保护组件和内容，内容默认隐藏，通过JS控制显示 -->
+            {entry.data.encrypted && 
+                <PasswordProtection password={entry.data.password} slug={entry.slug} class="mb-6 rounded-xl password-container onload-animation"/>
+            }
+            
+            <div id={`article-content-${entry.slug}`} class:list={["mb-6 markdown-content onload-animation", {"hidden": entry.data.encrypted}]}>
+                <Markdown class="w-full">
+                    <Content />
+                </Markdown>
+            </div>
 
             {licenseConfig.enable && <License title={entry.data.title} slug={entry.slug} pubDate={entry.data.published} class="mb-6 rounded-xl license-container onload-animation"></License>}
 

@@ -13,6 +13,10 @@ const postsCollection = defineCollection({
     lang: z.string().optional().default(''),
     pinned: z.boolean().optional().default(false),
 
+    /* 文章加密相关字段 */
+    encrypted: z.boolean().optional().default(false),
+    password: z.string().optional().default(''),
+
     /* For internal use */
     prevTitle: z.string().default(''),
     prevSlug: z.string().default(''),
