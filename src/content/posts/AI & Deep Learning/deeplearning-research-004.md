@@ -2,7 +2,7 @@
 title: 模型考古学（四）：RAG技术解析
 published: 2025-03-20
 description: "本文将深入探讨RAG技术的原理、实现方式及其在实际应用中的优势与局限。"
-image: ""
+image: "https://blog-1302893975.cos.ap-beijing.myqcloud.com/pic/llmresearch-tuya.webp?imageSlim"
 tags: ["模型考古学"]
 category: 深度学习
 draft: false

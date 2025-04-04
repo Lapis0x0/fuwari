@@ -19,6 +19,16 @@ pinned: true
 因为博客的聚类逻辑变动，现在你也可以通过访问[项目](/projects/)来查看隶属于不同项目的部分文章。
 :::
 
+# 我的读书笔记
+
+分享一些我的读书/观影笔记和阅读过程中的体悟收获。
+
+[从《学园孤岛》看解离型身份障碍](https://www.lapis.cafe/posts/essays/%E4%BB%8E%E5%AD%A6%E5%9B%AD%E5%AD%A4%E5%B2%9B%E7%9C%8B%E8%A7%A3%E7%A6%BB%E5%9E%8B%E8%BA%AB%E4%BB%BD%E9%9A%9C%E7%A2%8D/)
+
+[《经济学研究入门指南》书评](https://www.lapis.cafe/posts/finance--economics/book-review-of-doing-economics/)
+
+[人类简史书评&笔记：想象的共同体]()
+
 # 模型考古学系列
 
 本专题专注于解析深度学习领域内的大模型发展脉络与技术原理，通过对经典模型与前沿研究的追溯与剖析，揭示其背后的设计逻辑与技术走向。从理论构建到实际应用，文章深入浅出地为读者提供结构化的学术参考。

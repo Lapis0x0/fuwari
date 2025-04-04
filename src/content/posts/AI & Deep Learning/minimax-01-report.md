@@ -2,7 +2,7 @@
 title: 模型考古学（五）：Minimax-01 模型技术报告简读
 published: 2025-03-22
 description: "本篇博客简要解析了 Minimax-01 模型的架构设计，聚焦其在超长上下文处理中的性能表现与混合注意力机制的技术实现。"
-image: ""
+image: "https://blog-1302893975.cos.ap-beijing.myqcloud.com/pic/202503221522122.png?imageSlim"
 tags: ["模型考古学"]
 category: 深度学习
 draft: false

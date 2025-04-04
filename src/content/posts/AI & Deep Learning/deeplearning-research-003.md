@@ -2,7 +2,7 @@
 title: 模型考古学（三）：Agent 系统概述
 published: 2025-03-04
 description: "本文探讨了Agent系统的发展历程、核心概念和技术架构，分析了从基于规则到LLM驱动的Agent演变，以及其在感知、决策、执行等方面的能力与挑战，展望了多智能体协作等未来发展方向。"
-image: ""
+image: "https://blog-1302893975.cos.ap-beijing.myqcloud.com/pic/llmresearch-tuya.webp?imageSlim"
 tags: ["模型考古学"]
 category: 深度学习
 draft: false

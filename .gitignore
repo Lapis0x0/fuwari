@@ -28,3 +28,6 @@ venv/
 package-lock.json
 bun.lockb
 yarn.lock
+
+# temple
+src/content/posts/encrypted-test.md

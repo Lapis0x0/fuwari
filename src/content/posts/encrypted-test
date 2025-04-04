@@ -6,6 +6,7 @@ tags: ["测试", "加密"]
 category: "技术"
 encrypted: true
 password: "123456"
+draft: true
 ---
 
 # 这是一篇加密文章

@@ -116,6 +116,31 @@ const jsonLd = {
         </div>
     </div>
 
+    <!-- 添加客户端脚本以确保页面刷新后能正确显示内容 -->
+    {entry.data.encrypted && 
+    <script define:vars={{ slug: entry.slug }}>
+      // 页面加载时检查是否已解锁
+      document.addEventListener('DOMContentLoaded', function() {
+        const storageKey = `fuwari-unlocked-${slug}`;
+        const isUnlocked = localStorage.getItem(storageKey) === 'true';
+        
+        if (isUnlocked) {
+          // 确保内容显示
+          const contentElement = document.getElementById(`article-content-${slug}`);
+          if (contentElement) {
+            contentElement.classList.remove('hidden');
+          }
+          
+          // 确保遮罩隐藏
+          const overlayElement = document.getElementById(`overlay-${slug}`);
+          if (overlayElement) {
+            overlayElement.classList.add('hidden-overlay');
+          }
+        }
+      });
+    </script>
+    }
+
     <div class="flex flex-col md:flex-row justify-between mb-4 gap-4 overflow-hidden w-full">
         <a href={entry.data.nextSlug ? getPostUrlBySlug(entry.data.nextSlug) : "#"}
            class:list={["w-full font-bold overflow-hidden active:scale-95", {"pointer-events-none": !entry.data.nextSlug}]}>

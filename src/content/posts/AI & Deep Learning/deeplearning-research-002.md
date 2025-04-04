@@ -2,7 +2,7 @@
 title: 模型考古学（二）：视觉大模型发展梳理与Qwen2-VL论文解读
 published: 2025-01-22
 description: "如果说「模型考古学」第一篇主要聚焦于大语言模型（LLM）的内部机制与演进脉络，那么本篇博客将拓宽视野，探求视觉大模型（Vision Large Language Model，VLLM）的技术原理和发展历程。在单纯的文本世界之外，视觉大模型融合了图像理解能力，赋予了AI“看”世界的眼睛，让模型理解世界的方式从一维的文字扩展到了二维的图像。"
-image: ""
+image: "https://blog-1302893975.cos.ap-beijing.myqcloud.com/pic/llmresearch-tuya.webp?imageSlim"
 tags: ["模型考古学"]
 category: 深度学习
 draft: false

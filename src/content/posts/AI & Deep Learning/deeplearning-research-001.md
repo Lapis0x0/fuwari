@@ -2,7 +2,7 @@
 title: 模型考古学（一）：大模型原理探赜
 published: 2025-01-13
 description: "这篇博客探讨了大模型（如GPT系列）背后的神经网络基础，从神经网络的基本结构、反向传播算法、梯度下降法，到Transformer架构及其在大语言模型中的应用。文章详细解析了大模型的训练过程、参数优化以及如何通过海量数据提升模型性能。最后，回顾了大语言模型架构的发展历程，比较了不同模型（如BERT和GPT）的特点和应用场景。"
-image: ""
+image: "https://blog-1302893975.cos.ap-beijing.myqcloud.com/pic/llmresearch-tuya.webp?imageSlim"
 tags: ["模型考古学"]
 category: 深度学习
 draft: false
