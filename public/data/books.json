@@ -1321,7 +1321,7 @@
               "local_path": "/images/books/0d341462be26c61e7f02a78ac03a4d7c.webp"
             }
           ],
-          "阅读进度": "0.01",
+          "阅读进度": "0",
           "领域": "哲学"
         },
         "id": "recuservrdTxoB",
@@ -1707,10 +1707,12 @@
         "fields": {
           "书名": "经济学家到底在想什么：从亚当·斯密到凯恩斯",
           "书籍简介": "《经济学家到底在想什么：从亚当·斯密到凯恩斯》是一本深入浅出的经济学史入门经典。作者罗伯特·L·海尔布罗纳以生动的笔触讲述了近300年来16位伟大经济学家的时代背景、生平故事和思想精髓。书中不仅逻辑严谨地阐述了经济学的起源、变迁和主要理论，还以引人入胜的方式展现了经济学家们如何从先前的经济理论中发展出新的观点，或是对旧理论的回应，以及他们对经济学发展的贡献。这本书不仅帮助我们了解经济学的历史，还能让我们更好地理解当今的经济世界。",
+          "书评": "还不错的一本经济学入门书籍，适合希望了解经济学界那些著名学者的人去阅读。",
           "二级分支": "政治经济学-欧美",
           "作者": [
             "罗伯特·L·海尔布罗纳"
           ],
+          "完成阅读时期": "2025年第二季度",
           "封面": [
             {
               "file_token": "VlJrbjlf4oukLPxKry7cDph3nze",
@@ -1722,7 +1724,8 @@
               "local_path": "/images/books/f9d80f6be346c6236a4ca53cce4bbead.webp"
             }
           ],
-          "阅读进度": "0.5",
+          "推荐状态": "中庸",
+          "阅读进度": "1",
           "领域": "政治经济学"
         },
         "id": "recuvoz06UbnHs",
@@ -2126,10 +2129,12 @@
         "fields": {
           "书名": "人类简史",
           "书籍简介": "《人类简史》是一部深入探讨人类历史发展的著作。作者尤瓦尔·赫拉利以独特的视角，将人类历史划分为认知革命、农业革命、人类的融合统一与科学革命四个阶段，全面讲述了从石器时代智人演化至21世纪政治和技术革命的历程，揭示了人类历史上重要的三大革命：认知革命、农业革命、科学革命，展现了人类社会的演变与进步。",
+          "书评": "https://www.lapis.cafe/posts/humansciences/book-review-history-of-humankind/ 人类简史书评&笔记：想象的共同体",
           "二级分支": "社会学-人类学分支",
           "作者": [
             "尤瓦尔·赫拉利"
           ],
+          "完成阅读时期": "2025年第二季度",
           "封面": [
             {
               "file_token": "Dz2Wbf2CWoKw80xjgqccL7mcnJb",
@@ -2141,7 +2146,8 @@
               "local_path": "/images/books/2f5154fa1683b8b4500c2311421ca599.webp"
             }
           ],
-          "阅读进度": "0.25",
+          "推荐状态": "推荐",
+          "阅读进度": "1",
           "领域": "社会学"
         },
         "id": "recuBxG38JaAQG",
@@ -2278,10 +2284,59 @@
         },
         "id": "recuGKvJggKNJO",
         "record_id": "recuGKvJggKNJO"
+      },
+      {
+        "fields": {
+          "书名": "Stahl 精神药理学精要:神经科学基础与临床应用",
+          "书籍简介": "《Stahl精神药理学精要：神经科学基础与临床应用》是一本全面修订和扩充的医学专业书籍，由司天梅等译。本书详细讨论了抗精神病药和抗抑郁药治疗的临床进展，并新增了睡眠障碍、肥胖、成瘾、慢性疼痛以及冲动控制障碍等内容。书中还包含了精神病遗传学、疼痛治疗、认知障碍的治疗以及睡眠障碍的治疗等章节，插图数量增加，版式经过重新设计，以增加读者的阅读兴趣。本书适合学生、科学家、精神病学家以及其他精神卫生专业人员阅读。",
+          "二级分支": "心理学-现代医学",
+          "作者": [
+            "[美] 斯塔尔"
+          ],
+          "封面": [
+            {
+              "file_token": "CwoTbzzPJourJRxFgMQccYvXnae",
+              "name": "image.png",
+              "size": 110192,
+              "tmp_url": "https://open.feishu.cn/open-apis/drive/v1/medias/batch_get_tmp_download_url?file_tokens=CwoTbzzPJourJRxFgMQccYvXnae",
+              "type": "image/png",
+              "url": "https://open.feishu.cn/open-apis/drive/v1/medias/CwoTbzzPJourJRxFgMQccYvXnae/download",
+              "local_path": "/images/books/c1cc4e68102d74480b23e50cbd424db2.webp"
+            }
+          ],
+          "领域": "心理学"
+        },
+        "id": "recuHcU3ROfSGJ",
+        "record_id": "recuHcU3ROfSGJ"
+      },
+      {
+        "fields": {
+          "书名": "基督教史(上下册)",
+          "书籍简介": "《基督教史（上下册）》是一部全面阐述基督教历史的著作。作者以简洁生动的笔触，讲述了基督教两千多年的发展历程，从起源、发展至宗教改革，直至20世纪的基督教历史。书中系统地阐述了基督教的起源、发展及其对人类历史的影响，为读者提供了一个清晰的历史脉络。",
+          "二级分支": "神学-基督教",
+          "作者": [
+            "胡斯托·L.冈萨雷斯"
+          ],
+          "封面": [
+            {
+              "file_token": "FjP8bZylkoDII4x3M1scHYqmnQw",
+              "name": "image.png",
+              "size": 62850,
+              "tmp_url": "https://open.feishu.cn/open-apis/drive/v1/medias/batch_get_tmp_download_url?file_tokens=FjP8bZylkoDII4x3M1scHYqmnQw",
+              "type": "image/png",
+              "url": "https://open.feishu.cn/open-apis/drive/v1/medias/FjP8bZylkoDII4x3M1scHYqmnQw/download",
+              "local_path": "/images/books/a2d545eab3bc5599b0c8c35c6bac3f7f.webp"
+            }
+          ],
+          "阅读进度": "0.01",
+          "领域": "神学"
+        },
+        "id": "recuHq7SFnAHZ1",
+        "record_id": "recuHq7SFnAHZ1"
       }
     ],
-    "total": 91
+    "total": 93
   },
   "msg": "success",
-  "last_updated": "2025-03-30T01:35:25.671628"
+  "last_updated": "2025-04-06T01:27:24.513095"
 }
