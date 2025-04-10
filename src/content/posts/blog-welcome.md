@@ -92,8 +92,8 @@ pinned: true
 
 此系列聚焦于对人类自身的研究与探讨，尝试从不同维度理解“人”这一复杂系统。内容可能涵盖生理健康、心理认知、行为模式乃至社会文化现象。我希望运用科学方法与批判性思维，深入剖析与人类生存、发展及福祉相关的议题，提供独特的观察视角与知识参考。
 
-[参考：抗失眠与抑郁药物清单](https://www.lapis.cafe/posts/HumanSciences/insomnia-depression-pharmacology/)
+[参考：抗失眠与抑郁药物清单](https://www.lapis.cafe/posts/humansciences/insomnia-depression-pharmacology/)
 
-[神经药理学笔记：茶氨酸、咖啡因和米氮平](https://www.lapis.cafe/posts/HumanSciences/theanine-caffeine-mirtazapine/)
+[神经药理学笔记：茶氨酸、咖啡因和米氮平](https://www.lapis.cafe/posts/humansciences/theanine-caffeine-mirtazapine/)
 
-[人类简史书评&笔记：想象的共同体](https://www.lapis.cafe/posts/HumanSciences/history-of-humankind/)
+[人类简史书评&笔记：想象的共同体](https://www.lapis.cafe/posts/humansciences/history-of-humankind/)
