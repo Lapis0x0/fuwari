@@ -700,6 +700,7 @@
               "local_path": "/images/books/c52df8e6713acb958e6f7c07a6303cb1.webp"
             }
           ],
+          "阅读进度": "0.01",
           "领域": "政治经济学"
         },
         "id": "recuscwwzPBm6G",
@@ -2338,5 +2339,5 @@
     "total": 93
   },
   "msg": "success",
-  "last_updated": "2025-04-06T01:27:24.513095"
+  "last_updated": "2025-04-13T02:50:42.860335"
 }
