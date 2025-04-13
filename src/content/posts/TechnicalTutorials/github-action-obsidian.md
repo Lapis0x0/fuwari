@@ -551,10 +551,292 @@ jobs:
 
 ```
 
-# 三、最终效果
+# 三、Cloudflare R2 配置
+在方法发布后，很多朋友发现Cloudflare R2没办法简单修改使用，我自己改一晚上bug满头包才发现是因为AWS CLI的较新版本(2.23.0和1.37.0以上)引入了默认校验和行为的修改，和Cloudflare R2的API不兼容才导致没办法直接套用的，令人感慨。
+
+在腾讯云COS脚本的基础上，我将 AWS CLI 版本降级到已知与 Cloudflare R2 兼容的版本 2.22.35，在 在所有的 `aws s3 cp` 命令中添加了 `--checksum-algorithm CRC32` 参数，现在运行脚本之后已经可以正常上传了。
+效果图：
+![image|565x500](https://blog-1302893975.cos.ap-beijing.myqcloud.com/pic/202504132258238.png?imageSlim)
+
+如果你想要使用R2，需要在github仓库里配置四个环境变量
+* R2_ACCOUNT_ID
+* R2_BUCKET_NAME
+* R2_ACCESS_KEY_ID
+* R2_SECRET_ACCESS_KEY
+
+当然，你也可以直接fork[我的仓库](https://github.com/Lapis0x0/awesome-english-ebooks)
+
+最新的支持R2的脚本如下：
+```yaml
+name: 同步外刊到Cloudflare R2
+
+on:
+  # 在同步上游仓库工作流完成后运行
+  workflow_run:
+    workflows: ["同步上游仓库"]
+    types:
+      - completed
+  # 允许手动触发
+  workflow_dispatch:
+
+jobs:
+  sync-to-r2:
+    runs-on: ubuntu-latest
+    # 只有当触发的工作流成功完成时才运行
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
+    
+    steps:
+      # 检出当前仓库代码（使用稀疏检出策略，只检出必要的目录结构）
+      - name: 检出当前仓库
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 1
+          sparse-checkout: |
+            01_economist
+            02_new_yorker
+            04_atlantic
+            05_wired
+          sparse-checkout-cone-mode: true
+      
+      # 安装AWS CLI
+      - name: 安装AWS CLI
+        uses: unfor19/install-aws-cli-action@v1
+        with:
+          version: 2.22.35
+      
+      # 配置AWS凭证（用于访问Cloudflare R2）
+      - name: 配置AWS凭证
+        run: |
+          mkdir -p ~/.aws
+          cat > ~/.aws/credentials << EOF
+          [default]
+          aws_access_key_id = ${{ secrets.R2_ACCESS_KEY_ID }}
+          aws_secret_access_key = ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          EOF
+          
+          cat > ~/.aws/config << EOF
+          [default]
+          region = auto
+          output = json
+          EOF
+          
+          # 验证配置是否生效
+          echo "AWS CLI配置完成，当前配置："
+          aws configure list
+      
+      # 列出目录内容，以便于调试
+      - name: 列出目录内容
+        run: |
+          echo "列出经济学人目录内容："
+          ls -la ./01_economist || echo "经济学人目录不存在"
+          echo "列出纽约客目录内容："
+          ls -la ./02_new_yorker || echo "纽约客目录不存在"
+          echo "列出Atlantic目录内容："
+          ls -la ./04_atlantic || echo "Atlantic目录不存在"
+          echo "列出Wired目录内容："
+          ls -la ./05_wired || echo "Wired目录不存在"
+      
+      # 查找最新的经济学人文件
+      - name: 查找最新的经济学人文件
+        id: economist
+        run: |
+          if [ -d "./01_economist" ]; then
+            LATEST_ECONOMIST_DIR=$(find ./01_economist -maxdepth 1 -type d -name "te_*" | sort -r | head -n 1)
+            echo "latest_dir=$LATEST_ECONOMIST_DIR" >> $GITHUB_OUTPUT
+            
+            # 从目录名中提取日期（格式如te_2025.04.05）
+            if [ -n "$LATEST_ECONOMIST_DIR" ]; then
+              DIR_NAME=$(basename "$LATEST_ECONOMIST_DIR")
+              ECONOMIST_DATE=$(echo "$DIR_NAME" | sed 's/te_//')
+              echo "date=$ECONOMIST_DATE" >> $GITHUB_OUTPUT
+              echo "找到最新的经济学人目录: $LATEST_ECONOMIST_DIR，日期: $ECONOMIST_DATE"
+            fi
+          else
+            echo "经济学人目录不存在"
+            echo "latest_dir=" >> $GITHUB_OUTPUT
+          fi
+      
+      # 查找最新的纽约客文件
+      - name: 查找最新的纽约客文件
+        id: newyorker
+        run: |
+          if [ -d "./02_new_yorker" ]; then
+            LATEST_NEWYORKER_DIR=$(find ./02_new_yorker -maxdepth 1 -type d -mindepth 1 -not -path "*/\.*" | sort -r | head -n 1)
+            echo "latest_dir=$LATEST_NEWYORKER_DIR" >> $GITHUB_OUTPUT
+            
+            # 从目录名中提取日期
+            if [ -n "$LATEST_NEWYORKER_DIR" ]; then
+              DIR_NAME=$(basename "$LATEST_NEWYORKER_DIR")
+              echo "date=$DIR_NAME" >> $GITHUB_OUTPUT
+              echo "找到最新的纽约客目录: $LATEST_NEWYORKER_DIR，日期: $DIR_NAME"
+            fi
+          else
+            echo "纽约客目录不存在"
+            echo "latest_dir=" >> $GITHUB_OUTPUT
+          fi
+      
+      # 同步经济学人到R2
+      - name: 同步经济学人到R2
+        if: steps.economist.outputs.latest_dir != ''
+        run: |
+          echo "开始同步经济学人目录: ${{ steps.economist.outputs.latest_dir }}"
+          
+          if [ -d "${{ steps.economist.outputs.latest_dir }}" ]; then
+            # 只上传PDF文件
+            for file in "${{ steps.economist.outputs.latest_dir }}"/*.pdf; do
+              if [ -f "$file" ]; then
+                # 提取文件名
+                filename=$(basename "$file")
+                # 构建S3路径
+                s3_key="2.外刊/经济学人/${{ steps.economist.outputs.date }}/$filename"
+                
+                # 检查文件是否已存在
+                echo "检查R2中是否已存在文件: $s3_key"
+                if aws s3api head-object --bucket ${{ secrets.R2_BUCKET_NAME }} --key "$s3_key" --endpoint-url "https://${{ secrets.R2_ACCOUNT_ID }}.r2.cloudflarestorage.com" 2>/dev/null; then
+                  echo "文件已存在，跳过上传: $s3_key"
+                else
+                  echo "正在上传PDF文件: $file"
+                  # 禁用分块上传，使用单一请求上传文件
+                  aws configure set s3.multipart_threshold 999GB
+                  aws s3 cp "$file" "s3://${{ secrets.R2_BUCKET_NAME }}/$s3_key" \
+                    --endpoint-url "https://${{ secrets.R2_ACCOUNT_ID }}.r2.cloudflarestorage.com" \
+                    --no-progress \
+                    --checksum-algorithm CRC32
+                  echo "文件上传完成: $s3_key"
+                fi
+              fi
+            done
+            echo "已同步经济学人PDF到R2"
+          else
+            echo "经济学人目录不存在或为空: ${{ steps.economist.outputs.latest_dir }}"
+          fi
+      
+      # 同步纽约客到R2
+      - name: 同步纽约客到R2
+        if: steps.newyorker.outputs.latest_dir != ''
+        run: |
+          if [ -d "${{ steps.newyorker.outputs.latest_dir }}" ]; then
+            # 只上传PDF文件
+            for file in "${{ steps.newyorker.outputs.latest_dir }}"/*.pdf; do
+              if [ -f "$file" ]; then
+                # 提取文件名
+                filename=$(basename "$file")
+                # 构建S3路径
+                s3_key="2.外刊/纽约客/${{ steps.newyorker.outputs.date }}/$filename"
+                
+                # 检查文件是否已存在
+                echo "检查R2中是否已存在文件: $s3_key"
+                if aws s3api head-object --bucket ${{ secrets.R2_BUCKET_NAME }} --key "$s3_key" --endpoint-url "https://${{ secrets.R2_ACCOUNT_ID }}.r2.cloudflarestorage.com" 2>/dev/null; then
+                  echo "文件已存在，跳过上传: $s3_key"
+                else
+                  echo "正在上传PDF文件: $file"
+                  # 禁用分块上传，使用单一请求上传文件
+                  aws configure set s3.multipart_threshold 999GB
+                  aws s3 cp "$file" "s3://${{ secrets.R2_BUCKET_NAME }}/$s3_key" \
+                    --endpoint-url "https://${{ secrets.R2_ACCOUNT_ID }}.r2.cloudflarestorage.com" \
+                    --no-progress \
+                    --checksum-algorithm CRC32
+                  echo "文件上传完成: $s3_key"
+                fi
+              fi
+            done
+            echo "已同步纽约客PDF到R2"
+          else
+            echo "纽约客目录不存在或为空: ${{ steps.newyorker.outputs.latest_dir }}"
+          fi
+      
+      # 同步The Atlantic到R2（如果有更新）
+      - name: 同步The Atlantic到R2
+        run: |
+          if [ -d "./04_atlantic" ]; then
+            LATEST_ATLANTIC_DIR=$(find ./04_atlantic -maxdepth 1 -type d -mindepth 1 -not -path "*/\.*" | sort -r | head -n 1)
+            if [ -n "$LATEST_ATLANTIC_DIR" ] && [ -d "$LATEST_ATLANTIC_DIR" ]; then
+              # 从目录名中提取日期
+              DIR_NAME=$(basename "$LATEST_ATLANTIC_DIR")
+              ATLANTIC_DATE=$DIR_NAME
+              echo "找到最新的大西洋月刊目录: $LATEST_ATLANTIC_DIR，日期: $ATLANTIC_DATE"
+              
+              # 只上传PDF文件
+              for file in "$LATEST_ATLANTIC_DIR"/*.pdf; do
+                if [ -f "$file" ]; then
+                  # 提取文件名
+                  filename=$(basename "$file")
+                  # 构建S3路径
+                  s3_key="2.外刊/大西洋月刊/$ATLANTIC_DATE/$filename"
+                  
+                  # 检查文件是否已存在
+                  echo "检查R2中是否已存在文件: $s3_key"
+                  if aws s3api head-object --bucket ${{ secrets.R2_BUCKET_NAME }} --key "$s3_key" --endpoint-url "https://${{ secrets.R2_ACCOUNT_ID }}.r2.cloudflarestorage.com" 2>/dev/null; then
+                    echo "文件已存在，跳过上传: $s3_key"
+                  else
+                    echo "正在上传PDF文件: $file"
+                    # 禁用分块上传，使用单一请求上传文件
+                    aws configure set s3.multipart_threshold 999GB
+                    aws s3 cp "$file" "s3://${{ secrets.R2_BUCKET_NAME }}/$s3_key" \
+                      --endpoint-url "https://${{ secrets.R2_ACCOUNT_ID }}.r2.cloudflarestorage.com" \
+                      --no-progress \
+                      --checksum-algorithm CRC32
+                    echo "文件上传完成: $s3_key"
+                  fi
+                fi
+              done
+              echo "已同步The Atlantic PDF到R2"
+            else
+              echo "未找到有效的The Atlantic目录"
+            fi
+          else
+            echo "Atlantic目录不存在"
+          fi
+      
+      # 同步Wired到R2（如果有更新）
+      - name: 同步Wired到R2
+        run: |
+          if [ -d "./05_wired" ]; then
+            LATEST_WIRED_DIR=$(find ./05_wired -maxdepth 1 -type d -mindepth 1 -not -path "*/\.*" | sort -r | head -n 1)
+            if [ -n "$LATEST_WIRED_DIR" ] && [ -d "$LATEST_WIRED_DIR" ]; then
+              # 从目录名中提取日期
+              DIR_NAME=$(basename "$LATEST_WIRED_DIR")
+              WIRED_DATE=$DIR_NAME
+              echo "找到最新的连线杂志目录: $LATEST_WIRED_DIR，日期: $WIRED_DATE"
+              
+              # 只上传PDF文件
+              for file in "$LATEST_WIRED_DIR"/*.pdf; do
+                if [ -f "$file" ]; then
+                  # 提取文件名
+                  filename=$(basename "$file")
+                  # 构建S3路径
+                  s3_key="2.外刊/连线杂志/$WIRED_DATE/$filename"
+                  
+                  # 检查文件是否已存在
+                  echo "检查R2中是否已存在文件: $s3_key"
+                  if aws s3api head-object --bucket ${{ secrets.R2_BUCKET_NAME }} --key "$s3_key" --endpoint-url "https://${{ secrets.R2_ACCOUNT_ID }}.r2.cloudflarestorage.com" 2>/dev/null; then
+                    echo "文件已存在，跳过上传: $s3_key"
+                  else
+                    echo "正在上传PDF文件: $file"
+                    # 禁用分块上传，使用单一请求上传文件
+                    aws configure set s3.multipart_threshold 999GB
+                    aws s3 cp "$file" "s3://${{ secrets.R2_BUCKET_NAME }}/$s3_key" \
+                      --endpoint-url "https://${{ secrets.R2_ACCOUNT_ID }}.r2.cloudflarestorage.com" \
+                      --no-progress \
+                      --checksum-algorithm CRC32
+                    echo "文件上传完成: $s3_key"
+                  fi
+                fi
+              done
+              echo "已同步Wired PDF到R2"
+            else
+              echo "未找到有效的Wired目录"
+            fi
+          else
+            echo "Wired目录不存在"
+          fi
+```
+
+# 四、最终效果
 ![效果](https://blog-1302893975.cos.ap-beijing.myqcloud.com/pic/202504101240457.png?imageSlim)
 可以看到执行同步后，对应刊物的最新文章就被我们同步到Obsidian的Vault里了。
-# 四、可能的改进优化
+
+# 五、可能的改进优化
 ## 1.更多的同步平台
 我们目前的解决方法是利用 GitHub Actions 将文件推送到 S3 兼容的云存储（如腾讯云 COS），然后依赖 Obsidian 的 `Remotely Save` 插件进行同步。但每个人的同步习惯和工具链可能不同：
 
