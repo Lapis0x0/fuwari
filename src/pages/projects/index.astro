@@ -276,18 +276,17 @@ const getProjectPosts = (item: ProjectItem) => {
     overflow: hidden;
   }
   
-  /* details-content 动画 */
+  /* details-content 动画（生产环境兼容，防止被裁剪） */
   details .details-content {
     max-height: 0;
     opacity: 0;
     pointer-events: none;
+    transition: max-height 0.5s cubic-bezier(.4,0,.2,1), opacity 0.4s !important;
   }
   details[open] .details-content {
-    max-height: 1200px; /* 足够大即可 */
+    max-height: 3000px;
     opacity: 1;
     pointer-events: auto;
-  }
-  details .details-content {
-    transition: max-height 0.5s cubic-bezier(.4,0,.2,1), opacity 0.4s;
+    transition: max-height 0.5s cubic-bezier(.4,0,.2,1), opacity 0.4s !important;
   }
 </style>
