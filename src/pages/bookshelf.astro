@@ -4,11 +4,29 @@ import { i18n } from '../i18n/translation';
 import I18nKey from '../i18n/i18nKey';
 import booksData from '../../public/data/books.json';
 
+// 类型定义
+interface BookRecord {
+  fields: {
+    [key: string]: any;
+    书名: string;
+    作者?: string[];
+    书籍简介?: string;
+    书评?: string;
+    封面?: { local_path: string }[];
+    推荐状态?: string;
+    阅读进度?: string;
+    完成阅读时期?: string;
+    领域?: string;
+  };
+  id: string;
+  record_id: string;
+}
+
 // Filter books with reading progress "1"
-const books = booksData.data.items.filter(book => book.fields['阅读进度'] === "1");
+const books = (booksData.data.items as BookRecord[]).filter((book) => book.fields['阅读进度'] === "1");
 
 // Group books by category (领域)
-const booksByCategory = books.reduce((acc, book) => {
+const booksByCategory = books.reduce((acc: Record<string, BookRecord[]>, book: BookRecord) => {
   const category = book.fields['领域'] || '未分类';
   if (!acc[category]) {
     acc[category] = [];
@@ -18,7 +36,7 @@ const booksByCategory = books.reduce((acc, book) => {
 }, {});
 
 // Function to get cover URL
-function getCoverUrl(book) {
+function getCoverUrl(book: BookRecord): string | null {
   if (book.fields['封面']?.[0]) {
     // 使用本地路径
     return book.fields['封面'][0].local_path;
@@ -50,45 +68,56 @@ function getCoverUrl(book) {
           <h2 class="text-2xl font-bold mb-6 pb-2 border-b border-zinc-200 dark:border-zinc-800 text-[var(--primary)]">
             {category}
           </h2>
-          <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
-            {books.map((book) => (
-              <div class="group relative flex flex-col">
-                <div class="aspect-[3/4] overflow-hidden rounded-lg bg-zinc-100 dark:bg-zinc-900 shadow-md transition-all duration-300 group-hover:shadow-xl">
+          <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+            {books.map((book: BookRecord) => (
+              <div class="group relative flex flex-col bg-white/80 dark:bg-zinc-900 rounded-xl shadow hover:shadow-xl transition-shadow duration-300 border border-zinc-100 dark:border-zinc-800 min-h-[340px]">
+                <div class="aspect-[3/4] overflow-hidden rounded-t-xl bg-zinc-100 dark:bg-zinc-900">
                   {getCoverUrl(book) ? (
                     <img 
                       src={getCoverUrl(book)}
                       alt={book.fields['书名']} 
                       class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                      loading="lazy"
                     />
                   ) : (
                     <div class="flex h-full w-full items-center justify-center bg-zinc-100 dark:bg-zinc-900 p-4">
                       <span class="text-center text-sm text-[var(--text-2)]">{book.fields['书名']}</span>
                     </div>
                   )}
-                  <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                    <div class="absolute bottom-0 left-0 right-0 p-4">
-                      <h3 class="text-sm font-bold text-white mb-1 line-clamp-2">
-                        {book.fields['书名']}
-                      </h3>
-                      {book.fields['作者']?.length > 0 && (
-                        <p class="text-xs text-zinc-200 mb-2">
-                          {book.fields['作者'].join(', ')}
-                        </p>
-                      )}
-                    </div>
-                  </div>
                 </div>
-                <div class="overlay absolute inset-0 bg-black/80 opacity-0 transition-opacity duration-300 rounded-lg invisible group-hover:visible group-hover:opacity-100 flex items-center justify-center overflow-hidden">
-                  <div class="p-4 text-white h-full overflow-y-auto custom-scrollbar">
-                    <h3 class="text-sm font-bold mb-2 sticky top-0 bg-black/80 py-2">{book.fields['书名']}</h3>
+                <div class="flex-1 flex flex-col p-3 pb-2">
+                  <h3 class="text-base font-semibold text-zinc-900 dark:text-white mb-1 line-clamp-2 min-h-[2.6em]">{book.fields['书名']}</h3>
+                  <div class="flex flex-row flex-wrap gap-2 mb-1">
+                    {book.fields['推荐状态'] && (
+                      <span class={`inline-block px-2 py-0.5 text-xs rounded-full border
+                        ${book.fields['推荐状态'] === '推荐' ? 'bg-green-100 text-green-700 border-green-200' : ''}
+                        ${book.fields['推荐状态'] === '中庸' ? 'bg-yellow-100 text-yellow-700 border-yellow-200' : ''}
+                        ${book.fields['推荐状态'] === '不行' ? 'bg-red-100 text-red-700 border-red-200' : ''}
+                        ${!['推荐','中庸','不行'].includes(book.fields['推荐状态']) ? 'bg-zinc-100 text-zinc-500 border-zinc-200 dark:bg-zinc-800 dark:border-zinc-700' : ''}
+                      `}>{book.fields['推荐状态']}</span>
+                    )}
+                    {book.fields['完成阅读时期'] && (
+                      <span class="inline-block px-2 py-0.5 text-xs text-zinc-400 bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-full">{book.fields['完成阅读时期']}</span>
+                    )}
+                  </div>
+                  {book.fields['作者']?.length > 0 && (
+                    <p class="text-xs text-zinc-600 dark:text-zinc-300 mb-1 line-clamp-1 min-h-[1.2em]">{book.fields['作者'].join(', ')}</p>
+                  )}
+                  {book.fields['书评'] ? (
+                    <p class="text-xs text-zinc-500 dark:text-zinc-400 line-clamp-2 min-h-[2.4em]">{book.fields['书评']}</p>
+                  ) : (
+                    <p class="text-xs text-zinc-400 line-clamp-2 min-h-[2.4em]">{book.fields['书籍简介']}</p>
+                  )}
+                </div>
+                <div class="overlay absolute inset-0 bg-black/80 opacity-0 transition-opacity duration-300 rounded-xl invisible group-hover:visible group-hover:opacity-100 flex items-center justify-center overflow-hidden z-10">
+                  <div class="p-4 text-white h-full overflow-y-auto custom-scrollbar w-full">
+                    <h3 class="text-base font-bold mb-2 sticky top-0 bg-black/80 py-2">{book.fields['书名']}</h3>
                     {book.fields['书评'] ? (
                       <>
                         <p class="text-sm text-zinc-100 mb-3">{book.fields['书评']}</p>
                         {book.fields['书籍简介'] && (
                           <div class="pt-3 border-t border-white/20">
-                            <p class="text-xs text-zinc-400">
-                              {book.fields['书籍简介']}
-                            </p>
+                            <p class="text-xs text-zinc-400">{book.fields['书籍简介']}</p>
                           </div>
                         )}
                       </>
@@ -131,18 +160,14 @@ function getCoverUrl(book) {
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
-
-  .line-clamp-3 {
+  .line-clamp-1 {
     display: -webkit-box;
-    -webkit-line-clamp: 3;
+    -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
-
-  .line-clamp-6 {
-    display: -webkit-box;
-    -webkit-line-clamp: 6;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+  .group:hover .overlay {
+    opacity: 1 !important;
+    visibility: visible !important;
   }
 </style>
