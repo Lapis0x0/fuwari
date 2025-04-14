@@ -95,52 +95,36 @@ const getProjectPosts = (item: ProjectItem) => {
               {project.items.map((item) => {
                 const projectPosts = getProjectPosts(item);
                 return (
-                  <div class="group flex flex-col h-full overflow-hidden rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 shadow-sm hover:shadow-md transition-all duration-300">
-                    <!-- 项目卡片头部 -->
-                    <div class="p-6 border-b border-zinc-200 dark:border-zinc-800">
-                      <div class="flex items-center justify-between">
-                        <div class="flex items-center gap-3">
-                          <Icon name="mdi:bookmark-outline" class="text-xl text-[var(--primary)]" />
-                          <h3 class="text-xl font-bold text-neutral-900 dark:text-neutral-100">{item.title}</h3>
-                        </div>
-                        
-                        <!-- 展开/折叠按钮 -->
-                        <button 
-                          class="toggle-button w-8 h-8 flex items-center justify-center rounded-full bg-[oklch(95%_0.03_var(--hue))] dark:bg-[oklch(30%_0.03_var(--hue))] text-[var(--primary)] hover:opacity-90 transition-all duration-300"
-                          data-target={`content-${item.id}`}
-                          aria-label="展开/折叠"
-                          aria-expanded="false"
-                        >
-                          <Icon name="mdi:chevron-down" class="text-lg transform transition-transform duration-300" />
-                        </button>
+                  <details class="group flex flex-col h-full overflow-hidden rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 shadow-sm hover:shadow-md transition-all duration-300">
+                    <summary class="p-6 border-b border-zinc-200 dark:border-zinc-800 flex items-center justify-between cursor-pointer select-none focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--primary)]">
+                      <div class="flex items-center gap-3">
+                        <Icon name="mdi:bookmark-outline" class="text-xl text-[var(--primary)]" />
+                        <h3 class="text-xl font-bold text-neutral-900 dark:text-neutral-100">{item.title}</h3>
                       </div>
-                      
-                      <p class="text-50 text-sm mt-3 mb-4 text-neutral-900 dark:text-neutral-100">{item.description}</p>
-                      
-                      <!-- 统计信息 -->
-                      <div class="flex items-center gap-4 text-50 text-sm text-neutral-900 dark:text-neutral-100">
-                        <div class="flex items-center gap-1">
-                          <Icon name="mdi:file-document-outline" class="text-base" />
-                          <span>{projectPosts.length} 篇文章</span>
-                        </div>
-                        
-                        {item.url && (
-                          <a 
-                            href={item.url} 
-                            target="_blank" 
-                            rel="noopener noreferrer" 
-                            class="inline-flex items-center gap-1 text-[var(--primary)] hover:underline"
-                          >
-                            <Icon name="mdi:link-variant" class="text-base" />
-                            <span>项目链接</span>
-                          </a>
-                        )}
-                      </div>
-                    </div>
-                    
-                    <!-- 展开后的文章列表 -->
-                    <div id={`content-${item.id}`} class="content-section max-h-0 overflow-hidden transition-all duration-500 ease-in-out">
+                      <span class="inline-flex items-center">
+                        <Icon name="mdi:chevron-down" class="text-lg transform group-open:rotate-180 transition-transform duration-300" />
+                      </span>
+                    </summary>
+                    <div class="details-content transition-all duration-500 ease-in-out overflow-hidden">
                       <div class="p-6">
+                        <p class="text-50 text-sm mt-3 mb-4 text-neutral-900 dark:text-neutral-100">{item.description}</p>
+                        <div class="flex items-center gap-4 text-50 text-sm text-neutral-900 dark:text-neutral-100 mb-4">
+                          <div class="flex items-center gap-1">
+                            <Icon name="mdi:file-document-outline" class="text-base" />
+                            <span>{projectPosts.length} 篇文章</span>
+                          </div>
+                          {item.url && (
+                            <a 
+                              href={item.url} 
+                              target="_blank" 
+                              rel="noopener noreferrer" 
+                              class="inline-flex items-center gap-1 text-[var(--primary)] hover:underline"
+                            >
+                              <Icon name="mdi:link-variant" class="text-base" />
+                              <span>项目链接</span>
+                            </a>
+                          )}
+                        </div>
                         {projectPosts.length > 0 ? (
                           <div class="grid grid-cols-1 gap-4">
                             {projectPosts.map(post => (
@@ -172,7 +156,7 @@ const getProjectPosts = (item: ProjectItem) => {
                         )}
                       </div>
                     </div>
-                  </div>
+                  </details>
                 );
               })}
             </div>
@@ -215,28 +199,25 @@ const getProjectPosts = (item: ProjectItem) => {
 
   // 主要初始化函数
   function initToggleButtons() {
-    const toggleButtons = document.querySelectorAll('.toggle-button');
-    
-    if (toggleButtons.length === 0) {
-      // 如果没有找到按钮，可能DOM还没完全加载，设置一个短暂的延迟再试
-      setTimeout(initToggleButtons, 100);
-      return;
-    }
-    
-    toggleButtons.forEach(button => {
-      // 移除可能存在的旧事件监听器
-      button.removeEventListener('click', handleToggleClick);
-      // 添加新的事件监听器
-      button.addEventListener('click', handleToggleClick);
-      
-      // 初始化状态
-      const targetId = button.getAttribute('data-target');
-      const contentElement = document.getElementById(targetId);
-      if (contentElement) {
-        contentElement.style.maxHeight = '0';
-        button.setAttribute('aria-expanded', 'false');
+    // 延迟，确保DOM全部渲染
+    setTimeout(() => {
+      const toggleButtons = document.querySelectorAll('.toggle-button');
+      if (toggleButtons.length === 0) {
+        // 如果没有找到按钮，可能DOM还没完全加载，再次延迟
+        setTimeout(initToggleButtons, 100);
+        return;
       }
-    });
+      toggleButtons.forEach(button => {
+        button.removeEventListener('click', handleToggleClick);
+        button.addEventListener('click', handleToggleClick);
+        const targetId = button.getAttribute('data-target');
+        const contentElement = document.getElementById(targetId);
+        if (contentElement) {
+          contentElement.style.maxHeight = '0';
+          button.setAttribute('aria-expanded', 'false');
+        }
+      });
+    }, 60); // 关键：加一层短延迟，保证页面切换后DOM已渲染
   }
 
   function handleToggleClick(event) {
@@ -269,17 +250,17 @@ const getProjectPosts = (item: ProjectItem) => {
 
   // 确保在各种情况下都能初始化
   // 1. 页面完全加载时
-  document.addEventListener('DOMContentLoaded', initToggleButtons);
+  document.addEventListener('DOMContentLoaded', () => setTimeout(initToggleButtons, 60));
   
   // 2. Astro页面切换时
-  document.addEventListener('astro:page-load', initToggleButtons);
+  document.addEventListener('astro:page-load', () => setTimeout(initToggleButtons, 60));
   
   // 3. Astro视图过渡完成时
-  document.addEventListener('astro:after-swap', initToggleButtons);
+  document.addEventListener('astro:after-swap', () => setTimeout(initToggleButtons, 60));
   
   // 4. 页面已经加载完成的情况
   if (document.readyState === 'complete' || document.readyState === 'interactive') {
-    initToggleButtons();
+    setTimeout(initToggleButtons, 60);
   }
 </script>
 
@@ -293,5 +274,20 @@ const getProjectPosts = (item: ProjectItem) => {
   .content-section {
     transition: max-height 0.5s ease-in-out;
     overflow: hidden;
+  }
+  
+  /* details-content 动画 */
+  details .details-content {
+    max-height: 0;
+    opacity: 0;
+    pointer-events: none;
+  }
+  details[open] .details-content {
+    max-height: 1200px; /* 足够大即可 */
+    opacity: 1;
+    pointer-events: auto;
+  }
+  details .details-content {
+    transition: max-height 0.5s cubic-bezier(.4,0,.2,1), opacity 0.4s;
   }
 </style>

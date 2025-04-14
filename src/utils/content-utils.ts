@@ -3,7 +3,7 @@ import type { BlogPostData } from '@/types/config'
 import I18nKey from '@i18n/i18nKey'
 import { i18n } from '@i18n/translation'
 
-export async function getSortedPosts(): Promise<
+export async function getSortedPosts(ignorePinned = false): Promise<
   { body: string, data: BlogPostData; slug: string }[]
 > {
   const allBlogPosts = (await getCollection('posts', ({ data }) => {
@@ -12,9 +12,11 @@ export async function getSortedPosts(): Promise<
 
   const sorted = allBlogPosts.sort(
     (a: { data: BlogPostData }, b: { data: BlogPostData }) => {
-      // 首先按置顶状态排序
-      if (a.data.pinned && !b.data.pinned) return -1;
-      if (!a.data.pinned && b.data.pinned) return 1;
+      // 首先按置顶状态排序（可选）
+      if (!ignorePinned) {
+        if (a.data.pinned && !b.data.pinned) return -1;
+        if (!a.data.pinned && b.data.pinned) return 1;
+      }
       // 然后按发布时间排序
       const dateA = new Date(a.data.published)
       const dateB = new Date(b.data.published)
