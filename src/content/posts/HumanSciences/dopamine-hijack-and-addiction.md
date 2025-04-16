@@ -170,10 +170,10 @@ draft: false
 
 [3] Clay SW, Allen J, Parran T. A review of addiction [J]. Postgrad Med, 2008, 120: F01–7.
 
-[5] Volkow ND, Fowler JS, Wang GJ, et al. Imaging dopamine's role in drug abuse and addiction [J]. Neuropharmacology, 2009, 56: 3–8.
+[4] Volkow ND, Fowler JS, Wang GJ, et al. Imaging dopamine's role in drug abuse and addiction [J]. Neuropharmacology, 2009, 56: 3–8.
 
-[6] Lingford-Hughes A, Nutt D. Neurobiology of addiction and implications for treatment[J]. The British Journal of Psychiatry, 2003, 182(2): 97-100.
+[5] Lingford-Hughes A, Nutt D. Neurobiology of addiction and implications for treatment[J]. The British Journal of Psychiatry, 2003, 182(2): 97-100.
 
-[7] Nestler E J. The neurobiology of cocaine addiction[J]. Science & practice perspectives, 2005, 3(1): 4.
+[6] Nestler E J. The neurobiology of cocaine addiction[J]. Science & practice perspectives, 2005, 3(1): 4.
 
-[8] Kreek M J, Levran O, Reed B, et al. Opiate addiction and cocaine addiction: underlying molecular neurobiology and genetics[J]. The Journal of clinical investigation, 2012, 122(10): 3387-3393.
+[7] Kreek M J, Levran O, Reed B, et al. Opiate addiction and cocaine addiction: underlying molecular neurobiology and genetics[J]. The Journal of clinical investigation, 2012, 122(10): 3387-3393.
