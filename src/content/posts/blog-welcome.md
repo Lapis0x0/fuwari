@@ -106,6 +106,8 @@ pinned: true
 
 [人类简史书评&笔记：想象的共同体](https://www.lapis.cafe/posts/humansciences/history-of-humankind/)
 
+[神经药理学笔记：可卡因等药物如何操控人脑奖赏系统](https://www.lapis.cafe/posts/humansciences/dopamine-hijack-and-addiction/)
+
 # 中国与世界的现代化
 
 功成未必在我，功成必定有我。
