@@ -64,6 +64,8 @@ pinned: true
 
 [模型考古学（八）：Llama4发布——并非领先](https://www.lapis.cafe/posts/ai--deep-learning/llama-4-report/)
 
+[评OpenAI发布o3&o4mini：喧嚣落幕，长路开启](https://www.lapis.cafe/posts/ai--deep-learning/tech-review-OpenAI-o3/)
+
 # Trading101 璿玑楮痕系列
 
 此系列旨在拆解投资与量化交易中的核心概念与操作逻辑，系统化地介绍技术指标与策略设计的基本原理。文章结合理论与实践，为读者提供清晰的工具与框架，以助其更科学地理解市场行为。
