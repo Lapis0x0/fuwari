@@ -64,7 +64,7 @@ pinned: true
 
 [模型考古学（八）：Llama4发布——并非领先](https://www.lapis.cafe/posts/ai--deep-learning/llama-4-report/)
 
-[评OpenAI发布o3&o4mini：喧嚣落幕，长路开启](https://www.lapis.cafe/posts/ai--deep-learning/tech-review-OpenAI-o3/)
+[评OpenAI发布o3&o4mini：喧嚣落幕，长路开启](https://www.lapis.cafe/posts/ai--deep-learning/tech-review-openai-o3/)
 
 # Trading101 璿玑楮痕系列
 
