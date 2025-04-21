@@ -8,6 +8,10 @@ category: 技术教程
 draft: false
 ---
 
+:::caution
+本篇博客写于2024年12月，Astro和Fuwari项目可能会有更新，导致部分信息不再准确，请以官方文档为准。
+:::
+
 # 信源
 ## 1.仓库
 ::github{repo="withastro/astro"}
