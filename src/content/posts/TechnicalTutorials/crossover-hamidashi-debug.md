@@ -21,6 +21,7 @@ draft: false
 
 本篇博客将记录我的排查和解决流程，给诸位不畏艰难在Mac上折腾Galgame的朋友们留个参考。
 # 一、遇到的问题：启动即为崩溃，错误代码 c0000005
+
 我是用的设备是2020年的MacBook air M1， macOS Sonoma 系统，CrossOver 版本是 24.0.7。在一个新建的 Windows 10 (64位) Bottle 环境中安装了汉化版的 hamidashi_cn.exe。但每次运行程序，往往在加载界面、播放片头动画 (OP) 或刚进入主菜单时，程序就会直接崩溃退出，没有任何明确的错误提示框。
 
 为了弄清原因，我启用了 CrossOver 的日志记录功能。在冗长的日志文件 (+seh +tid +process +debugstr) 和G老师的帮助下，我发现了关键信息：
