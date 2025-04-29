@@ -19,7 +19,7 @@ draft: false
 
 [论文与数据集链接](https://figshare.com/articles/dataset/_b_A_dataset_on_the_spatiotemporal_distributions_of_street_and_neighborhood_crime_in_China_b_/28106939)
 
-你也可以在[这里](https://data.lapis.cafe/%E8%AE%BA%E6%96%87%E4%B8%8E%E6%95%B0%E6%8D%AE%E9%9B%86/20250427%E7%8A%AF%E7%BD%AA%E6%97%B6%E7%A9%BA%E5%88%86%E5%B8%83%E8%AE%BA%E6%96%87%E4%B8%8E%E6%95%B0%E6%8D%AE%E9%9B%86)查看论文原文和翻译后的双语PDF文件
+你也可以在[这里](https://data.lapis.cafe/%E8%AE%BA%E6%96%87%E4%B8%8E%E6%95%B0%E6%8D%AE%E9%9B%86/20250427%E7%8A%AF%E7%BD%AA%E6%97%B6%E7%A9%BA%E5%88%86%E5%B8%83%E8%AE%BA%E6%96%87%E4%B8%8E%E6%95%B0%E6%8D%AE%E9%9B%86)查看论文原文、翻译后的双语PDF文件和我自己托管的ChinaCrimeDatasets数据集
 
 # 一、论文速览
 ## 1.数据来源
