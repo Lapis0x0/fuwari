@@ -2334,10 +2334,36 @@
         },
         "id": "recuHq7SFnAHZ1",
         "record_id": "recuHq7SFnAHZ1"
+      },
+      {
+        "fields": {
+          "书名": "摆脱贫困",
+          "书籍简介": "《摆脱贫困》是中共中央总书记习近平的个人著作，收录了他在1988年至1990年担任中共宁德地委书记期间的重要讲话和调研文章，共29篇。书中围绕闽东地区如何实现脱贫致富，提出了一系列制度、理念和方法，深入探讨了经济、政治、文化、社会和生态文明建设等方面的问题。该书不仅体现了习近平总书记为民情怀和坚定理想信念，也是指导中国扶贫工作的理论基础和经验总结，自2017年首发以来，受到广泛关注和赞誉。",
+          "书评": "我也明知白驹过隙，逝者如斯。未来可能讲更有意思的话，著更其完美的文，做更其壮丽的事业，但今天只是今天，未来也只是今天的未来。\n\n多喜乐，常安宁！",
+          "二级分支": "政治经济学-中国",
+          "作者": [
+            "习近平主席"
+          ],
+          "封面": [
+            {
+              "file_token": "NselbjOsloj4k2xeMaMcrviFnSd",
+              "name": "image.png",
+              "size": 219694,
+              "tmp_url": "https://open.feishu.cn/open-apis/drive/v1/medias/batch_get_tmp_download_url?file_tokens=NselbjOsloj4k2xeMaMcrviFnSd",
+              "type": "image/png",
+              "url": "https://open.feishu.cn/open-apis/drive/v1/medias/NselbjOsloj4k2xeMaMcrviFnSd/download",
+              "local_path": "/images/books/12d628c82696e730cffaac85ba58ceb8.webp"
+            }
+          ],
+          "阅读进度": "0.01",
+          "领域": "政治经济学"
+        },
+        "id": "recuKBGd7vn0dv",
+        "record_id": "recuKBGd7vn0dv"
       }
     ],
-    "total": 93
+    "total": 94
   },
   "msg": "success",
-  "last_updated": "2025-05-04T01:41:49.312058"
+  "last_updated": "2025-05-11T01:40:04.085971"
 }
