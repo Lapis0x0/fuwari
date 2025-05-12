@@ -111,6 +111,8 @@ pinned: true
 
 [教书为生，非命为代价：不眠的教培机器与增长困境](https://www.lapis.cafe/posts/finance--economics/education-growth-cost)
 
+[IMF FSSA 2025：中国金融系统稳定性评估解读](https://www.lapis.cafe/posts/finance--economics/imf-fssa-2025-china-risk-review)
+
 # 人类研究
 
 此系列聚焦于对人类自身的研究与探讨，尝试从不同维度理解“人”这一复杂系统。内容可能涵盖生理健康、心理认知、行为模式乃至社会文化现象。我希望运用科学方法与批判性思维，深入剖析与人类生存、发展及福祉相关的议题，提供独特的观察视角与知识参考。
