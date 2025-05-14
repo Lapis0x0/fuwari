@@ -127,16 +127,15 @@ pinned: true
 
 [身份置换与拟态情缘：青少年用户在《蔚蓝档案》中心理补偿机制浅析](https://www.lapis.cafe/posts/humansciences/identity-mimesis-blue-archive/)
 
-# 中国与世界的现代化
+# 风自东方来
 
-功成未必在我，功成必定有我。
-
-本系列致力于提供结构化、有深度的分析，通过挖掘历史脉络、解读关键政策、辨析核心机制，帮助读者理解这个伟大转型时代背后的复杂逻辑与多重力量。
-
-理解中国的现代化，是理解我们所处世界的重要一环。
+讲述一场从边缘吹向中心的风。
 
 [中国与世界的现代化专题（一）：萝卜快跑，社会结构与国际价值链分工](https://www.lapis.cafe/posts/finance--economics/%E4%B8%AD%E5%9B%BD%E4%B8%8E%E4%B8%96%E7%95%8C%E7%9A%84%E7%8E%B0%E4%BB%A3%E5%8C%96%E4%B8%93%E9%A2%98%E4%B8%80%E8%90%9D%E5%8D%9C%E5%BF%AB%E8%B7%91%E7%A4%BE%E4%BC%9A%E7%BB%93%E6%9E%84%E4%B8%8E%E5%9B%BD%E9%99%85%E4%BB%B7%E5%80%BC%E9%93%BE%E5%88%86%E5%B7%A5/)
 
 [中国与世界的现代化专题（二）：货币的本质与中国的税收体系](https://www.lapis.cafe/posts/finance--economics/%E4%B8%AD%E5%9B%BD%E4%B8%8E%E4%B8%96%E7%95%8C%E7%9A%84%E7%8E%B0%E4%BB%A3%E5%8C%96%E4%B8%93%E9%A2%98%E4%BA%8C%E8%B4%A7%E5%B8%81%E7%9A%84%E6%9C%AC%E8%B4%A8%E4%B8%8E%E4%B8%AD%E5%9B%BD%E7%9A%84%E7%A8%8E%E6%94%B6%E4%BD%93%E7%B3%BB/)
 
 [中国与世界的现代化专题（三）：城投与地方债-从分税制改革到房地产经济的逻辑](https://www.lapis.cafe/posts/finance--economics/china-lgfv-debt/)
+
+[风自东方来｜鸿蒙PC市场生态前瞻与私货输出](https://www.lapis.cafe/posts/finance--economics/harmonyos-pc-ecology-2025/)
+

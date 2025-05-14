@@ -40,20 +40,19 @@ projects:
           - 投资101
           - 投资月报
 
-      - id: China & World
-        title: 中国与世界的现代化
-        description: 包含我的中国与世界的现代化专题文章
-        posts:
-          - 中国与世界的现代化专题（一）：萝卜快跑，社会结构与国际价值链分工
-          - 中国与世界的现代化专题（二）：货币的本质与中国的税收体系
-          - 中国与世界的现代化专题（三）：城投与地方债-从分税制改革到房地产经济的逻辑
+      - id: east-wind
+        title: 风自东方来
+        description: 讲述一场从边缘吹向中心的风
+        tags:
+          - 风自东方来
 
       - id: dark-currents
         title: 暗涌专题
         description: 水面之下，方见真章
         tags:
           - 暗涌
-            
+      
+
 ---
 
 
