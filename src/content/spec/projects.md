@@ -51,7 +51,17 @@ projects:
         description: 水面之下，方见真章
         tags:
           - 暗涌
-      
+
+  - id: humansciences
+    title: 人类研究
+    description: 探索心智、行为与神经系统的交汇处，解析我们为何如此思考、感受与行动。
+    items:
+
+      - id: Psychology-Neuroscience
+        title: 心理学与神经科学
+        description: 从神经元到意识，探寻人类行为背后的生物基础与心理机制。
+        tags:
+          - 心理学与神经科学
 
 ---
 
