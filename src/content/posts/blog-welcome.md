@@ -134,6 +134,8 @@ pinned: true
 
 [从神经递质到临床药理：ADHD的机制与干预逻辑解析](https://www.lapis.cafe/posts/humansciences/adhd-pharmacology-and-normality/)
 
+[从“捡到女高中生”到“萝莉妈妈”——看现代社会中男性的爱与性需求](https://www.lapis.cafe/posts/humansciences/girl-salvation-fantasy/)
+
 # 风自东方来
 
 讲述一场从边缘吹向中心的风。
