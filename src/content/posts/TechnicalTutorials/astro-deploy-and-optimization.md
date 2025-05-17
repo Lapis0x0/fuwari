@@ -19,8 +19,8 @@ draft: false
 
 ## 2.参考文章
 - [Astro官方文档](https://docs.astro.build/zh-cn/guides/deploy/)
-- [给你的Fuwari添加一个友链页面](https://arc.net/l/quote/fpwpojzh)
-- [利用giscus给你的网站添加评论功能](https://blog.aulypc0x0.online/posts/add_comment_for_your_website_in_fuwari/)
+- [给你的Fuwari添加一个友链页面](https://blog.aulypc0x0.online/posts/website/add_friendspage_in_fuwari/)
+- [利用giscus给你的网站添加评论功能](https://blog.aulypc0x0.online/posts/website/add_comment_for_your_website_in_fuwari/)
 
 # 一、前言
 
