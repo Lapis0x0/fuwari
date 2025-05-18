@@ -9,7 +9,7 @@ draft: false
 ---
 
 :::caution
-本篇博客写于2024年12月，Astro和Fuwari项目可能会有更新，导致部分信息不再准确，请以官方文档为准。
+本篇博客写于2024年12月，于5月18日少量更新，Astro和Fuwari项目可能会有更新，导致部分信息不再准确，请以官方文档为准。
 :::
 
 # 信源
@@ -99,7 +99,7 @@ Fuwari是基于 Astro 开发的静态博客模板。
 * 注册之后，你需要使用此模板[生成新仓库](https://github.com/saicaca/fuwari/generate)或 Fork [此仓库](https://github.com/saicaca/fuwari)
 
 * 然后，你需要进行本地开发，Clone 新的仓库，执行 `pnpm install` 和 `pnpm add sharp` 以安装依赖  
-   - 若未安装 [pnpm](https://pnpm.io，请执行 `npm install -g pnpm`)
+   - 若未安装 [pnpm](https://pnpm.io)，请执行 `npm install -g pnpm`
 
 在执行完上述命令后，你可以通过 `pnpm dev` 命令启动本地开发服务器，访问 `http://localhost:4321` 进行预览。
 
@@ -152,9 +152,8 @@ export const profileConfig: ProfileConfig = {
   links: [
     {
       name: 'QQ',
-      icon: 'mdi:qqchat',       // 图标可以在 https://icones.js.org/ 中找到，Visit https://icones.js.org/ for icon codes
-                                        // 如果本地没有，你需要安装对应的图标集，You will need to install the corresponding icon set if it's not already included
-                                        // 安装方法：`pnpm add @iconify-json/<icon-set-name>`
+      icon: 'fa6-brands:qq',       // 图标可以在 https://icones.js.org/ 中找到，Visit https://icones.js.org/ for icon codes
+                                        // 感谢溪午的指正，这里直接使用了本地图标集，不需要额外安装依赖
       url: 'https://qm.qq.com/q/Qm6VfZnWM0',
     },
     {
@@ -366,7 +365,7 @@ url 指定这个页面的路径 /friends/。
 +  const friendsPost = await getEntry('spec', 'friends')
 
 -  const { Content } = await aboutPost.render()
-+  const { Content } = await friendsPost.render()
++  const { Content } = await render(friendsPost);
 
 -  <MainGridLayout title={i18n(I18nKey.about)} description={i18n(I18nKey.about)}>
 +  <MainGridLayout title={i18n(I18nKey.friends)} description={i18n(I18nKey.friends)}>
