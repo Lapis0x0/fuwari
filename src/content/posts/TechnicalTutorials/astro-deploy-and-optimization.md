@@ -295,7 +295,7 @@ const currentYear = new Date().getFullYear()
 添加这个文件的目的是为 "友链" 页面提供对应的内容数据，也便于通过统一方式调用内容。
 :::
 
-在`src\types\config.ts`文件约37行位置添加以下内容
+在`src\types\config.ts`文件约41行位置添加以下内容
 
 ```diff
 export enum LinkPreset {
@@ -305,10 +305,10 @@ export enum LinkPreset {
 + Friends = 3,  
 }
 ```
-
 :::note
 定义一个新的导航链接 "Friends"。在项目结构中，LinkPreset 枚举可能用于统一管理网页导航条或特定页面布局，对应页面的标识。
 :::
+
 
 ### 2.2 国际化i18n翻译
 在`src\i18n\i18nKey.ts`文件约35行位置添加以下内容
@@ -358,13 +358,13 @@ url 指定这个页面的路径 /friends/。
 :::
 
 ### 2.3 创建和配置页面的Astro文件
-在`src\pages`目录下复制原本的`about.astro`文件，重命名为`friends.astro`，在此文件中更改`第 10 行、第 12 行和第14行`的内容
+在`src\pages`目录下复制原本的`about.astro`文件，重命名为`friends.astro`，在此文件中更改`第 11 行、第 17 行和第19行`的内容
 
 ```diff
 -  const aboutPost = await getEntry('spec', 'about')
 +  const friendsPost = await getEntry('spec', 'friends')
 
--  const { Content } = await aboutPost.render()
+-  const { Content } = await render(aboutPost);
 +  const { Content } = await render(friendsPost);
 
 -  <MainGridLayout title={i18n(I18nKey.about)} description={i18n(I18nKey.about)}>
@@ -378,7 +378,7 @@ url 指定这个页面的路径 /friends/。
 :::
 
 ### 2.4 在导航栏中添加友链页面
-在 `src\config.ts` 文件约 `39` 行位置添加内容，注意要在 `LinkPreset.About` 末尾添加`,`
+在 `src\config.ts` 文件约 `48` 行位置添加内容，注意要在 `LinkPreset.About` 末尾添加`,`
 
 ```diff
 export const navBarConfig: NavBarConfig = {
@@ -398,9 +398,26 @@ navBarConfig 用于配置页面的导航栏。
 ### 2.5 创建卡片效果友链
 在之前创建的 `friends.astro` 文件中编辑
 
-```js
+```js 
+
+---
+
+import MainGridLayout from "../layouts/MainGridLayout.astro";
+
+import { getEntry } from "astro:content";
+import { render } from "astro:content";
+import Markdown from "@components/misc/Markdown.astro";
+import I18nKey from "../i18n/i18nKey";
+import { i18n } from "../i18n/translation";
+
 const friendsPost = await getEntry('spec', 'friends')
-const { Content } = await friendsPost.render()
+
+if (!friendsPost) {
+	throw new Error("Friend page content not found");
+}
+
+const { Content } = await render(friendsPost);
+
 const items = [
   {  
     title: 'Astro',  
@@ -408,13 +425,6 @@ const items = [
     desc: 'The web framework for content-driven websites. ⭐️ Star to support our work!',  
     siteurl: 'https://github.com/withastro/astro',  
     tags: ['框架'],  
-  },
-    {  
-    title: '时歌的博客',  
-    imgurl: 'https://blog-1302893975.cos.ap-beijing.myqcloud.com/pic/avatar.webp?imageSlim',  
-    desc: '理解以真实为本，但真实本身并不会自动呈现',  
-    siteurl: 'https://www.lapis.cafe',  
-    tags: ['博客'],  
   },
 ]
 ---
