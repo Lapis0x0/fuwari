@@ -48,6 +48,28 @@ lang: jp      # Set only if the post's language differs from the site's language
 ---
 ```
 
+## Extended Markdown Syntax
+
+Fuwari supports additional Markdown syntax for richer content embedding.
+
+### Audio Player
+
+Embed an HTML5 audio player using the following syntax:
+
+`!audio[alt text](audio_url "optional title")`
+
+-   `alt text`: Descriptive text for the audio, primarily for accessibility (currently not displayed visually but good practice to include).
+-   `audio_url`: The direct URL to the audio file (e.g., MP3, WAV, OGG).
+-   `optional title`: A title for the audio track that may be displayed by the player or as a tooltip.
+
+**Example:**
+
+```markdown
+!audio[My awesome podcast episode](https://example.com/podcast.mp3 "Podcast Episode 1: The Beginning")
+```
+
+This will render a styled audio player in your post.
+
 ## 🧞 Commands
 
 All commands are run from the root of the project, from a terminal:

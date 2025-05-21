@@ -243,3 +243,72 @@ a.card-github.fetch-error
   transition-property: all
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1)
   transition-duration: 0.15s
+
+  .audio-player
+    margin: 1.5rem 0
+    padding: 0.75rem 1rem
+    background-color: var(--blockquote-bg) // Using blockquote bg for a slightly inset look
+    border: 1px solid var(--line-divider)
+    border-radius: var(--radius-medium) // Consistent with other elements
+    width: 100%
+    box-sizing: border-box
+
+    audio[controls]
+      width: 100%
+      display: block // Ensures it behaves as a block element within the padded container
+      // Basic colors for Firefox and as a fallback
+      color: var(--primary) // Suggests color for icons/text to Firefox
+      background-color: transparent // Lets container background show through
+
+      // WebKit/Blink specific styling (Chrome, Edge, Safari, Opera)
+      &::-webkit-media-controls-panel
+        background-color: transparent // Panel blends with .audio-player background
+        border-radius: var(--radius-small)
+        color: var(--tw-prose-body) // Text color for time, etc.
+
+      &::-webkit-media-controls-play-button
+        color: var(--primary)
+        // background-color: var(--primary-bg-hover) // Example for a subtle button bg
+        // border-radius: 50% // If we want circular buttons
+
+        &:hover
+          // background-color: var(--primary-bg-active) // Example hover
+          filter: brightness(1.2)
+
+      &::-webkit-media-controls-timeline
+        background-color: var(--line-alt-divider) // Background of the timeline track
+        border-radius: var(--radius-small)
+        height: 0.5rem // Make timeline a bit thicker
+        margin: 0 0.5rem // Add some horizontal margin
+
+      // For the progress value itself (filled part of the timeline)
+      // This is often ::-webkit-progress-value or similar inside the timeline,
+      // but styling the timeline background and then the bar on top can be tricky.
+      // Sometimes, the browser's default color for the filled part is based on accent color.
+      // Let's assume for now the default filled color will contrast well enough or inherit accent.
+      // If not, specific pseudo-elements like ::-webkit-media-slider-thumb or ::-webkit-progress-value would be needed.
+
+      &::-webkit-media-controls-current-time-display,
+      &::-webkit-media-controls-time-remaining-display
+        color: var(--text-muted) // Softer color for time text
+        font-size: 0.9em
+        padding: 0 0.25rem
+
+      &::-webkit-media-controls-volume-slider
+        // Similar to timeline, could style track and thumb
+        // color: var(--primary) // Might influence the thumb color
+
+      &::-webkit-media-controls-mute-button,
+      &::-webkit-media-controls-fullscreen-button, // If present
+      &::-webkit-media-controls-toggle-closed-captions-button // If present
+        color: var(--text-muted)
+        &:hover
+          color: var(--primary)
+          filter: brightness(1.2)
+
+      // Firefox specific considerations (very limited styling for default controls)
+      // Most of the above ::-webkit- aint gonna work.
+      // Firefox tends to use the `color` property for icons and `background-color` for the panel.
+      // The `accent-color` CSS property can influence some form elements,
+      // potentially including parts of the audio player in newer Firefox versions.
+      accent-color: var(--primary) // This might style the progress bar and volume slider in Firefox
