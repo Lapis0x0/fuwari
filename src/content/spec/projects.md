@@ -21,7 +21,9 @@ projects:
         description: 日常随手写的小工具
         posts:
           - 使用 Qwen VL 系列模型实现图片分类和OCR任务
-      
+          - 仓鼠速递：远程VPS+TG Bot实现离线下载并上传至OneDrive
+          - 通过Github Action实现自动推送英文外刊到Obsidian中
+        
       - id: deeplearning-research
         title: 模型考古学
         description: 模型考古学系列文章
