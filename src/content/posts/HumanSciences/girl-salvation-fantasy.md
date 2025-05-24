@@ -8,6 +8,14 @@ category: 人类研究
 draft: false
 ---
 
+<div class="audio-player-container" data-audio-src="https://data.lapis.cafe/api/raw?path=/%E6%92%AD%E5%AE%A2/%E4%BB%8E%E2%80%9C%E6%8D%A1%E5%88%B0%E5%A5%B3%E9%AB%98%E4%B8%AD%E7%94%9F%E2%80%9D%E5%88%B0%E2%80%9C%E8%90%9D%E8%8E%89%E5%A6%88%E5%A6%88%E2%80%9D%E2%80%94%E2%80%94%E7%9C%8B%E7%8E%B0%E4%BB%A3%E7%A4%BE%E4%BC%9A%E4%B8%AD%E7%94%B7%E6%80%A7%E7%9A%84%E7%88%B1%E4%B8%8E%E6%80%A7%E9%9C%80%E6%B1%82.wav">
+  <h3>从“捡到女高中生”到“萝莉妈妈”——看现代社会中男性的爱与性需求</h3>
+  <audio controls></audio>
+  <p class="audio-caption">你也可以在这里收听本文的AI播客版本</p>
+  <a href="#" class="audio-download">下载音频</a>
+</div>
+
+
 # 一、前言：恋爱幻想中的“拯救”与退行
 
 在当代二次元文化中，有一类叙事反复出现：
