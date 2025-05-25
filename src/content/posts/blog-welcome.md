@@ -86,6 +86,8 @@ pinned: true
 
 [评OpenAI发布o3&o4mini：喧嚣落幕，长路开启](https://www.lapis.cafe/posts/ai--deep-learning/tech-review-openai-o3/)
 
+[浅谈ChatGPT的记忆实现机制 兼论工程端记忆设计](https://www.lapis.cafe/posts/TechnicalTutorials/chatgpt-memory-system-breakdown/)
+
 # Trading101 璿玑楮痕系列
 
 此系列旨在拆解投资与量化交易中的核心概念与操作逻辑，系统化地介绍技术指标与策略设计的基本原理。文章结合理论与实践，为读者提供清晰的工具与框架，以助其更科学地理解市场行为。
