@@ -1,6 +1,6 @@
 ---
 title: 《债务危机》书评&笔记
-published: 2025-05-25
+published: 2025-05-24
 description: "达利欧《债务危机》的书评与读书笔记，自用"
 image: ""
 tags: ["书评"]
