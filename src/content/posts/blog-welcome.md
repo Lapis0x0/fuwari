@@ -66,6 +66,8 @@ pinned: true
 
 [人类简史书评&笔记：想象的共同体](https://www.lapis.cafe/posts/HumanSciences/history-of-humankind/)
 
+[《债务危机》书评&笔记](https://www.lapis.cafe/posts/finance--economics/review-ray-dalio-debt-crisis/)
+
 # 模型考古学系列
 
 本专题最初主要是重温一些经典大模型的技术报告和论文，现在可能会根据当前学界业界的最近论文更新内容。
