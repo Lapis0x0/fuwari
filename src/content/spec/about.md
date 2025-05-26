@@ -33,16 +33,16 @@ description: "时歌的所思所想，以及这个小小世界的入口"
   </p>
   <div class="qrcode-container" style="display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap;">
     <div class="qrcode-item" style="text-align: center;">
-      <div style="background-color: #fff; padding: 1rem; border-radius: 8px; display: inline-block; margin-bottom: 0.5rem;">
+      <div style="margin-bottom: 0.5rem;">
         <!-- 替换为你的微信赞赏码图片链接 -->
-        <img src="/public/images/vote/weixin.jpg" alt="微信赞赏码" style="width: 180px; height: 180px;">
+        <img src="/images/vote/weixin.jpg" alt="微信赞赏码" style="width: 180px; height: 180px;">
       </div>
       <p style="margin: 0; color: #07c160; font-weight: bold;">微信赞赏</p>
     </div>
     <div class="qrcode-item" style="text-align: center;">
-      <div style="background-color: #fff; padding: 1rem; border-radius: 8px; display: inline-block; margin-bottom: 0.5rem;">
+      <div style="margin-bottom: 0.5rem;">
         <!-- 替换为你的支付宝赞赏码图片链接 -->
-        <img src="/public/images/vote/zhifubao.jpg" alt="支付宝赞赏码" style="width: 180px; height: 180px;">
+        <img src="/images/vote/zhifubao.jpg" alt="支付宝赞赏码" style="width: 180px; height: 180px;">
       </div>
       <p style="margin: 0; color: #1677ff; font-weight: bold;">支付宝赞赏</p>
     </div>
