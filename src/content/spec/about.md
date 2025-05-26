@@ -23,30 +23,31 @@ description: "时歌的所思所想，以及这个小小世界的入口"
 
 📬 联系邮箱：[**lapiscafe@foxmail.com**](mailto:lapiscafe@foxmail.com)
 
-> 我会信奉正义，但我所学尽是压榨抗辩之说
-> 
-> 我以为我会向往黑暗，但我仍然追逐着太阳的光辉
-> 
-> 我以为现状总是最好的，但我也向往圣人口中的耀眼远方
-> 
-> 我以为我可以永远做自己，但时代的浪潮推动着每一个人前进
-> 
-> 他们和我说那会是个伟大的时代，但是在那之前需要更多的人在地上才能走到对岸
-> 
-> 我以为我能心安理得的等待那样的未来，只是作为一个过客看着
-> 
-> 但我是个骄傲的人，我是个傲慢的人
-> 
-> 我想要用我一生的思考来为这个文明的火炉添一桶油
-> 
-> 我大概是也是一个自私的庸人
-> 
-> 我也想沽名钓誉
-> 
-> 我也想封狼居胥，饮马瀚海，在历史中刻下自己的名字
-> 
-> 功成不必在我，功成必定有我。
-> 
+---
+
+<div class="appreciation-container" style="text-align: center; margin: 2rem auto; padding: 2rem; border-radius: 10px; background-color: #f8f9fa; max-width: 650px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+  <h2 style="color: #333; margin-bottom: 1rem;">赞赏支持</h2>
+  <p style="color: #666; margin-bottom: 1.5rem; line-height: 1.6;">
+    如果你觉得我的博客内容对你有所帮助或启发，可以考虑赞赏支持我继续创作。<br>
+    你的每一份支持都是我前进的动力，非常感谢！
+  </p>
+  <div class="qrcode-container" style="display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap;">
+    <div class="qrcode-item" style="text-align: center;">
+      <div style="background-color: #fff; padding: 1rem; border-radius: 8px; display: inline-block; margin-bottom: 0.5rem;">
+        <!-- 替换为你的微信赞赏码图片链接 -->
+        <img src="/public/images/vote/weixin.jpg" alt="微信赞赏码" style="width: 180px; height: 180px;">
+      </div>
+      <p style="margin: 0; color: #07c160; font-weight: bold;">微信赞赏</p>
+    </div>
+    <div class="qrcode-item" style="text-align: center;">
+      <div style="background-color: #fff; padding: 1rem; border-radius: 8px; display: inline-block; margin-bottom: 0.5rem;">
+        <!-- 替换为你的支付宝赞赏码图片链接 -->
+        <img src="/public/images/vote/zhifubao.jpg" alt="支付宝赞赏码" style="width: 180px; height: 180px;">
+      </div>
+      <p style="margin: 0; color: #1677ff; font-weight: bold;">支付宝赞赏</p>
+    </div>
+  </div>
+</div>
 
 ---
 
