@@ -142,6 +142,8 @@ pinned: true
 
 [从“捡到女高中生”到“萝莉妈妈”——看现代社会中男性的爱与性需求](https://www.lapis.cafe/posts/humansciences/girl-salvation-fantasy/)
 
+[儿童节专题｜从裙子到雌激素：伪娘、药娘与性别拟象的进化论](https://www.lapis.cafe/posts/HumanSciences/gender-femboy-sissy-evolution/)
+
 # 风自东方来
 
 讲述一场从边缘吹向中心的风。
