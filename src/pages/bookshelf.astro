@@ -43,6 +43,20 @@ function getCoverUrl(book: BookRecord): string | null {
   }
   return null;
 }
+
+// 添加一个常量用于图片加载失败的样式
+const FALLBACK_STYLES = {
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  height: '100%',
+  width: '100%',
+  padding: '1rem',
+  backgroundColor: 'var(--bg-2)',
+  color: 'var(--text-2)',
+  textAlign: 'center',
+  fontSize: '0.875rem'
+};
 ---
 
 <MainGridLayout title={i18n(I18nKey.bookshelf)} description={i18n(I18nKey.bookshelf)}>
@@ -73,15 +87,31 @@ function getCoverUrl(book: BookRecord): string | null {
               <div class="group relative flex flex-col bg-white/80 dark:bg-zinc-900 rounded-xl shadow hover:shadow-xl transition-shadow duration-300 border border-zinc-100 dark:border-zinc-800 min-h-[340px]">
                 <div class="aspect-[3/4] overflow-hidden rounded-t-xl bg-zinc-100 dark:bg-zinc-900">
                   {getCoverUrl(book) ? (
-                    <img 
-                      src={getCoverUrl(book)}
-                      alt={book.fields['书名']} 
-                      class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
-                      loading="lazy"
-                    />
+                    <>
+                      <img 
+                        src={getCoverUrl(book)}
+                        alt={book.fields['书名']} 
+                        class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                        loading="lazy"
+                        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                      />
+                      <div class="flex h-full w-full items-center justify-center p-4 book-cover-fallback" style="display: none;">
+                        <div class="text-center w-full">
+                          <div class="font-bold text-base mb-2 line-clamp-3">{book.fields['书名'] || ''}</div>
+                          {book.fields['作者'] && book.fields['作者'].length > 0 && (
+                            <div class="text-xs opacity-80 mt-2">{book.fields['作者'].join(', ')}</div>
+                          )}
+                        </div>
+                      </div>
+                    </>
                   ) : (
-                    <div class="flex h-full w-full items-center justify-center bg-zinc-100 dark:bg-zinc-900 p-4">
-                      <span class="text-center text-sm text-[var(--text-2)]">{book.fields['书名']}</span>
+                    <div class="flex h-full w-full items-center justify-center p-4 book-cover-fallback">
+                      <div class="text-center w-full">
+                        <div class="font-bold text-base mb-2 line-clamp-3">{book.fields['书名'] || ''}</div>
+                        {book.fields['作者'] && book.fields['作者'].length > 0 && (
+                          <div class="text-xs opacity-80 mt-2">{book.fields['作者'].join(', ')}</div>
+                        )}
+                      </div>
                     </div>
                   )}
                 </div>
@@ -166,8 +196,35 @@ function getCoverUrl(book: BookRecord): string | null {
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
   .group:hover .overlay {
     opacity: 1 !important;
     visibility: visible !important;
+  }
+  .book-cover-fallback {
+    background: linear-gradient(135deg, var(--primary-light, #6366f1) 0%, var(--primary, #4f46e5) 100%);
+    color: white;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    border-radius: 0.75rem 0.75rem 0 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .book-cover-fallback::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 60%);
+    opacity: 0.6;
+  }
+  .dark .book-cover-fallback {
+    background: linear-gradient(135deg, var(--primary-dark, #4f46e5) 0%, var(--primary-darker, #3730a3) 100%);
   }
 </style>
