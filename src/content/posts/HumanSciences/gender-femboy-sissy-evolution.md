@@ -3,7 +3,7 @@ title: 儿童节专题｜从裙子到雌激素：伪娘、药娘与性别拟象�
 published: 2025-05-30
 description: "儿童节快到了，整点抽象的活"
 image: "https://blog-1302893975.cos.ap-beijing.myqcloud.com/pic/202505300412749.png?imageSlim"
-tags: ["心理学与神经科学"]
+tags: ["亚文化研究"]
 category: 人类研究
 draft: false
 ---
