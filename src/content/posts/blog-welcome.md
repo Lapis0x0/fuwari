@@ -156,3 +156,5 @@ pinned: true
 
 [风自东方来｜鸿蒙PC市场生态前瞻与私货输出](https://www.lapis.cafe/posts/finance--economics/harmonyos-pc-ecology-2025/)
 
+[信息洪流中的官僚体系：苏联央地关系与大部委制度反思](https://www.lapis.cafe/posts/finance--economics/planning-vs-market-ussr/)
+
