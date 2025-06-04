@@ -44,6 +44,9 @@ let links: NavBarLink[] = navBarConfig.links.map(
         </div>
         <div class="flex">
             <!--<SearchPanel client:load>-->
+            <a href={url('/pizza-search')} aria-label="站内搜索" class="btn-plain scale-animation rounded-lg h-11 w-11 flex items-center justify-center active:scale-90 mr-1">
+                <Icon name="material-symbols:search" class="text-[1.5rem]" />
+            </a>
             <Search client:only="svelte"></Search>
             {!siteConfig.themeColor.fixed && (
                     <button aria-label="Display Settings" class="btn-plain scale-animation rounded-lg h-11 w-11 active:scale-90" id="display-settings-switch">
