@@ -37,4 +37,5 @@ export const en: Translation = {
   [Key.license]: 'License',
   [Key.friends]: 'Friends',
   [Key.bookshelf]: 'Bookshelf',
+  [Key.projects]: 'Projects',
 }

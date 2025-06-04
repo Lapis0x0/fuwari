@@ -37,4 +37,5 @@ export const ja: Translation = {
   [Key.license]: 'ライセンス',
   [Key.friends]: 'フレンド',
   [Key.bookshelf]: '本棚',
+  [Key.projects]: 'プロジェクト',
 }
