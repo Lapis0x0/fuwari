@@ -87,6 +87,17 @@ let keyword = '';
 let results = [];
 let loading = false;
 let error = '';
+let searchTimeout: ReturnType<typeof setTimeout> | null = null;
+
+// 防抖函数，避免频繁搜索导致的闪烁
+function debounce(fn: Function, delay: number = 300) {
+  return function(...args: any[]) {
+    if (searchTimeout) clearTimeout(searchTimeout);
+    searchTimeout = setTimeout(() => {
+      fn(...args);
+    }, delay);
+  }
+}
 
 async function searchPizza() {
   if (!keyword) {
@@ -111,7 +122,9 @@ async function searchPizza() {
   }
 }
 
-$: keyword, searchPizza();
+// 使用防抖处理搜索，减少闪烁
+const debouncedSearch = debounce(searchPizza, 300);
+$: keyword && debouncedSearch();
 </script>
 
 <!-- 桌面端和移动端通用搜索框 -->
@@ -195,11 +208,27 @@ $: keyword, searchPizza();
       margin: 0 8px;
     }
     .search-result-pop {
+      /* 恢复为absolute定位，确保显示在搜索框下方 */
+      position: absolute;
+      top: 100%;
       left: 0;
       right: 0;
-      min-width: 0;
-      width: 100vw;
+      width: calc(100% - 16px); /* 减去边距 */
+      max-height: 70vh; /* 最大高度限制为屏幕高度70% */
+      margin: 8px auto 0;
       border-radius: 0.75rem;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+      z-index: 1000;
+    }
+    
+    /* 搜索结果内容样式优化 */
+    .search-result-pop a {
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid rgba(229, 231, 235, 0.1);
+    }
+    
+    .search-result-pop a:last-child {
+      border-bottom: none;
     }
   }
   input:focus {
