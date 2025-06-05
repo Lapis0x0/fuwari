@@ -112,27 +112,27 @@ $: keyword, searchPizza();
     />
   </div>
   {#if keyword && (loading || error || results.length > 0)}
-    <div class="search-result-pop absolute left-0 mt-2 w-full z-50 bg-white dark:bg-[#23272f] rounded-xl shadow-2xl border border-gray-100 dark:border-gray-800 overflow-auto max-h-96">
+    <div class="search-result-pop absolute left-0 mt-2 w-full z-50 bg-white dark:bg-[#1e2127] rounded-xl shadow-lg dark:shadow-2xl border border-gray-100 dark:border-gray-800/50 overflow-auto max-h-[85vh]">
       {#if loading}
-        <div class="py-4 text-center text-sm text-gray-400">搜索中...</div>
+        <div class="py-4 text-center text-sm text-gray-400 dark:text-gray-500">搜索中...</div>
       {/if}
       {#if error}
-        <div class="py-4 text-center text-sm text-red-500">{error}</div>
+        <div class="py-4 text-center text-sm text-red-500 dark:text-red-400">{error}</div>
       {/if}
       {#if keyword && !loading && results.length === 0}
-        <div class="py-4 text-center text-sm text-gray-400">未找到相关内容</div>
+        <div class="py-4 text-center text-sm text-gray-400 dark:text-gray-500">未找到相关内容</div>
       {/if}
       {#each results as item}
-        <a href={item.url} class="block rounded-xl px-3 py-2 mb-1 hover:bg-[var(--btn-plain-bg-hover)] active:bg-[var(--btn-plain-bg-active)] transition">
-          <div class="font-bold text-base text-gray-900 dark:text-white flex items-center">
+        <a href={item.url} class="block rounded-xl px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-800/50 active:bg-gray-100 dark:active:bg-gray-800/80 transition duration-150">
+          <div class="font-bold text-base text-gray-900 dark:text-gray-50 flex items-center">
             {item.title}
-            <svg class="ml-2 text-[0.9rem] text-[var(--primary)]" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="m16.59 8.59-4.58 4.58L7.41 8.59 6 10l6 6 6-6z"/></svg>
+            <svg class="ml-2 text-[0.9rem] text-[var(--primary)] dark:text-[var(--primary-dark,var(--primary))]" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="m16.59 8.59-4.58 4.58L7.41 8.59 6 10l6 6 6-6z"/></svg>
           </div>
-          <div class="text-sm text-gray-500 dark:text-gray-300 line-clamp-2">{item.summary}</div>
+          <div class="text-sm text-gray-600 dark:text-gray-300 line-clamp-2 mt-1">{item.summary}</div>
           {#if item.tags?.length}
-            <div class="mt-1 flex flex-wrap gap-2">
+            <div class="mt-2 flex flex-wrap gap-1.5">
               {#each item.tags as tag}
-                <span class="px-2 py-0.5 rounded bg-gray-100 dark:bg-gray-700 text-xs text-gray-600 dark:text-gray-200">{tag}</span>
+                <span class="px-2 py-0.5 rounded-md bg-gray-100/80 dark:bg-gray-700/80 text-xs text-gray-600 dark:text-gray-100 border border-transparent dark:border-gray-600/30">{tag}</span>
               {/each}
             </div>
           {/if}
@@ -152,13 +152,26 @@ $: keyword, searchPizza();
     position: relative;
   }
   .search-result-pop {
-    box-shadow: 0 8px 24px rgba(0,0,0,0.08), 0 1.5px 6px rgba(0,0,0,0.04);
+    /* 移除固定背景色和边框，改用CSS变量 */
+    --search-shadow: 0 8px 24px rgba(0,0,0,0.08), 0 1.5px 6px rgba(0,0,0,0.04);
+    --search-border: 1px solid var(--border-color, #eee);
+    --search-bg: var(--bg-color, #fff);
+    
+    box-shadow: var(--search-shadow);
     border-radius: 1rem;
-    border: 1px solid #eee;
-    background: #fff;
+    border: var(--search-border);
+    /* 背景色由Tailwind类控制，此处移除 */
     z-index: 100;
     margin-top: 0.5rem;
     min-width: 220px;
+  }
+  
+  /* 适配深色模式 */
+  :global(.dark) .search-result-pop {
+    --search-shadow: 0 8px 24px rgba(0,0,0,0.25), 0 1.5px 6px rgba(0,0,0,0.15);
+    --search-border: 1px solid rgba(75, 85, 99, 0.3);
+    --border-color: rgba(75, 85, 99, 0.3);
+    --bg-color: #1e2127;
   }
   @media (max-width: 600px) {
     .search-bar-wrapper {
