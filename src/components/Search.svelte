@@ -28,6 +28,21 @@ const fakeResult = [
 let search = (keyword: string, isDesktop: boolean) => {}
 
 onMount(() => {
+  // 外部点击/触摸隐藏弹窗
+  function handleClickOutside(e: MouseEvent | TouchEvent) {
+    const searchWrapper = document.querySelector('.search-bar-wrapper');
+    if (searchWrapper && !searchWrapper.contains(e.target as Node)) {
+      keyword = '';
+    }
+  }
+  document.addEventListener('mousedown', handleClickOutside);
+  document.addEventListener('touchstart', handleClickOutside);
+  // 清理监听
+  return () => {
+    document.removeEventListener('mousedown', handleClickOutside);
+    document.removeEventListener('touchstart', handleClickOutside);
+  };
+
   search = async (keyword: string, isDesktop: boolean) => {
     let panel = document.getElementById('search-panel')
     if (!panel) return
