@@ -7,7 +7,7 @@ tags: []
 category: 深度学习
 draft: false
 ---
-我在[2024年10月19日的博客](https://www.lapis.cafe/posts/ai--deep-learning/%E4%B8%BA%E4%BB%80%E4%B9%88%E6%88%91%E8%BF%87%E5%8E%BB%E7%8E%B0%E5%9C%A8%E4%B9%83%E8%87%B3%E6%9C%AA%E6%9D%A5%E9%83%BD%E7%9C%8B%E7%A9%BA%E9%9B%B6%E4%B8%80%E4%B8%87%E7%89%A9/)中曾经很明确地预判过：
+我在[2024年10月19日的博客](https://www.lapis.cafe/posts/ai-and-deep-learning/%E4%B8%BA%E4%BB%80%E4%B9%88%E6%88%91%E8%BF%87%E5%8E%BB%E7%8E%B0%E5%9C%A8%E4%B9%83%E8%87%B3%E6%9C%AA%E6%9D%A5%E9%83%BD%E7%9C%8B%E7%A9%BA%E9%9B%B6%E4%B8%80%E4%B8%87%E7%89%A9/)中曾经很明确地预判过：
 
 :::note
 我作为金融壬持续看空零一万物这家公司，无论是它的商业逻辑还是运营能力，在我看来都难以支撑其「独角兽」的市场地位。

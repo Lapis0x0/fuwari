@@ -58,33 +58,33 @@ pinned: true
 
 [从《学园孤岛》看解离型身份障碍](https://www.lapis.cafe/posts/essays/%E4%BB%8E%E5%AD%A6%E5%9B%AD%E5%AD%A4%E5%B2%9B%E7%9C%8B%E8%A7%A3%E7%A6%BB%E5%9E%8B%E8%BA%AB%E4%BB%BD%E9%9A%9C%E7%A2%8D/)
 
-[《经济学研究入门指南》书评](https://www.lapis.cafe/posts/finance--economics/book-review-of-doing-economics/)
+[《经济学研究入门指南》书评](https://www.lapis.cafe/posts/finance-and-economics/book-review-of-doing-economics/)
 
 [人类简史书评&笔记：想象的共同体](https://www.lapis.cafe/posts/HumanSciences/history-of-humankind/)
 
-[《债务危机》书评&笔记](https://www.lapis.cafe/posts/finance--economics/review-ray-dalio-debt-crisis/)
+[《债务危机》书评&笔记](https://www.lapis.cafe/posts/finance-and-economics/review-ray-dalio-debt-crisis/)
 
 # 模型考古学系列
 
 本专题最初主要是重温一些经典大模型的技术报告和论文，现在可能会根据当前学界业界的最近论文更新内容。
 
-[模型考古学（一）：大模型原理探赜](https://www.lapis.cafe/posts/ai--deep-learning/deeplearning-research-001/)
+[模型考古学（一）：大模型原理探赜](https://www.lapis.cafe/posts/ai-and-deep-learning/deeplearning-research-001/)
 
-[模型考古学（二）：视觉大模型发展梳理与Qwen2-VL论文解读](https://www.lapis.cafe/posts/ai--deep-learning/deeplearning-research-002/)
+[模型考古学（二）：视觉大模型发展梳理与Qwen2-VL论文解读](https://www.lapis.cafe/posts/ai-and-deep-learning/deeplearning-research-002/)
 
-[模型考古学（三）：Agent 系统概述](https://www.lapis.cafe/posts/ai--deep-learning/deeplearning-research-003/)
+[模型考古学（三）：Agent 系统概述](https://www.lapis.cafe/posts/ai-and-deep-learning/deeplearning-research-003/)
 
-[模型考古学（四）：RAG技术解析](https://www.lapis.cafe/posts/ai--deep-learning/deeplearning-research-004/)
+[模型考古学（四）：RAG技术解析](https://www.lapis.cafe/posts/ai-and-deep-learning/deeplearning-research-004/)
 
-[模型考古学（五）：Minimax-01 模型技术报告简读](https://www.lapis.cafe/posts/ai--deep-learning/minimax-01-report/)
+[模型考古学（五）：Minimax-01 模型技术报告简读](https://www.lapis.cafe/posts/ai-and-deep-learning/minimax-01-report/)
 
-[模型考古学（六）：DeepSeek V3和R1技术报告浅析](https://www.lapis.cafe/posts/ai--deep-learning/deepseek-v3-r1-report/)
+[模型考古学（六）：DeepSeek V3和R1技术报告浅析](https://www.lapis.cafe/posts/ai-and-deep-learning/deepseek-v3-r1-report/)
 
-[模型考古学（七）：Qwen2.5-Omni技术报告解读](https://www.lapis.cafe/posts/ai--deep-learning/qwen-25-omni-r1-report/)
+[模型考古学（七）：Qwen2.5-Omni技术报告解读](https://www.lapis.cafe/posts/ai-and-deep-learning/qwen-25-omni-r1-report/)
 
-[模型考古学（八）：Llama4发布——并非领先](https://www.lapis.cafe/posts/ai--deep-learning/llama-4-report/)
+[模型考古学（八）：Llama4发布——并非领先](https://www.lapis.cafe/posts/ai-and-deep-learning/llama-4-report/)
 
-[评OpenAI发布o3&o4mini：喧嚣落幕，长路开启](https://www.lapis.cafe/posts/ai--deep-learning/tech-review-openai-o3/)
+[评OpenAI发布o3&o4mini：喧嚣落幕，长路开启](https://www.lapis.cafe/posts/ai-and-deep-learning/tech-review-openai-o3/)
 
 [浅谈ChatGPT的记忆实现机制 兼论工程端记忆设计](https://www.lapis.cafe/posts/TechnicalTutorials/chatgpt-memory-system-breakdown/)
 
@@ -92,9 +92,9 @@ pinned: true
 
 此系列旨在拆解投资与量化交易中的核心概念与操作逻辑，系统化地介绍技术指标与策略设计的基本原理。文章结合理论与实践，为读者提供清晰的工具与框架，以助其更科学地理解市场行为。
 
-[Trading101：简析投资中常见的技术指标和其背后的逻辑](https://www.lapis.cafe/posts/finance--economics/trading101-investing-indicator-logic/)
+[Trading101：简析投资中常见的技术指标和其背后的逻辑](https://www.lapis.cafe/posts/finance-and-economics/trading101-investing-indicator-logic/)
 
-[Trading101：策略交易解析](https://www.lapis.cafe/posts/finance--economics/trading101-quant-trading/)
+[Trading101：策略交易解析](https://www.lapis.cafe/posts/finance-and-economics/trading101-quant-trading/)
 
 # 定期投资月报
 
@@ -112,17 +112,17 @@ pinned: true
 
 水面之下，方见真章。
 
-[暗涌系列：Ark Invest《Big Ideas 2025》报告浅析 Part 1](https://www.lapis.cafe/posts/finance--economics/darkwave-bigideas2025-p1/)
+[暗涌系列：Ark Invest《Big Ideas 2025》报告浅析 Part 1](https://www.lapis.cafe/posts/finance-and-economics/darkwave-bigideas2025-p1/)
 
-[暗涌系列：Ark Invest《Big Ideas 2025》报告浅析 Part 2](https://www.lapis.cafe/posts/finance--economics/darkwave-bigideas2025-p2/)
+[暗涌系列：Ark Invest《Big Ideas 2025》报告浅析 Part 2](https://www.lapis.cafe/posts/finance-and-economics/darkwave-bigideas2025-p2/)
 
-[一份关于美联储的报告（上）：联储介绍与基本经济概念的厘定](https://www.lapis.cafe/posts/finance--economics/fed-report-01/)
+[一份关于美联储的报告（上）：联储介绍与基本经济概念的厘定](https://www.lapis.cafe/posts/finance-and-economics/fed-report-01/)
 
-[一份关于美联储的报告（下）：政策工具箱与宏观经济指标的运作逻辑](https://www.lapis.cafe/posts/finance--economics/fed-report-02/)
+[一份关于美联储的报告（下）：政策工具箱与宏观经济指标的运作逻辑](https://www.lapis.cafe/posts/finance-and-economics/fed-report-02/)
 
-[教书为生，非命为代价：不眠的教培机器与增长困境](https://www.lapis.cafe/posts/finance--economics/education-growth-cost)
+[教书为生，非命为代价：不眠的教培机器与增长困境](https://www.lapis.cafe/posts/finance-and-economics/education-growth-cost)
 
-[IMF FSSA 2025：中国金融系统稳定性评估解读](https://www.lapis.cafe/posts/finance--economics/imf-fssa-2025-china-risk-review)
+[IMF FSSA 2025：中国金融系统稳定性评估解读](https://www.lapis.cafe/posts/finance-and-economics/imf-fssa-2025-china-risk-review)
 
 # 人类研究
 
@@ -148,13 +148,13 @@ pinned: true
 
 讲述一场从边缘吹向中心的风。
 
-[中国与世界的现代化专题（一）：萝卜快跑，社会结构与国际价值链分工](https://www.lapis.cafe/posts/finance--economics/%E4%B8%AD%E5%9B%BD%E4%B8%8E%E4%B8%96%E7%95%8C%E7%9A%84%E7%8E%B0%E4%BB%A3%E5%8C%96%E4%B8%93%E9%A2%98%E4%B8%80%E8%90%9D%E5%8D%9C%E5%BF%AB%E8%B7%91%E7%A4%BE%E4%BC%9A%E7%BB%93%E6%9E%84%E4%B8%8E%E5%9B%BD%E9%99%85%E4%BB%B7%E5%80%BC%E9%93%BE%E5%88%86%E5%B7%A5/)
+[中国与世界的现代化专题（一）：萝卜快跑，社会结构与国际价值链分工](https://www.lapis.cafe/posts/finance-and-economics/%E4%B8%AD%E5%9B%BD%E4%B8%8E%E4%B8%96%E7%95%8C%E7%9A%84%E7%8E%B0%E4%BB%A3%E5%8C%96%E4%B8%93%E9%A2%98%E4%B8%80%E8%90%9D%E5%8D%9C%E5%BF%AB%E8%B7%91%E7%A4%BE%E4%BC%9A%E7%BB%93%E6%9E%84%E4%B8%8E%E5%9B%BD%E9%99%85%E4%BB%B7%E5%80%BC%E9%93%BE%E5%88%86%E5%B7%A5/)
 
-[中国与世界的现代化专题（二）：货币的本质与中国的税收体系](https://www.lapis.cafe/posts/finance--economics/%E4%B8%AD%E5%9B%BD%E4%B8%8E%E4%B8%96%E7%95%8C%E7%9A%84%E7%8E%B0%E4%BB%A3%E5%8C%96%E4%B8%93%E9%A2%98%E4%BA%8C%E8%B4%A7%E5%B8%81%E7%9A%84%E6%9C%AC%E8%B4%A8%E4%B8%8E%E4%B8%AD%E5%9B%BD%E7%9A%84%E7%A8%8E%E6%94%B6%E4%BD%93%E7%B3%BB/)
+[中国与世界的现代化专题（二）：货币的本质与中国的税收体系](https://www.lapis.cafe/posts/finance-and-economics/%E4%B8%AD%E5%9B%BD%E4%B8%8E%E4%B8%96%E7%95%8C%E7%9A%84%E7%8E%B0%E4%BB%A3%E5%8C%96%E4%B8%93%E9%A2%98%E4%BA%8C%E8%B4%A7%E5%B8%81%E7%9A%84%E6%9C%AC%E8%B4%A8%E4%B8%8E%E4%B8%AD%E5%9B%BD%E7%9A%84%E7%A8%8E%E6%94%B6%E4%BD%93%E7%B3%BB/)
 
-[中国与世界的现代化专题（三）：城投与地方债-从分税制改革到房地产经济的逻辑](https://www.lapis.cafe/posts/finance--economics/china-lgfv-debt/)
+[中国与世界的现代化专题（三）：城投与地方债-从分税制改革到房地产经济的逻辑](https://www.lapis.cafe/posts/finance-and-economics/china-lgfv-debt/)
 
-[风自东方来｜鸿蒙PC市场生态前瞻与私货输出](https://www.lapis.cafe/posts/finance--economics/harmonyos-pc-ecology-2025/)
+[风自东方来｜鸿蒙PC市场生态前瞻与私货输出](https://www.lapis.cafe/posts/finance-and-economics/harmonyos-pc-ecology-2025/)
 
-[信息洪流中的官僚体系：苏联央地关系与大部委制度反思](https://www.lapis.cafe/posts/finance--economics/planning-vs-market-ussr/)
+[信息洪流中的官僚体系：苏联央地关系与大部委制度反思](https://www.lapis.cafe/posts/finance-and-economics/planning-vs-market-ussr/)
 

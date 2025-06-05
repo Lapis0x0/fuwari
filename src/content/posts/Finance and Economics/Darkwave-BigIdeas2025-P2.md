@@ -69,7 +69,7 @@ draft: false
 
 # 七、具身智能
 
-这段直接参见我 [暗涌系列：Ark Invest《Big Ideas 2025》报告浅析 Part 1](https://www.lapis.cafe/posts/finance--economics/darkwave-bigideas2025-p1/) 观点洞察里的「**具身智能**革命进入成本临界点」部分就行了。
+这段直接参见我 [暗涌系列：Ark Invest《Big Ideas 2025》报告浅析 Part 1](https://www.lapis.cafe/posts/finance-and-economics/darkwave-bigideas2025-p1/) 观点洞察里的「**具身智能**革命进入成本临界点」部分就行了。
 
 # 八、可重复利用轨道火箭
 
