@@ -209,7 +209,7 @@ export default defineConfig({
 #### 2.3.1 部署到 Vercel
 部署到Vercel非常简单，默认情况下你的 Astro 项目是一个静态站点。你无需任何额外配置即可将静态 Astro 站点部署到 Vercel。
 * 首先，将你的博客全部代码push到你的GitHub仓库，然后在Vercel里选择import from GitHub
-* Vercel将将自动检测 Astro 项目并自动为其配置正确的设置，一路点点点就行了
+* Vercel将自动检测 Astro 项目并自动为其配置正确的设置，一路点点点就行了
 * 部署后，你可以通过 `https://<your-username>.vercel.app` 访问你的博客，也可以在settings里设置自定义域名
 
 #### 2.3.2 部署到 cloudflare pages
