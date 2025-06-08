@@ -2113,10 +2113,12 @@
         "fields": {
           "书名": "动物化的后现代（二）：游戏性写实主义的诞生",
           "书籍简介": "本书既是后现代论，也是御宅族论，同时更是文学论。\n这是在轻小说流行浪潮构想下执笔的专书，做为一个书写者，在二○○○年代前半期的五年之间，能被卷入如此的社会现实，可说是我意料之外的喜悦，也是个珍贵的经验。\n若没了这个经验，大概就没有《游戏性写实主义的诞生：动物化的后现代2》的产生。即便能写出来，大概也会变成完全不同的内容吧。",
+          "书评": "不推荐现在的中文用户阅读，翻译的质量相较于上本感觉是有所下降；内容分析也没有上一本来的好",
           "二级分支": "社会学-现代资本主义",
           "作者": [
             "东浩纪"
           ],
+          "完成阅读时期": "2025年第二季度",
           "封面": [
             {
               "file_token": "UKhRbpUitoVPR8xxSQicCGJYnBg",
@@ -2128,6 +2130,8 @@
               "local_path": "/images/books/0b04440f81a3cf5b90c29d918f398a37.webp"
             }
           ],
+          "推荐状态": "不行",
+          "阅读进度": "1",
           "领域": "社会学"
         },
         "id": "recuAXRT4saXk8",
@@ -2367,10 +2371,34 @@
         },
         "id": "recuKBGd7vn0dv",
         "record_id": "recuKBGd7vn0dv"
+      },
+      {
+        "fields": {
+          "书名": "八次危机：中国的真实经验（1949-2009）Eight Crises: Lessons from China, 1949-2009",
+          "书籍简介": "《八次危机：中国的真实经验（1949-2009）》是温铁军及其研究团队关于新中国成立以来8次危机的研究文章总集。书中分析了这些危机与国家工业化阶段性特征的关系，认为在城乡二元对立的基本体制矛盾约束下，工业化、城镇化以及整个体制的改革所产生的制度成本均向“三农”转嫁，从而城市的产业资本得以实现“软着陆”，原有体制得以维持。书中强调了“成本转嫁论”，即危机发生时，不同利益群体如何通过各种方式转嫁危机成本，这一观点犹如一把利刃，剖开了经济危机中各方利益博弈的实质。",
+          "二级分支": "政治经济学-中国",
+          "作者": [
+            "温铁军"
+          ],
+          "封面": [
+            {
+              "file_token": "Yoz0bkuQpoJE2QxFK1LcnFnqngb",
+              "name": "image.png",
+              "size": 65660,
+              "tmp_url": "https://open.feishu.cn/open-apis/drive/v1/medias/batch_get_tmp_download_url?file_tokens=Yoz0bkuQpoJE2QxFK1LcnFnqngb",
+              "type": "image/png",
+              "url": "https://open.feishu.cn/open-apis/drive/v1/medias/Yoz0bkuQpoJE2QxFK1LcnFnqngb/download",
+              "local_path": "/images/books/f32dbf6fe4ac5785d612b07f5ff24e6a.webp"
+            }
+          ],
+          "领域": "政治经济学"
+        },
+        "id": "recuMYX5a8FVP3",
+        "record_id": "recuMYX5a8FVP3"
       }
     ],
-    "total": 94
+    "total": 95
   },
   "msg": "success",
-  "last_updated": "2025-06-01T01:52:34.173870"
+  "last_updated": "2025-06-08T01:45:24.561052"
 }
