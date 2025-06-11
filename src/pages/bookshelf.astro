@@ -3,6 +3,7 @@ import MainGridLayout from '../layouts/MainGridLayout.astro';
 import { i18n } from '../i18n/translation';
 import I18nKey from '../i18n/i18nKey';
 import booksData from '../../public/data/books.json';
+import OptimizedBookCover from '../components/OptimizedBookCover.astro';
 
 // 类型定义
 interface BookRecord {
@@ -88,21 +89,16 @@ const FALLBACK_STYLES = {
                 <div class="aspect-[3/4] overflow-hidden rounded-t-xl bg-zinc-100 dark:bg-zinc-900">
                   {getCoverUrl(book) ? (
                     <>
-                      <img 
+                      <OptimizedBookCover
                         src={getCoverUrl(book)}
                         alt={book.fields['书名']} 
-                        class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                        class="h-full w-full"
+                        width={400}
+                        height={600}
+                        format="webp"
+                        quality={80}
                         loading="lazy"
-                        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
                       />
-                      <div class="flex h-full w-full items-center justify-center p-4 book-cover-fallback" style="display: none;">
-                        <div class="text-center w-full">
-                          <div class="font-bold text-base mb-2 line-clamp-3">{book.fields['书名'] || ''}</div>
-                          {book.fields['作者'] && book.fields['作者'].length > 0 && (
-                            <div class="text-xs opacity-80 mt-2">{book.fields['作者'].join(', ')}</div>
-                          )}
-                        </div>
-                      </div>
                     </>
                   ) : (
                     <div class="flex h-full w-full items-center justify-center p-4 book-cover-fallback">

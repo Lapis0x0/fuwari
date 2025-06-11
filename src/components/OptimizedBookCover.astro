@@ -1,0 +1,156 @@
+---
+// 使用 Astro 内置的图片处理功能
+import { getImage } from 'astro:assets';
+
+export interface Props {
+  src: string | null;
+  alt: string;
+  width?: number;
+  height?: number;
+  format?: 'webp' | 'avif' | 'jpeg' | 'png';
+  quality?: number;
+  class?: string;
+  loading?: 'lazy' | 'eager';
+}
+
+const {
+  src,
+  alt,
+  width = 400,
+  height = 600, // 默认按照书籍封面比例 3:4
+  format = 'webp',
+  quality = 80,
+  class: className = '',
+  loading = 'lazy'
+} = Astro.props;
+
+// 检查src是否为有效路径
+const isValidSrc = src && typeof src === 'string' && src.trim() !== '';
+let optimizedImage;
+let placeholderImage;
+
+if (isValidSrc) {
+  try {
+    // 导入图片（这里假设封面图片已在 public 目录内）
+    const imagePath = src.startsWith('/') ? src : `/${src}`;
+    
+    // 生成优化后的图片
+    optimizedImage = await getImage({
+      src: imagePath,
+      width,
+      height,
+      format,
+      quality
+    });
+    
+    // 生成模糊的低质量占位图
+    placeholderImage = await getImage({
+      src: imagePath,
+      width: Math.floor(width / 10), // 使用远小于原图的尺寸
+      height: Math.floor(height / 10),
+      format,
+      quality: 10 // 低质量
+    });
+  } catch (e) {
+    console.error(`优化图片失败: ${src}`, e);
+  }
+}
+
+// 生成唯一ID用于占位图和实际图片的关联
+const id = `img-${Math.random().toString(36).substring(2, 10)}`;
+---
+
+<div class={`book-cover-container ${className}`}>
+  {isValidSrc && optimizedImage && placeholderImage ? (
+    <div class="relative w-full h-full overflow-hidden">
+      {/* 模糊占位图 */}
+      <div 
+        id={`placeholder-${id}`}
+        class="placeholder-image"
+        style={`background-image: url(${placeholderImage.src}); background-size: cover;`}
+      >
+      </div>
+      
+      {/* 高清图片 */}
+      <img 
+        src={optimizedImage.src} 
+        alt={alt}
+        width={width}
+        height={height}
+        loading={loading}
+        class="actual-image"
+        onload={`document.getElementById('placeholder-${id}')?.classList.add('loaded')`}
+      />
+    </div>
+  ) : (
+    <div class="fallback-container">
+      <div class="fallback-content">
+        {alt}
+      </div>
+    </div>
+  )}
+</div>
+
+<style>
+  .book-cover-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+  
+  .placeholder-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-position: center;
+    filter: blur(20px);
+    transform: scale(1.1);
+    opacity: 1;
+    transition: opacity 0.5s ease-out;
+    z-index: 1;
+  }
+  
+  .placeholder-image.loaded {
+    opacity: 0;
+  }
+  
+  .actual-image {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease-out;
+  }
+  
+  .actual-image:hover {
+    transform: scale(1.05);
+  }
+  
+  .fallback-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--primary-light, #6366f1) 0%, var(--primary, #4f46e5) 100%);
+    color: white;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    border-radius: 0.75rem 0.75rem 0 0;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .fallback-content {
+    padding: 1rem;
+    text-align: center;
+    font-weight: bold;
+  }
+  
+  .dark .fallback-container {
+    background: linear-gradient(135deg, var(--primary-dark, #4f46e5) 0%, var(--primary-darker, #3730a3) 100%);
+  }
+</style>

@@ -1,0 +1,197 @@
+---
+import { Picture } from '@astrojs/image/components';
+
+export interface Props {
+  src: string | null;
+  alt: string;
+  widths?: number[];
+  sizes?: string;
+  formats?: ('avif' | 'webp' | 'jpeg' | 'png' | 'jpg')[];
+  aspectRatio?: number;
+  // 移除 background 属性，因为它与 Picture 组件的类型不兼容
+  fit?: 'cover' | 'contain' | 'fill' | 'inside' | 'outside';
+  position?: 'center' | 'top' | 'right top' | 'right' | 'right bottom' | 'bottom' | 'left bottom' | 'left' | 'left top';
+  class?: string;
+  imgClass?: string;
+  placeholderClass?: string;
+  loading?: 'lazy' | 'eager';
+}
+
+const {
+  src,
+  alt,
+  widths = [400, 800, 1200],
+  sizes = '(max-width: 640px) 400px, (max-width: 1024px) 800px, 1200px',
+  formats = ['webp', 'avif', 'jpg'],
+  aspectRatio = 3/4, // 默认书籍封面比例
+  // background 属性已移除
+  fit = 'cover',
+  position = 'center',
+  class: className = '',
+  imgClass = '',
+  placeholderClass = '',
+  loading = 'lazy'
+} = Astro.props;
+
+// 检查src是否为有效路径
+const isValidSrc = src && typeof src === 'string' && src.trim() !== '';
+
+// 创建模糊占位图的URL（低质量的小图）
+let placeholderSrc = '';
+let hasPlaceholder = false;
+
+if (isValidSrc) {
+  try {
+    // 导入图片以获取元数据
+    const imageImport = await import(`../../public${src}?url`).catch(() => null);
+    if (imageImport) {
+      hasPlaceholder = true;
+      // 这里我们使用相同的图片路径，但在实际使用时会通过CSS处理模糊效果
+      placeholderSrc = src;
+    }
+  } catch (e) {
+    console.error(`Error loading image: ${src}`, e);
+  }
+}
+
+// 生成唯一ID用于占位图和实际图片的关联
+const id = `img-${Math.random().toString(36).substring(2, 10)}`;
+
+const srcString = typeof src === 'string' ? src : '';
+
+---
+
+<div class={`optimized-image-container ${className}`}>
+  {isValidSrc ? (
+    <>
+      {/* 模糊占位图 */}
+      {hasPlaceholder && (
+        <div 
+          id={`placeholder-${id}`}
+          class={`placeholder-image ${placeholderClass}`}
+          style={`background-image: url(${placeholderSrc}); aspect-ratio: ${aspectRatio};`}
+        >
+        </div>
+      )}
+      
+      {/* 高清图片 */}
+      <Picture
+        src={srcString}
+        widths={widths}
+        sizes={sizes}
+        formats={formats}
+        alt={alt}
+        aspectRatio={aspectRatio}
+        fit={fit}
+        position={position}
+        loading={loading}
+        class={`actual-image ${imgClass}`}
+        data-placeholder-id={`placeholder-${id}`}
+      />
+    </>
+  ) : (
+    <div class={`fallback-container ${imgClass}`} style={`aspect-ratio: ${aspectRatio};`}>
+      <div class="fallback-content">
+        {alt}
+      </div>
+    </div>
+  )}
+</div>
+
+<style>
+  .optimized-image-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+  
+  .placeholder-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    filter: blur(20px);
+    transform: scale(1.1);
+    opacity: 1;
+    transition: opacity 0.5s ease-out;
+    z-index: 1;
+  }
+  
+  .placeholder-image.loaded {
+    opacity: 0;
+  }
+  
+  .actual-image {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 0.5s ease-in;
+  }
+  
+  .actual-image.loaded {
+    opacity: 1;
+  }
+  
+  .fallback-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--primary-light, #6366f1) 0%, var(--primary, #4f46e5) 100%);
+    color: white;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    border-radius: 0.75rem 0.75rem 0 0;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .fallback-content {
+    padding: 1rem;
+    text-align: center;
+    font-weight: bold;
+  }
+  
+  .dark .fallback-container {
+    background: linear-gradient(135deg, var(--primary-dark, #4f46e5) 0%, var(--primary-darker, #3730a3) 100%);
+  }
+</style>
+
+<script>
+  // 当图片加载完成后，移除占位图
+  document.addEventListener('DOMContentLoaded', () => {
+    const images = document.querySelectorAll('.actual-image');
+    images.forEach(img => {
+      if (img instanceof HTMLImageElement) {
+        if (img.complete) {
+          const placeholderId = img.dataset.placeholderId;
+          if (placeholderId) {
+            const placeholder = document.getElementById(placeholderId);
+            if (placeholder) {
+              placeholder.classList.add('loaded');
+            }
+          }
+          img.classList.add('loaded');
+        } else {
+          img.onload = () => {
+            const placeholderId = img.dataset.placeholderId;
+            if (placeholderId) {
+              const placeholder = document.getElementById(placeholderId);
+              if (placeholder) {
+                placeholder.classList.add('loaded');
+              }
+            }
+            img.classList.add('loaded');
+          };
+        }
+      }
+    });
+  });
+</script>
