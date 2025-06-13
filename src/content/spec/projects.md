@@ -15,6 +15,7 @@ projects:
           - 不再依赖平台：如何打造自己专属的博客网站？
           - 新一代静态博客框架Astro的部署优化指南与使用体验
           - 用飞书多维文档打造博客书架页—支持 GitHub Actions 自动更新
+          - 「Quartz 4 × Obsidian」：一键发布，构筑属于你的数字花园
           
       - id: projects
         title: 其他小项目
