@@ -2395,10 +2395,17 @@
         },
         "id": "recuMYX5a8FVP3",
         "record_id": "recuMYX5a8FVP3"
+      },
+      {
+        "fields": {
+          "领域": "政治经济学"
+        },
+        "id": "recuNxRztYmOKl",
+        "record_id": "recuNxRztYmOKl"
       }
     ],
-    "total": 95
+    "total": 96
   },
   "msg": "success",
-  "last_updated": "2025-06-08T01:45:24.561052"
+  "last_updated": "2025-06-15T01:47:09.428965"
 }
