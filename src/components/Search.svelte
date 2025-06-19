@@ -15,9 +15,37 @@ let results: SearchResult[] = [];
 let loading = false;
 let error = '';
 let searchTimeout: ReturnType<typeof setTimeout> | null = null;
+let searchIndex: SearchResult[] = []; // 缓存搜索索引
 
-// 防抖函数，避免频繁搜索导致的闪烁
-function debounce(fn: Function, delay: number = 300) {
+onMount(() => {
+  const loadIndex = async () => {
+    try {
+      const res = await fetch('/pizza-search/search-index.json');
+      if (!res.ok) throw new Error('Network response was not ok');
+      searchIndex = await res.json();
+      if (keyword) { // Re-run search if user typed while index was loading
+        searchPizza();
+      }
+    } catch (e) {
+      error = '搜索索引加载失败';
+      console.error(e);
+      loading = false; // Stop loading on error
+    }
+  };
+
+  loadIndex();
+
+  document.addEventListener('mousedown', handleClickOutside);
+  document.addEventListener('touchstart', handleClickOutside);
+  
+  return () => {
+    document.removeEventListener('mousedown', handleClickOutside);
+    document.removeEventListener('touchstart', handleClickOutside);
+  };
+});
+
+// 防抖函数
+function debounce(fn: Function, delay: number = 200) {
   return function(...args: any[]) {
     if (searchTimeout) clearTimeout(searchTimeout);
     searchTimeout = setTimeout(() => {
@@ -26,50 +54,35 @@ function debounce(fn: Function, delay: number = 300) {
   }
 }
 
-async function searchPizza() {
+function searchPizza() {
   if (!keyword) {
     results = [];
     return;
   }
-  loading = true;
-  error = '';
-  try {
-    const res = await fetch('/pizza-search/search-index.json');
-    const data: SearchResult[] = await res.json();
-    const kw = keyword.trim().toLowerCase();
-    results = data.filter((item: SearchResult) =>
-      item.title?.toLowerCase().includes(kw) ||
-      item.summary?.toLowerCase().includes(kw) ||
-      (item.tags && item.tags.join(',').toLowerCase().includes(kw))
-    ).slice(0, 20);
-  } catch (e) {
-    error = '搜索索引加载失败';
-  } finally {
-    loading = false;
+  if (searchIndex.length === 0 && !error) {
+    loading = true; // 如果索引仍在加载中，显示加载状态
+    return;
   }
+  loading = false;
+  
+  const kw = keyword.trim().toLowerCase();
+  results = searchIndex.filter((item: SearchResult) =>
+    item.title?.toLowerCase().includes(kw) ||
+    item.summary?.toLowerCase().includes(kw) ||
+    (item.tags && item.tags.join(',').toLowerCase().includes(kw))
+  ).slice(0, 20);
 }
 
-// 使用防抖处理搜索，减少闪烁
-const debouncedSearch = debounce(searchPizza, 300);
+const debouncedSearch = debounce(searchPizza);
 $: keyword && debouncedSearch();
 
-// 外部点击/触摸隐藏弹窗
 function handleClickOutside(e: MouseEvent | TouchEvent) {
   const searchWrapper = document.querySelector('.search-bar-wrapper');
   if (searchWrapper && !searchWrapper.contains(e.target as Node)) {
     keyword = '';
+    results = [];
   }
 }
-
-onMount(() => {
-  document.addEventListener('mousedown', handleClickOutside);
-  document.addEventListener('touchstart', handleClickOutside);
-  // 清理监听
-  return () => {
-    document.removeEventListener('mousedown', handleClickOutside);
-    document.removeEventListener('touchstart', handleClickOutside);
-  };
-})
 </script>
 
 <!-- 桌面端和移动端通用搜索框 -->

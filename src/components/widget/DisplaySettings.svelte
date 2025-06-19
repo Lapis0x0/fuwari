@@ -3,17 +3,25 @@ import { i18n } from '@i18n/translation'
 import I18nKey from '@i18n/i18nKey'
 import { getDefaultHue, getHue, setHue } from '@utils/setting-utils'
 import Icon from '@iconify/svelte'
+import { onMount } from 'svelte'
 
-let hue = getHue()
-const defaultHue = getDefaultHue()
+let hue = $state(0)
+let defaultHue = 0
+
+onMount(() => {
+  hue = getHue()
+  defaultHue = getDefaultHue()
+})
 
 function resetHue() {
   hue = getDefaultHue()
 }
 
-$: if (hue || hue === 0) {
-  setHue(hue)
-}
+$effect(() => {
+  if (hue || hue === 0) {
+    setHue(hue);
+  }
+});
 </script>
 
 <div id="display-setting" class="float-panel float-panel-closed absolute transition-all w-80 right-4 px-4 py-4">

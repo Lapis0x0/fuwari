@@ -83,11 +83,11 @@ export default defineConfig({
         {
           components: {
             github: GithubCardComponent,
-            note: (x, y) => AdmonitionComponent(x, y, "note"),
-            tip: (x, y) => AdmonitionComponent(x, y, "tip"),
-            important: (x, y) => AdmonitionComponent(x, y, "important"),
-            caution: (x, y) => AdmonitionComponent(x, y, "caution"),
-            warning: (x, y) => AdmonitionComponent(x, y, "warning"),
+            note: /** @param {any} x @param {any} y */ (x, y) => AdmonitionComponent(x, y, "note"),
+            tip: /** @param {any} x @param {any} y */ (x, y) => AdmonitionComponent(x, y, "tip"),
+            important: /** @param {any} x @param {any} y */ (x, y) => AdmonitionComponent(x, y, "important"),
+            caution: /** @param {any} x @param {any} y */ (x, y) => AdmonitionComponent(x, y, "caution"),
+            warning: /** @param {any} x @param {any} y */ (x, y) => AdmonitionComponent(x, y, "warning"),
           },
         },
       ],
