@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "astro exec scripts/search-index-generator.mjs && astro build",
+    "build": "node scripts/search-index-generator.mjs && astro build",
     "preview": "astro preview",
     "astro": "astro",
     "type-check": "tsc --noEmit --isolatedDeclarations",
@@ -33,6 +33,8 @@
     "astro": "^4.16.13",
     "astro-compress": "^2.3.5",
     "astro-icon": "^1.1.1",
+    "glob": "^11.0.3",
+    "gray-matter": "^4.0.3",
     "hastscript": "^9.0.0",
     "markdown-it": "^14.1.0",
     "mdast-util-to-string": "^4.0.0",
@@ -66,11 +68,11 @@
     "@types/markdown-it": "^14.1.2",
     "@types/mdast": "^4.0.4",
     "@types/sanitize-html": "^2.13.0",
+    "mdast-util-from-markdown": "^2.0.1",
+    "mdast-util-to-string": "^4.0.0",
     "postcss-import": "^16.1.0",
     "postcss-nesting": "^13.0.1",
-    "tsx": "^4.16.2",
-    "mdast-util-from-markdown": "^2.0.1",
-    "mdast-util-to-string": "^4.0.0"
+    "tsx": "^4.16.2"
   },
   "packageManager": "pnpm@9.14.4"
 }

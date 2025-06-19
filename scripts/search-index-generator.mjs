@@ -1,4 +1,5 @@
-import { getCollection } from 'astro:content';
+import { glob } from 'glob';
+import matter from 'gray-matter';
 import { fromMarkdown } from 'mdast-util-from-markdown';
 import { toString } from 'mdast-util-to-string';
 import fs from 'fs';
@@ -8,33 +9,47 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+const POSTS_PATH = path.resolve(__dirname, '../src/content/posts');
+const OUTPUT_PATH = path.resolve(__dirname, '../public/pizza-search/search-index.json');
+
 async function generateSearchIndex() {
-  console.log('Generating search index with astro exec...');
-  const posts = await getCollection('posts');
-  const sortedPosts = posts.sort(
-    (a, b) =>
-      new Date(b.data.published).valueOf() - new Date(a.data.published).valueOf()
-  );
+  console.log('Generating search index from filesystem...');
+  
+  const files = await glob(`${POSTS_PATH}/**/*.md`);
   const searchIndex = [];
 
-  for (const post of sortedPosts) {
-    const plainText = toString(fromMarkdown(post.body));
+  for (const file of files) {
+    const fileContent = fs.readFileSync(file, 'utf-8');
+    const { data, content } = matter(fileContent);
+
+    // Skip drafts or posts without a title/date
+    if (data.draft || !data.title || !data.published) {
+      continue;
+    }
+
+    const plainText = toString(fromMarkdown(content));
     const summary = plainText.slice(0, 200);
+    
+    // Generate slug from file path
+    const slug = path.relative(POSTS_PATH, file).replace(/\.md$/, '');
 
     searchIndex.push({
-      title: post.data.title,
+      title: data.title,
       summary: summary,
-      tags: post.data.tags,
-      url: `/posts/${post.slug}/`,
-      date: post.data.published,
+      tags: data.tags || [],
+      url: `/posts/${slug}/`,
+      date: data.published,
       content: plainText,
     });
   }
 
-  const outputPath = path.resolve(__dirname, '../public/pizza-search/search-index.json');
-  fs.mkdirSync(path.dirname(outputPath), { recursive: true });
-  fs.writeFileSync(outputPath, JSON.stringify(searchIndex, null, 2));
-  console.log('Search index generated successfully!');
+  // Sort by date descending
+  searchIndex.sort((a, b) => new Date(b.date).valueOf() - new Date(a.date).valueOf());
+
+  fs.mkdirSync(path.dirname(OUTPUT_PATH), { recursive: true });
+  fs.writeFileSync(OUTPUT_PATH, JSON.stringify(searchIndex, null, 2));
+  
+  console.log(`Search index generated successfully with ${searchIndex.length} entries!`);
 }
 
 generateSearchIndex();
