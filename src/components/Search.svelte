@@ -34,6 +34,7 @@ onMount(() => {
     try {
       // @ts-ignore
       pagefind = await import('/pagefind/pagefind.js');
+      await pagefind.options({ excerptLength: 150 });
     } catch (e) {
       error = '搜索服务加载失败';
       console.error('Failed to load Pagefind:', e);
@@ -70,7 +71,7 @@ async function searchPizza() {
       const data = await result.data();
       return {
         title: data.meta.title,
-        summary: data.excerpt || '', // Use excerpt from data object
+        summary: result.excerpt || data.excerpt || '',
         url: data.url,
       };
     }));
@@ -117,7 +118,7 @@ function handleClickOutside(e: MouseEvent | TouchEvent) {
     />
   </div>
   {#if keyword}
-    <div class="search-result-pop absolute left-0 mt-2 w-full z-50 bg-white dark:bg-[#1e2127] rounded-xl shadow-lg dark:shadow-2xl border border-gray-100 dark:border-gray-800/50 overflow-auto max-h-[85vh]">
+    <div class="search-result-pop absolute mt-2 z-50 bg-white dark:bg-[#1e2127] rounded-xl shadow-lg dark:shadow-2xl border border-gray-100 dark:border-gray-800/50 overflow-auto max-h-[85vh]">
       {#if loading}
         <div class="py-4 text-center text-sm text-gray-400 dark:text-gray-500">搜索中...</div>
       {/if}
@@ -133,7 +134,7 @@ function handleClickOutside(e: MouseEvent | TouchEvent) {
             {item.title}
             <svg class="ml-2 text-[0.9rem] text-[var(--primary)] dark:text-[var(--primary-dark,var(--primary))]" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="m16.59 8.59-4.58 4.58L7.41 8.59 6 10l6 6 6-6z"/></svg>
           </div>
-          <div class="text-sm text-gray-600 dark:text-gray-300 line-clamp-2 mt-1">{@html item.summary}</div>
+          <div class="text-sm text-gray-600 dark:text-gray-300 line-clamp-4 mt-1">{@html item.summary}</div>
         </a>
       {/each}
     </div>
@@ -159,7 +160,9 @@ function handleClickOutside(e: MouseEvent | TouchEvent) {
     border: var(--search-border);
     z-index: 100;
     margin-top: 0.5rem;
-    min-width: 220px;
+    width: 500px;
+    left: 50%;
+    transform: translateX(-50%);
   }
   
   :global(.dark) .search-result-pop {
