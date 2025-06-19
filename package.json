@@ -3,9 +3,9 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
-    "dev": "node scripts/search-index-generator.mjs && astro dev",
+    "dev": "astro dev",
     "start": "astro dev",
-    "build": "node scripts/search-index-generator.mjs && astro build",
+    "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
     "type-check": "tsc --noEmit --isolatedDeclarations",
