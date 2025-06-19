@@ -68,7 +68,9 @@
     "@types/sanitize-html": "^2.13.0",
     "postcss-import": "^16.1.0",
     "postcss-nesting": "^13.0.1",
-    "tsx": "^4.16.2"
+    "tsx": "^4.16.2",
+    "mdast-util-from-markdown": "^2.0.1",
+    "mdast-util-to-string": "^4.0.0"
   },
   "packageManager": "pnpm@9.14.4"
 }
