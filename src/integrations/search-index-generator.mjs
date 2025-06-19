@@ -1,23 +1,24 @@
-import { getCollection } from 'astro:content';
 import { fromMarkdown } from 'mdast-util-from-markdown';
 import { toString } from 'mdast-util-to-string';
 import fs from 'fs';
 import path from 'path';
-
-// Helper to sort posts by date, replicating the logic from the old script
-const getSortedPosts = async () => {
-  const posts = await getCollection('posts');
-  return posts.sort(
-    (a, b) =>
-      new Date(b.data.published).valueOf() - new Date(a.data.published).valueOf()
-  );
-};
 
 export default function searchIndexGenerator() {
   return {
     name: 'search-index-generator',
     hooks: {
       'astro:build:done': async ({ dir }) => {
+        const { getCollection } = await import('astro:content');
+        
+        // Helper to sort posts by date
+        const getSortedPosts = async () => {
+          const posts = await getCollection('posts');
+          return posts.sort(
+            (a, b) =>
+              new Date(b.data.published).valueOf() - new Date(a.data.published).valueOf()
+          );
+        };
+
         console.log('Generating search index...');
         const posts = await getSortedPosts();
         const searchIndex = [];
