@@ -8,7 +8,8 @@ export default function searchIndexGenerator() {
     name: 'search-index-generator',
     hooks: {
       'astro:build:done': async ({ dir }) => {
-        const { getCollection } = await import('astro:content');
+        const astroContent = 'astro:content';
+        const { getCollection } = await import(/* @vite-ignore */ astroContent);
         
         // Helper to sort posts by date
         const getSortedPosts = async () => {
