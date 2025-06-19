@@ -182,6 +182,7 @@ function handleClickOutside(e: MouseEvent | TouchEvent) {
       top: 100%;
       left: 0;
       right: 0;
+      transform: none;
       width: calc(100% - 16px);
       max-height: 70vh;
       margin: 8px auto 0;
