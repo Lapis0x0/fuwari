@@ -1,7 +1,5 @@
 <script lang="ts">
 import { onMount } from 'svelte'
-import { i18n } from '@i18n/translation'
-import I18nKey from '@i18n/i18nKey'
 
 interface SearchResult {
   title: string;
@@ -12,22 +10,6 @@ interface SearchResult {
   content: string;
 }
 
-onMount(() => {
-  // 外部点击/触摸隐藏弹窗
-  function handleClickOutside(e: MouseEvent | TouchEvent) {
-    const searchWrapper = document.querySelector('.search-bar-wrapper');
-    if (searchWrapper && !searchWrapper.contains(e.target as Node)) {
-      keyword = '';
-    }
-  }
-  document.addEventListener('mousedown', handleClickOutside);
-  document.addEventListener('touchstart', handleClickOutside);
-  // 清理监听
-  return () => {
-    document.removeEventListener('mousedown', handleClickOutside);
-    document.removeEventListener('touchstart', handleClickOutside);
-  };
-})
 let keyword = '';
 let results: SearchResult[] = [];
 let loading = false;
@@ -70,6 +52,24 @@ async function searchPizza() {
 // 使用防抖处理搜索，减少闪烁
 const debouncedSearch = debounce(searchPizza, 300);
 $: keyword && debouncedSearch();
+
+// 外部点击/触摸隐藏弹窗
+function handleClickOutside(e: MouseEvent | TouchEvent) {
+  const searchWrapper = document.querySelector('.search-bar-wrapper');
+  if (searchWrapper && !searchWrapper.contains(e.target as Node)) {
+    keyword = '';
+  }
+}
+
+onMount(() => {
+  document.addEventListener('mousedown', handleClickOutside);
+  document.addEventListener('touchstart', handleClickOutside);
+  // 清理监听
+  return () => {
+    document.removeEventListener('mousedown', handleClickOutside);
+    document.removeEventListener('touchstart', handleClickOutside);
+  };
+})
 </script>
 
 <!-- 桌面端和移动端通用搜索框 -->
@@ -96,7 +96,7 @@ $: keyword && debouncedSearch();
         <div class="py-4 text-center text-sm text-gray-400 dark:text-gray-500">未找到相关内容</div>
       {/if}
       {#each results as item}
-        <a href={item.url} class="block rounded-xl px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-800/50 active:bg-gray-100 dark:active:bg-gray-800/80 transition duration-150">
+        <a href={item.url} rel="noopener noreferrer" class="block rounded-xl px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-800/50 active:bg-gray-100 dark:active:bg-gray-800/80 transition duration-150">
           <div class="font-bold text-base text-gray-900 dark:text-gray-50 flex items-center">
             {item.title}
             <svg class="ml-2 text-[0.9rem] text-[var(--primary)] dark:text-[var(--primary-dark,var(--primary))]" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="m16.59 8.59-4.58 4.58L7.41 8.59 6 10l6 6 6-6z"/></svg>
