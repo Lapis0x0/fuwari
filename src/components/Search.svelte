@@ -1,13 +1,25 @@
 <script lang="ts">
-import { onMount } from 'svelte'
+import { onMount, onDestroy } from 'svelte'
+
+interface PagefindResult {
+  id: string;
+  data: () => Promise<PagefindResultData>;
+  excerpt: string;
+}
+
+interface PagefindResultData {
+  url: string;
+  meta: {
+    title: string;
+    image: string;
+  };
+  excerpt: string;
+}
 
 interface SearchResult {
   title: string;
   summary: string;
-  tags: string[];
   url: string;
-  date: string;
-  content: string;
 }
 
 let keyword = '';
@@ -15,25 +27,20 @@ let results: SearchResult[] = [];
 let loading = false;
 let error = '';
 let searchTimeout: ReturnType<typeof setTimeout> | null = null;
-let searchIndex: SearchResult[] = []; // 缓存搜索索引
+let pagefind: any = null;
 
 onMount(() => {
-  const loadIndex = async () => {
+  const loadPagefind = async () => {
     try {
-      const res = await fetch('/pizza-search/search-index.json');
-      if (!res.ok) throw new Error('Network response was not ok');
-      searchIndex = await res.json();
-      if (keyword) { // Re-run search if user typed while index was loading
-        searchPizza();
-      }
+      // @ts-ignore
+      pagefind = await import('/pagefind/pagefind.js');
     } catch (e) {
-      error = '搜索索引加载失败';
-      console.error(e);
-      loading = false; // Stop loading on error
+      error = '搜索服务加载失败';
+      console.error('Failed to load Pagefind:', e);
     }
   };
 
-  loadIndex();
+  loadPagefind();
 
   document.addEventListener('mousedown', handleClickOutside);
   document.addEventListener('touchstart', handleClickOutside);
@@ -41,11 +48,45 @@ onMount(() => {
   return () => {
     document.removeEventListener('mousedown', handleClickOutside);
     document.removeEventListener('touchstart', handleClickOutside);
+    if (searchTimeout) clearTimeout(searchTimeout);
   };
 });
 
-// 防抖函数
-function debounce(fn: Function, delay: number = 200) {
+async function searchPizza() {
+  if (!keyword.trim()) {
+    results = [];
+    return;
+  }
+  if (!pagefind) {
+    loading = true; // 如果 pagefind 仍在加载中，显示加载状态
+    return;
+  }
+  loading = true;
+  error = '';
+
+  try {
+    const search = await pagefind.search(keyword);
+    const searchResults = await Promise.all(search.results.map(async (result: PagefindResult) => {
+      const data = await result.data();
+      return {
+        title: data.meta.title,
+        summary: data.excerpt || '', // Use excerpt from data object
+        url: data.url,
+      };
+    }));
+    results = searchResults.slice(0, 20);
+  } catch (e) {
+    error = '搜索失败';
+    console.error('Search failed:', e);
+  } finally {
+    loading = false;
+  }
+}
+
+const debouncedSearch = debounce(searchPizza, 300);
+$: keyword && debouncedSearch();
+
+function debounce(fn: Function, delay: number) {
   return function(...args: any[]) {
     if (searchTimeout) clearTimeout(searchTimeout);
     searchTimeout = setTimeout(() => {
@@ -53,28 +94,6 @@ function debounce(fn: Function, delay: number = 200) {
     }, delay);
   }
 }
-
-function searchPizza() {
-  if (!keyword) {
-    results = [];
-    return;
-  }
-  if (searchIndex.length === 0 && !error) {
-    loading = true; // 如果索引仍在加载中，显示加载状态
-    return;
-  }
-  loading = false;
-  
-  const kw = keyword.trim().toLowerCase();
-  results = searchIndex.filter((item: SearchResult) =>
-    item.title?.toLowerCase().includes(kw) ||
-    item.summary?.toLowerCase().includes(kw) ||
-    (item.tags && item.tags.join(',').toLowerCase().includes(kw))
-  ).slice(0, 20);
-}
-
-const debouncedSearch = debounce(searchPizza);
-$: keyword && debouncedSearch();
 
 function handleClickOutside(e: MouseEvent | TouchEvent) {
   const searchWrapper = document.querySelector('.search-bar-wrapper');
@@ -85,7 +104,7 @@ function handleClickOutside(e: MouseEvent | TouchEvent) {
 }
 </script>
 
-<!-- 桌面端和移动端通用搜索框 -->
+<!-- 搜索框和结果展示的 HTML 结构保持不变 -->
 <div class="search-bar-wrapper relative">
   <div class="flex items-center h-11 bg-black/[0.04] hover:bg-black/[0.06] focus-within:bg-black/[0.06] dark:bg-white/5 dark:hover:bg-white/10 dark:focus-within:bg-white/10 rounded-lg px-2 relative">
     <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" class="text-[1.25rem] iconify iconify--material-symbols text-black/30 dark:text-white/30 ml-2" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="m19.6 21l-6.3-6.3q-.75.6-1.725.95T9.5 16q-2.725 0-4.612-1.888T3 9.5t1.888-4.612T9.5 3t4.613 1.888T16 9.5q0 1.1-.35 2.075T14.7 13.3l6.3 6.3zM9.5 14q1.875 0 3.188-1.312T14 9.5t-1.312-3.187T9.5 5T6.313 6.313T5 9.5t1.313 3.188T9.5 14"></path></svg>
@@ -97,7 +116,7 @@ function handleClickOutside(e: MouseEvent | TouchEvent) {
       aria-label="站内搜索"
     />
   </div>
-  {#if keyword && (loading || error || results.length > 0)}
+  {#if keyword}
     <div class="search-result-pop absolute left-0 mt-2 w-full z-50 bg-white dark:bg-[#1e2127] rounded-xl shadow-lg dark:shadow-2xl border border-gray-100 dark:border-gray-800/50 overflow-auto max-h-[85vh]">
       {#if loading}
         <div class="py-4 text-center text-sm text-gray-400 dark:text-gray-500">搜索中...</div>
@@ -105,7 +124,7 @@ function handleClickOutside(e: MouseEvent | TouchEvent) {
       {#if error}
         <div class="py-4 text-center text-sm text-red-500 dark:text-red-400">{error}</div>
       {/if}
-      {#if keyword && !loading && results.length === 0}
+      {#if !loading && results.length === 0 && keyword}
         <div class="py-4 text-center text-sm text-gray-400 dark:text-gray-500">未找到相关内容</div>
       {/if}
       {#each results as item}
@@ -114,14 +133,7 @@ function handleClickOutside(e: MouseEvent | TouchEvent) {
             {item.title}
             <svg class="ml-2 text-[0.9rem] text-[var(--primary)] dark:text-[var(--primary-dark,var(--primary))]" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="m16.59 8.59-4.58 4.58L7.41 8.59 6 10l6 6 6-6z"/></svg>
           </div>
-          <div class="text-sm text-gray-600 dark:text-gray-300 line-clamp-2 mt-1">{item.summary}</div>
-          {#if item.tags?.length}
-            <div class="mt-2 flex flex-wrap gap-1.5">
-              {#each item.tags as tag}
-                <span class="px-2 py-0.5 rounded-md bg-gray-100/80 dark:bg-gray-700/80 text-xs text-gray-600 dark:text-gray-100 border border-transparent dark:border-gray-600/30">{tag}</span>
-              {/each}
-            </div>
-          {/if}
+          <div class="text-sm text-gray-600 dark:text-gray-300 line-clamp-2 mt-1">{@html item.summary}</div>
         </a>
       {/each}
     </div>
@@ -138,7 +150,6 @@ function handleClickOutside(e: MouseEvent | TouchEvent) {
     position: relative;
   }
   .search-result-pop {
-    /* 移除固定背景色和边框，改用CSS变量 */
     --search-shadow: 0 8px 24px rgba(0,0,0,0.08), 0 1.5px 6px rgba(0,0,0,0.04);
     --search-border: 1px solid var(--border-color, #eee);
     --search-bg: var(--bg-color, #fff);
@@ -146,13 +157,11 @@ function handleClickOutside(e: MouseEvent | TouchEvent) {
     box-shadow: var(--search-shadow);
     border-radius: 1rem;
     border: var(--search-border);
-    /* 背景色由Tailwind类控制，此处移除 */
     z-index: 100;
     margin-top: 0.5rem;
     min-width: 220px;
   }
   
-  /* 适配深色模式 */
   :global(.dark) .search-result-pop {
     --search-shadow: 0 8px 24px rgba(0,0,0,0.25), 0 1.5px 6px rgba(0,0,0,0.15);
     --search-border: 1px solid rgba(75, 85, 99, 0.3);
@@ -166,20 +175,18 @@ function handleClickOutside(e: MouseEvent | TouchEvent) {
       margin: 0 8px;
     }
     .search-result-pop {
-      /* 恢复为absolute定位，确保显示在搜索框下方 */
       position: absolute;
       top: 100%;
       left: 0;
       right: 0;
-      width: calc(100% - 16px); /* 减去边距 */
-      max-height: 70vh; /* 最大高度限制为屏幕高度70% */
+      width: calc(100% - 16px);
+      max-height: 70vh;
       margin: 8px auto 0;
       border-radius: 0.75rem;
       box-shadow: 0 8px 20px rgba(0,0,0,0.15);
       z-index: 1000;
     }
     
-    /* 搜索结果内容样式优化 */
     .search-result-pop a {
       padding: 0.75rem 1rem;
       border-bottom: 1px solid rgba(229, 231, 235, 0.1);

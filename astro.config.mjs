@@ -1,3 +1,4 @@
+import pagefind from "astro-pagefind";
 import sitemap from "@astrojs/sitemap";
 import svelte from "@astrojs/svelte";
 import tailwind from "@astrojs/tailwind";
@@ -64,6 +65,7 @@ export default defineConfig({
         Passed: async () => true, // https://github.com/PlayForm/Compress/issues/376
       },
     }),
+    pagefind(),
   ],
   markdown: {
     remarkPlugins: [
@@ -119,6 +121,7 @@ export default defineConfig({
   vite: {
     build: {
       rollupOptions: {
+       external: ['/pagefind/pagefind.js'],
         onwarn(warning, warn) {
           // temporarily suppress this warning
           if (

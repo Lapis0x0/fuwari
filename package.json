@@ -61,19 +61,20 @@
   "devDependencies": {
     "@astrojs/ts-plugin": "^1.10.4",
     "@biomejs/biome": "1.8.3",
+    "@esbuild/darwin-arm64": "^0.23.0",
     "@iconify-json/mdi": "^1.2.1",
     "@iconify-json/tabler": "^1.2.11",
     "@rollup/plugin-yaml": "^4.1.2",
+    "@rollup/rollup-darwin-arm64": "^4.18.0",
     "@types/markdown-it": "^14.1.2",
     "@types/mdast": "^4.0.4",
     "@types/sanitize-html": "^2.13.0",
+    "astro-pagefind": "^1.8.3",
     "mdast-util-from-markdown": "^2.0.1",
     "mdast-util-to-string": "^4.0.0",
     "postcss-import": "^16.1.0",
     "postcss-nesting": "^13.0.1",
-    "tsx": "^4.16.2",
-    "@rollup/rollup-darwin-arm64": "^4.18.0",
-    "@esbuild/darwin-arm64": "^0.23.0"
+    "tsx": "^4.16.2"
   },
   "packageManager": "pnpm@9.14.4"
 }
