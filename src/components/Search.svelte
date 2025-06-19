@@ -1,31 +1,16 @@
 <script lang="ts">
 import { onMount } from 'svelte'
-import { url } from '@utils/url-utils.ts'
 import { i18n } from '@i18n/translation'
 import I18nKey from '@i18n/i18nKey'
-import Icon from '@iconify/svelte'
-let keywordDesktop = ''
-let keywordMobile = ''
-let result = []
-const fakeResult = [
-  {
-    url: url('/'),
-    meta: {
-      title: 'This Is a Fake Search Result',
-    },
-    excerpt:
-      'Because the search cannot work in the <mark>dev</mark> environment.',
-  },
-  {
-    url: url('/'),
-    meta: {
-      title: 'If You Want to Test the Search',
-    },
-    excerpt: 'Try running <mark>npm build && npm preview</mark> instead.',
-  },
-]
 
-let search = (keyword: string, isDesktop: boolean) => {}
+interface SearchResult {
+  title: string;
+  summary: string;
+  tags: string[];
+  url: string;
+  date: string;
+  content: string;
+}
 
 onMount(() => {
   // 外部点击/触摸隐藏弹窗
@@ -42,49 +27,9 @@ onMount(() => {
     document.removeEventListener('mousedown', handleClickOutside);
     document.removeEventListener('touchstart', handleClickOutside);
   };
-
-  search = async (keyword: string, isDesktop: boolean) => {
-    let panel = document.getElementById('search-panel')
-    if (!panel) return
-
-    if (!keyword && isDesktop) {
-      panel.classList.add('float-panel-closed')
-      return
-    }
-
-    let arr = []
-    if (import.meta.env.PROD) {
-      const ret = await pagefind.search(keyword)
-      for (const item of ret.results) {
-        arr.push(await item.data())
-      }
-    } else {
-      // Mock data for non-production environment
-      arr = fakeResult
-    }
-
-    if (!arr.length && isDesktop) {
-      panel.classList.add('float-panel-closed')
-      return
-    }
-
-    if (isDesktop) {
-      panel.classList.remove('float-panel-closed')
-    }
-    result = arr
-  }
 })
-
-const togglePanel = () => {
-  let panel = document.getElementById('search-panel')
-  panel?.classList.toggle('float-panel-closed')
-}
-
-$: search(keywordDesktop, true)
-$: search(keywordMobile, false)
-
 let keyword = '';
-let results = [];
+let results: SearchResult[] = [];
 let loading = false;
 let error = '';
 let searchTimeout: ReturnType<typeof setTimeout> | null = null;
@@ -108,9 +53,9 @@ async function searchPizza() {
   error = '';
   try {
     const res = await fetch('/pizza-search/search-index.json');
-    const data = await res.json();
+    const data: SearchResult[] = await res.json();
     const kw = keyword.trim().toLowerCase();
-    results = data.filter(item =>
+    results = data.filter((item: SearchResult) =>
       item.title?.toLowerCase().includes(kw) ||
       item.summary?.toLowerCase().includes(kw) ||
       (item.tags && item.tags.join(',').toLowerCase().includes(kw))
