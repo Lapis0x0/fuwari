@@ -1,4 +1,4 @@
-import { getSortedPosts } from '../src/utils/content-utils.js';
+import { getSortedPosts } from '../src/utils/content-utils.ts';
 import { fromMarkdown } from 'mdast-util-from-markdown';
 import { toString } from 'mdast-util-to-string';
 import fs from 'fs';
