@@ -120,7 +120,7 @@ const getProjectPosts = (item: ProjectItem) => {
                             <span>项目链接</span>
                           </a>
                         )}
-                        <Icon name="mdi:chevron-down" class="text-lg transform transition-transform duration-300 group-hover:rotate-180" />
+                        <Icon name="mdi:chevron-down" class="chevron-icon text-lg transform transition-transform duration-300 group-hover:rotate-180" />
                       </div>
                     </div>
                     <div class="details-content overflow-y-auto max-h-0 opacity-0 group-hover:max-h-96 group-hover:opacity-100 transition-all duration-500 ease-in-out">
@@ -185,6 +185,39 @@ const getProjectPosts = (item: ProjectItem) => {
 
   document.addEventListener('astro:page-load', setupProjectLinks);
   setupProjectLinks();
+
+  function setupProjectCardToggle() {
+    const projectCards = document.querySelectorAll('.project-card');
+    projectCards.forEach(card => {
+        const header = card.querySelector('.p-5'); // The clickable header area
+        const content = card.querySelector('.details-content');
+
+        if (header && content) {
+            header.addEventListener('click', (e) => {
+                // 类型收窄，保证 e.target 存在且为 Element
+                const target = e.target;
+                if (target instanceof Element && target.closest('a')) {
+                    return;
+                }
+                
+                const isOpening = !card.classList.contains('is-open');
+                card.classList.toggle('is-open');
+
+                if (isOpening) {
+                  // 只有 HTMLElement 才有 style
+                  if (content instanceof HTMLElement) {
+                    content.style.pointerEvents = 'none';
+                    setTimeout(() => {
+                        content.style.pointerEvents = '';
+                    }, 300); // A delay to absorb the ghost click
+                  }
+                }
+            });
+        }
+    });
+  }
+  document.addEventListener('astro:page-load', setupProjectCardToggle);
+  setupProjectCardToggle();
 </script>
 
 <style>
@@ -223,5 +256,14 @@ const getProjectPosts = (item: ProjectItem) => {
   .details-content {
     scrollbar-width: thin;
     scrollbar-color: var(--tw-prose-hr) transparent;
+  }
+
+  .project-card.is-open .details-content {
+    max-height: 24rem; /* 96 in tailwind units */
+    opacity: 1;
+  }
+
+  .project-card.is-open .chevron-icon {
+    transform: rotate(180deg);
   }
 </style>
