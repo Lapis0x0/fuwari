@@ -33,7 +33,23 @@ onMount(() => {
   const loadPagefind = async () => {
     try {
       // @ts-ignore
-      pagefind = await import('/pagefind/pagefind.js');
+      if (window.pagefind) {
+        // @ts-ignore
+        pagefind = window.pagefind;
+        await pagefind.options({ excerptLength: 150 });
+        return;
+      }
+
+      await new Promise((resolve, reject) => {
+        const script = document.createElement('script');
+        script.src = '/pagefind/pagefind.js';
+        script.onload = resolve;
+        script.onerror = reject;
+        document.head.appendChild(script);
+      });
+
+      // @ts-ignore
+      pagefind = window.pagefind;
       await pagefind.options({ excerptLength: 150 });
     } catch (e) {
       error = '搜索服务加载失败';
