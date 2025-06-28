@@ -95,68 +95,65 @@ const getProjectPosts = (item: ProjectItem) => {
               {project.items.map((item) => {
                 const projectPosts = getProjectPosts(item);
                 return (
-                  <details class="group flex flex-col h-full overflow-hidden rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 shadow-sm hover:shadow-md transition-all duration-300">
-                    <summary class="p-6 border-b border-zinc-200 dark:border-zinc-800 flex items-center justify-between cursor-pointer select-none focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--primary)]">
-                      <div class="flex items-center gap-3">
+                  <div class="group project-card relative flex flex-col h-full overflow-hidden rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950/50 shadow-sm transition-all duration-300 hover:border-[var(--primary)] hover:shadow-lg">
+                    <div class="p-5 flex items-center justify-between cursor-pointer select-none">
+                      <div class="flex items-center gap-4">
                         <Icon name="mdi:bookmark-outline" class="text-xl text-[var(--primary)]" />
-                        <h3 class="text-xl font-bold text-neutral-900 dark:text-neutral-100">{item.title}</h3>
-                      </div>
-                      <span class="inline-flex items-center">
-                        <Icon name="mdi:chevron-down" class="text-lg transform group-open:rotate-180 transition-transform duration-300" />
-                      </span>
-                    </summary>
-                    <div class="details-content transition-all duration-500 ease-in-out overflow-hidden">
-                      <div class="p-6">
-                        <p class="text-50 text-sm mt-3 mb-4 text-neutral-900 dark:text-neutral-100">{item.description}</p>
-                        <div class="flex items-center gap-4 text-50 text-sm text-neutral-900 dark:text-neutral-100 mb-4">
-                          <div class="flex items-center gap-1">
-                            <Icon name="mdi:file-document-outline" class="text-base" />
-                            <span>{projectPosts.length} 篇文章</span>
-                          </div>
-                          {item.url && (
-                            <a 
-                              href={item.url} 
-                              target="_blank" 
-                              rel="noopener noreferrer" 
-                              class="inline-flex items-center gap-1 text-[var(--primary)] hover:underline"
-                            >
-                              <Icon name="mdi:link-variant" class="text-base" />
-                              <span>项目链接</span>
-                            </a>
-                          )}
+                        <div>
+                          <h3 class="text-lg font-bold text-neutral-900 dark:text-neutral-100">{item.title}</h3>
+                          <p class="text-50 text-sm text-neutral-600 dark:text-neutral-400">{item.description}</p>
                         </div>
+                      </div>
+                      <div class="flex items-center gap-4">
+                        <div class="flex items-center gap-1 text-sm text-neutral-500 dark:text-neutral-400">
+                          <Icon name="mdi:file-document-outline" class="text-base" />
+                          <span>{projectPosts.length} 篇文章</span>
+                        </div>
+                        {item.url && (
+                          <a
+                            href={item.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="project-link inline-flex items-center gap-1 text-[var(--primary)] hover:underline"
+                          >
+                            <Icon name="mdi:link-variant" class="text-base" />
+                            <span>项目链接</span>
+                          </a>
+                        )}
+                        <Icon name="mdi:chevron-down" class="text-lg transform transition-transform duration-300 group-hover:rotate-180" />
+                      </div>
+                    </div>
+                    <div class="details-content overflow-hidden max-h-0 opacity-0 group-hover:max-h-[1000px] group-hover:opacity-100 transition-all duration-500 ease-in-out">
+                      <div class="px-5 pb-5 pt-2">
                         {projectPosts.length > 0 ? (
-                          <div class="grid grid-cols-1 gap-4">
+                          <div class="grid grid-cols-1 gap-3 border-t border-zinc-200 dark:border-zinc-800 pt-4">
                             {projectPosts.map(post => (
-                              <a href={`/posts/${post.slug}/`} class="block p-4 rounded-lg border border-zinc-200 dark:border-zinc-800 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors">
-                                <h4 class="text-lg font-medium mb-2 text-neutral-900 dark:text-neutral-100">{post.data.title}</h4>
-                                <div class="flex items-center gap-4 text-sm text-50 text-neutral-900 dark:text-neutral-100">
+                              <a href={`/posts/${post.slug}/`} class="block p-3 rounded-md hover:bg-zinc-100 dark:hover:bg-zinc-800/50 transition-colors">
+                                <h4 class="font-medium text-neutral-800 dark:text-neutral-200">{post.data.title}</h4>
+                                <div class="flex items-center gap-3 text-xs text-neutral-500 dark:text-neutral-400 mt-1">
                                   <div class="flex items-center gap-1">
-                                    <Icon name="mdi:calendar" class="text-base" />
+                                    <Icon name="mdi:calendar" class="text-xs" />
                                     <span>{new Date(post.data.published).toLocaleDateString('zh-CN')}</span>
                                   </div>
                                   {post.data.category && (
                                     <div class="flex items-center gap-1">
-                                      <Icon name="mdi:folder-outline" class="text-base" />
+                                      <Icon name="mdi:folder-outline" class="text-xs" />
                                       <span>{post.data.category}</span>
                                     </div>
                                   )}
                                 </div>
-                                {post.data.description && (
-                                  <p class="text-50 text-sm mt-2 line-clamp-2 text-neutral-900 dark:text-neutral-100">{post.data.description}</p>
-                                )}
                               </a>
                             ))}
                           </div>
                         ) : (
-                          <div class="text-center py-6 text-50 text-neutral-900 dark:text-neutral-100">
-                            <Icon name="mdi:file-alert-outline" class="text-4xl mx-auto mb-2 opacity-50" />
+                          <div class="text-center py-6 text-50 text-neutral-500 dark:text-neutral-400 border-t border-zinc-200 dark:border-zinc-800 pt-4">
+                            <Icon name="mdi:file-alert-outline" class="text-3xl mx-auto mb-2 opacity-50" />
                             <p>暂无相关文章</p>
                           </div>
                         )}
                       </div>
                     </div>
-                  </details>
+                  </div>
                 );
               })}
             </div>
@@ -177,116 +174,35 @@ const getProjectPosts = (item: ProjectItem) => {
 </MainGridLayout>
 
 <script is:inline>
-  // 检查是否需要刷新页面
-  (function() {
-    // 只在生产环境执行
-    if (location.hostname !== 'localhost' && location.hostname !== '127.0.0.1') {
-      // 获取referrer信息
-      const referrer = document.referrer;
-      
-      // 检查是否是从其他页面跳转过来的
-      if (referrer && 
-          referrer.includes(location.hostname) && 
-          !referrer.includes('/projects/')) {
-        
-        // 延迟一点执行刷新
-        setTimeout(() => {
-          location.reload();
-        }, 10);
-      }
-    }
-  })();
-
-  // 主要初始化函数
-  function initToggleButtons() {
-    // 延迟，确保DOM全部渲染
-    setTimeout(() => {
-      const toggleButtons = document.querySelectorAll('.toggle-button');
-      if (toggleButtons.length === 0) {
-        // 如果没有找到按钮，可能DOM还没完全加载，再次延迟
-        setTimeout(initToggleButtons, 100);
-        return;
-      }
-      toggleButtons.forEach(button => {
-        button.removeEventListener('click', handleToggleClick);
-        button.addEventListener('click', handleToggleClick);
-        const targetId = button.getAttribute('data-target');
-        const contentElement = document.getElementById(targetId);
-        if (contentElement) {
-          contentElement.style.maxHeight = '0';
-          button.setAttribute('aria-expanded', 'false');
-        }
+  function setupProjectLinks() {
+    const links = document.querySelectorAll('.project-link');
+    links.forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.stopPropagation();
       });
-    }, 60); // 关键：加一层短延迟，保证页面切换后DOM已渲染
+    });
   }
 
-  function handleToggleClick(event) {
-    const button = event.currentTarget;
-    const targetId = button.getAttribute('data-target');
-    const contentElement = document.getElementById(targetId);
-    const iconElement = button.querySelector('svg');
-    
-    if (!contentElement) return;
-    
-    // 切换展开/折叠状态
-    const isExpanded = button.getAttribute('aria-expanded') === 'true';
-    const newExpandedState = !isExpanded;
-    
-    // 更新aria属性
-    button.setAttribute('aria-expanded', newExpandedState.toString());
-    
-    // 更新图标旋转
-    if (iconElement) {
-      iconElement.style.transform = newExpandedState ? 'rotate(180deg)' : 'rotate(0)';
-    }
-    
-    // 更新内容区域高度
-    if (newExpandedState) {
-      contentElement.style.maxHeight = `${contentElement.scrollHeight}px`;
-    } else {
-      contentElement.style.maxHeight = '0';
-    }
-  }
-
-  // 确保在各种情况下都能初始化
-  // 1. 页面完全加载时
-  document.addEventListener('DOMContentLoaded', () => setTimeout(initToggleButtons, 60));
-  
-  // 2. Astro页面切换时
-  document.addEventListener('astro:page-load', () => setTimeout(initToggleButtons, 60));
-  
-  // 3. Astro视图过渡完成时
-  document.addEventListener('astro:after-swap', () => setTimeout(initToggleButtons, 60));
-  
-  // 4. 页面已经加载完成的情况
-  if (document.readyState === 'complete' || document.readyState === 'interactive') {
-    setTimeout(initToggleButtons, 60);
-  }
+  document.addEventListener('astro:page-load', setupProjectLinks);
+  setupProjectLinks();
 </script>
 
 <style>
-  /* 添加按钮旋转动画 */
-  .toggle-button svg {
-    transition: transform 0.2s ease;
-  }
-  
-  /* 内容区域展开/折叠动画 */
-  .content-section {
-    transition: max-height 0.5s ease-in-out;
-    overflow: hidden;
-  }
-  
-  /* details-content 动画（生产环境兼容，防止被裁剪） */
-  details .details-content {
-    max-height: 0;
+  .project-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at center, rgba(var(--primary-rgb), 0.1), transparent 60%);
     opacity: 0;
+    transition: opacity 0.5s ease;
+    z-index: -1;
     pointer-events: none;
-    transition: max-height 0.5s cubic-bezier(.4,0,.2,1), opacity 0.4s !important;
   }
-  details[open] .details-content {
-    max-height: 3000px;
+
+  .project-card:hover::before {
     opacity: 1;
-    pointer-events: auto;
-    transition: max-height 0.5s cubic-bezier(.4,0,.2,1), opacity 0.4s !important;
   }
 </style>
