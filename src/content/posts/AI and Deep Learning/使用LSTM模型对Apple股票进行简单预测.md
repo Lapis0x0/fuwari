@@ -358,7 +358,7 @@ plt.show()
 
 训练结果：
 
-![Untitled](https://blog-1302893975.cos.ap-beijing.myqcloud.com/pic/202406170353363.png?imageSlim)
+![Untitled](https://blog-1302893975.cos.ap-beijing.myqcloud.com/pic/202406170353363.png)
 
 * 在训练时间内我重拳出击，预测未来我唯唯诺诺
 * 毕竟选用的数据也只是简单的收盘价，太简单了

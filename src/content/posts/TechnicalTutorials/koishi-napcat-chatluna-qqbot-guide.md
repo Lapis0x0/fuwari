@@ -118,11 +118,11 @@ http://<你的服务器IP>:6099/webui?token=xxxxxxxx
 
 扫码授权成功后，回到 Web 控制台页面，在“基础信息”板块你就能看到你的 QQ 账号信息，说明 NapCat 已成功连接。
 
-![账号信息](https://blog-1302893975.cos.ap-beijing.myqcloud.com/pic/iShot_2025-05-17_19.39.21.png?imageSlim)
+![账号信息](https://blog-1302893975.cos.ap-beijing.myqcloud.com/pic/iShot_2025-05-17_19.39.21.png)
 
 登录成功后回到NapCat控制台，点击左侧的网络配置，再点击左上角的添加配置，新建一个Websocket服务器，格式如下图：
 
-![格式](https://blog-1302893975.cos.ap-beijing.myqcloud.com/pic/202505171941012.png?imageSlim)
+![格式](https://blog-1302893975.cos.ap-beijing.myqcloud.com/pic/202505171941012.png)
 
 其他设置项按图中所示即可，Token建议自行设置一个后妥善保存，后面要用。
 
@@ -148,7 +148,7 @@ docker run -p 5140:5140 koishijs/koishi
 3. 稍等片刻，待所有依赖安装完成即可。
 
 
-![更新依赖](https://blog-1302893975.cos.ap-beijing.myqcloud.com/pic/iShot_2025-05-17_19.44.37.png?imageSlim)
+![更新依赖](https://blog-1302893975.cos.ap-beijing.myqcloud.com/pic/iShot_2025-05-17_19.44.37.png)
 
 ### 将 Koishi 连接到 NapCat
 
@@ -162,7 +162,7 @@ docker run -p 5140:5140 koishijs/koishi
 
 你将看到如下配置界面：
 
-![配置](https://blog-1302893975.cos.ap-beijing.myqcloud.com/pic/202505172207532.png?imageSlim)
+![配置](https://blog-1302893975.cos.ap-beijing.myqcloud.com/pic/202505172207532.png)
 
 在这个页面中，我们需要填写以下四个关键字段：
 
@@ -192,7 +192,7 @@ Chatluna 的强大之处在于其高度可拓展的架构，支持对接多种�
 
 如下图，我选择的是 Google 的 Gemini，所以除了安装 Chatluna 本体外，还额外安装了 Gemini 的适配器插件：
 
-![截图](https://blog-1302893975.cos.ap-beijing.myqcloud.com/pic/202505172153492.png?imageSlim)
+![截图](https://blog-1302893975.cos.ap-beijing.myqcloud.com/pic/202505172153492.png)
 
 安装完成后，分别进入这两个插件的配置界面，填写你的 API 密钥、选择或自定义你喜欢的人设（人格设定）、回复风格、上下文长度等参数。
 

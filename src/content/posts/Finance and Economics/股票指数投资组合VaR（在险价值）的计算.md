@@ -177,6 +177,6 @@ plt.show()
 
 如果一切正常的话，这段代码的运行结果应该是：
 
-![image-cauo.png](https://blog-1302893975.cos.ap-beijing.myqcloud.com/pic/202406152124196.png?imageSlim)
+![image-cauo.png](https://blog-1302893975.cos.ap-beijing.myqcloud.com/pic/202406152124196.png)
 
 即这份投资组合在限定时间内，VaR应该为-0.0240，在95%的置信水平下，该投资组合在一天内的最大可能损失为240美元（这意味着有95%的概率，该投资组合在一天内的损失不会超过240美元。相应地，也意味着有5%的概率损失会超过240美元）

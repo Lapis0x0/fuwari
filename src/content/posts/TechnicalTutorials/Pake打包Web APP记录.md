@@ -29,28 +29,28 @@ Pake是一项使用Rust Tauri作为底层框架的、实现了快捷键的透传
 - 点击前往Actions界面，选择 `Build App with Pake-Cli`，填写表单信息，点击 `Run Workflow`即可。
 - 表单参数与填写要求基本和pake-cli参数保持一致，具体可以参考下面的pake-cli变量内容
 
-![Untitled](https://blog-1302893975.cos.ap-beijing.myqcloud.com/pic/202405130355860.png?imageSlim)
+![Untitled](https://blog-1302893975.cos.ap-beijing.myqcloud.com/pic/202405130355860.png)
 
 ### （3）下载附件
 
 出现绿色小图标则代表打包成功，可以点击 `Build App with Pake-Cli`查看打包详情和附件。
 
-![Untitled](https://blog-1302893975.cos.ap-beijing.myqcloud.com/pic/202405130356483.png?imageSlim)
+![Untitled](https://blog-1302893975.cos.ap-beijing.myqcloud.com/pic/202405130356483.png)
 
 可以看到这里的 `Artfacts`出现了一个1,也就代表有一个附件可供下载。
 
-![Untitled](https://blog-1302893975.cos.ap-beijing.myqcloud.com/pic/202405130356397.png?imageSlim)
+![Untitled](https://blog-1302893975.cos.ap-beijing.myqcloud.com/pic/202405130356397.png)
 
 点击 `Artfacts`，自动跳转到最下方，可以看到最终的附件信息，点击该附件名即可正式下载。
 
-![Untitled](https://blog-1302893975.cos.ap-beijing.myqcloud.com/pic/202405130357339.png?imageSlim)
+![Untitled](https://blog-1302893975.cos.ap-beijing.myqcloud.com/pic/202405130357339.png)
 
 ### （4）运行时间
 
 - 第一次运行会比较慢，大概10-15分钟左右，后续有了缓存后，就会快很多。
 - 尽量保证第一次完整运行，这样生成的缓存可以节省很多时间，如果运行失败，则生成的缓存不完整，后续就无法实现加速的效果。
 - 可以在Actions左下角的页面查看缓存，一般命名为 `[打包平台]-cargo-xxxx`，一般在400M-600M之间，如果缓存生成较小，只有几十M，可以通过右边的删除按钮删除缓存，那么下次构建会自动生成新缓存来代替。
-  ![title](https://blog-1302893975.cos.ap-beijing.myqcloud.com/pic/202405130359855.png?imageSlim)
+  ![title](https://blog-1302893975.cos.ap-beijing.myqcloud.com/pic/202405130359855.png)
 
 ## 2.MacOS 环境配置
 

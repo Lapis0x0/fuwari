@@ -32,7 +32,7 @@ draft: false
 
 同时，美联储与国会之间保持相对独立但又需向后者汇报。在执行货币政策时，美联储不受行政部门的直接干预；但在机构设置与成员任命等方面，美联储又受到美国政府的影响。
 
-![](https://blog-1302893975.cos.ap-beijing.myqcloud.com/pic/202503270001584.png?imageSlim)
+![](https://blog-1302893975.cos.ap-beijing.myqcloud.com/pic/202503270001584.png)
 
 ### （1）联邦储备委员会（Board of Governors）
 

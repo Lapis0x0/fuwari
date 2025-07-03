@@ -24,7 +24,7 @@ AI Agent = LLM x （规划（Planning）+记忆（Memory）+工具（Tools）+�
 
 ### 2.如何看待AI Agent——LLM技术下提示词工程的进化
 
-![image.png](https://blog-1302893975.cos.ap-beijing.myqcloud.com/pic/202405060341863.png?imageSlim)
+![image.png](https://blog-1302893975.cos.ap-beijing.myqcloud.com/pic/202405060341863.png)
 
 其中字节的COZE就是agent平台的佼佼者。
 

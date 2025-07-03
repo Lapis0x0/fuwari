@@ -26,13 +26,13 @@ draft: false
 
 - 在tg中搜索 [`@BotFather`](https://t.me/BotFather)，聊天框发送 `/newbot`，按提示输入机器人名称/机器人用户名。
 
-![image.png](https://blog-1302893975.cos.ap-beijing.myqcloud.com/pic/202502030359567.png?imageSlim)
+![image.png](https://blog-1302893975.cos.ap-beijing.myqcloud.com/pic/202502030359567.png)
 
 记录下生成的HTTP API，后面需要用。
 
 - 在tg中搜索`@userinfobot`,点击`start`,记录返回的用户id
 
-![image.png](https://blog-1302893975.cos.ap-beijing.myqcloud.com/pic/202502030400968.png?imageSlim)
+![image.png](https://blog-1302893975.cos.ap-beijing.myqcloud.com/pic/202502030400968.png)
 
 - 获取 [Telegraph API](https://telegra.ph/api#createAccount) 获取 access token
 
