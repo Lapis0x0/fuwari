@@ -1,7 +1,7 @@
 ---
 title: 宗教研究 01｜制度大于真理：早期基督教的边界建构
 published: 2025-07-04
-description: "早期基督教之所以能从一个边缘化犹太末世运动跃升为世界宗教，关键不在于教义本身的高明，而在于对正统—异端边界的制度化塑造：从主教继承链、正典封闭到大公会议与皇权背书，都使“制度”凌驾于“真理”，奠定了普世教会的基础。"
+description: "制度未必通向真理，但每一个真理的诞生，都离不开制度的边界"
 image: "https://blog-1302893975.cos.ap-beijing.myqcloud.com/pic/religion-01-christianity-institutions-over-truth-tuya.webp"
 tags: ["基督教研究"]
 category: 宗教研究
