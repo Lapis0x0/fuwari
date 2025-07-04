@@ -66,6 +66,12 @@ projects:
         tags:
           - 心理学与神经科学
 
+      - id: Religion
+        title: 宗教研究
+        description: 探求三大世界宗教的演进发展
+        tags:
+          - 基督教研究
+
 ---
 
 
