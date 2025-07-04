@@ -87,3 +87,10 @@
 
     }
 }
+
+/* 深色模式下加粗文字的粉红色 */
+.dark .prose.prose-invert strong,
+.dark .custom-md strong,
+.dark .prose strong {
+    color: #ff4d8b !important; /* 粉红色 */
+}
