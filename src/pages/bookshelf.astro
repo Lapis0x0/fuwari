@@ -4,6 +4,7 @@ import { i18n } from '../i18n/translation';
 import I18nKey from '../i18n/i18nKey';
 import booksData from '../../public/data/books.json';
 import OptimizedBookCover from '../components/OptimizedBookCover.astro';
+import { Icon } from 'astro-icon/components';
 
 // 类型定义
 interface BookRecord {
@@ -79,13 +80,26 @@ const FALLBACK_STYLES = {
   <div class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative">
     <div class="card-base z-10 px-6 py-6 relative w-full">
       {Object.entries(booksByCategory).map(([category, books]) => (
-        <div class="mb-12">
-          <h2 class="text-2xl font-bold mb-6 pb-2 border-b border-zinc-200 dark:border-zinc-800 text-[var(--primary)]">
-            {category}
-          </h2>
-          <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
-            {books.map((book: BookRecord) => (
-              <div class="group relative flex flex-col bg-white/80 dark:bg-zinc-900 rounded-xl shadow hover:shadow-xl transition-shadow duration-300 border border-zinc-100 dark:border-zinc-800 min-h-[340px]">
+        <div class="category-card is-auto-collapsed mb-8 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950/50 shadow-sm transition-all duration-300 hover:border-[var(--primary)] hover:shadow-lg overflow-hidden">
+          <div class="category-header p-5 flex items-center justify-between cursor-pointer select-none">
+            <div class="flex items-center gap-3">
+              <Icon name="mdi:bookshelf" class="text-xl text-[var(--primary)]" />
+              <h2 class="text-xl font-bold text-neutral-900 dark:text-neutral-100">
+                {category}
+              </h2>
+            </div>
+            <div class="flex items-center gap-3">
+              <span class="text-sm text-neutral-500 dark:text-neutral-400">
+                {books.length} 本书
+              </span>
+              <Icon name="mdi:chevron-down" class="chevron-icon text-lg transform transition-transform duration-300" />
+            </div>
+          </div>
+          <div class="category-content overflow-hidden transition-all duration-500 ease-in-out">
+            <div class="px-5 pb-5">
+              <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+                {books.map((book: BookRecord) => (
+                  <div class="group relative flex flex-col bg-white/80 dark:bg-zinc-900 rounded-xl shadow hover:shadow-xl transition-shadow duration-300 border border-zinc-100 dark:border-zinc-800 min-h-[340px]">
                 <div class="aspect-[3/4] overflow-hidden rounded-t-xl bg-zinc-100 dark:bg-zinc-900">
                   {getCoverUrl(book) ? (
                     <>
@@ -152,8 +166,10 @@ const FALLBACK_STYLES = {
                     )}
                   </div>
                 </div>
+                  </div>
+                ))}
               </div>
-            ))}
+            </div>
           </div>
         </div>
       ))}
@@ -162,6 +178,67 @@ const FALLBACK_STYLES = {
 
   <!-- giscus评论 -->
   <div style="margin-top: 20px;"></div>
+
+  <script is:inline>
+    function setupCategoryToggle() {
+      const categoryCards = document.querySelectorAll('.category-card');
+
+      categoryCards.forEach((card, index) => {
+        const header = card.querySelector('.category-header');
+        const content = card.querySelector('.category-content');
+
+        if (header && content) {
+          // 悬停事件：只有在自动折叠状态下才响应悬停
+          card.addEventListener('mouseenter', () => {
+            if (card.classList.contains('is-auto-collapsed')) {
+              card.classList.add('is-hover-expanded');
+            }
+          });
+
+          // 点击事件
+          header.addEventListener('click', (e) => {
+            // 防止点击链接时触发折叠
+            const target = e.target;
+            if (target instanceof Element && target.closest('a')) {
+              return;
+            }
+
+            // 检查当前状态
+            const isAutoCollapsed = card.classList.contains('is-auto-collapsed');
+            const isHoverExpanded = card.classList.contains('is-hover-expanded');
+            const isManuallyCollapsed = card.classList.contains('is-manually-collapsed');
+
+            if (isAutoCollapsed || isHoverExpanded) {
+              // 从自动折叠/悬停展开状态变为手动折叠状态
+              card.classList.remove('is-auto-collapsed', 'is-hover-expanded');
+              card.classList.add('is-manually-collapsed');
+            } else if (isManuallyCollapsed) {
+              // 从手动折叠状态变为完全展开状态
+              card.classList.remove('is-manually-collapsed');
+            } else {
+              // 从完全展开状态变为手动折叠状态
+              card.classList.add('is-manually-collapsed');
+            }
+
+            // 折叠时禁用指针事件，防止误点击
+            if (card.classList.contains('is-manually-collapsed')) {
+              if (content instanceof HTMLElement) {
+                content.style.pointerEvents = 'none';
+                setTimeout(() => {
+                  content.style.pointerEvents = '';
+                }, 400);
+              }
+            }
+          });
+        }
+      });
+    }
+
+    // 页面加载时初始化
+    document.addEventListener('astro:page-load', setupCategoryToggle);
+    setupCategoryToggle();
+  </script>
+
   <script src="https://giscus.app/client.js"
           data-repo="Lapis0x0/blog-discussion"
           data-repo-id="R_kgDONda6_g"
@@ -222,5 +299,84 @@ const FALLBACK_STYLES = {
   }
   .dark .book-cover-fallback {
     background: linear-gradient(135deg, var(--primary-dark, #4f46e5) 0%, var(--primary-darker, #3730a3) 100%);
+  }
+
+  /* 分类卡片折叠样式 */
+  .category-card {
+    position: relative;
+  }
+
+  .category-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at center, rgba(var(--primary-rgb), 0.1), transparent 60%);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    z-index: -1;
+    pointer-events: none;
+  }
+
+  .category-card:hover::before {
+    opacity: 1;
+  }
+
+  .category-header:hover {
+    background-color: rgba(var(--primary-rgb), 0.05);
+  }
+
+  /* 默认展开状态 */
+  .category-content {
+    max-height: 1000px;
+    opacity: 1;
+    transition: max-height 0.4s ease-in-out, opacity 0.2s ease;
+    overflow: hidden;
+  }
+
+  /* 自动折叠状态（默认） */
+  .category-card.is-auto-collapsed .category-content {
+    max-height: 0;
+    opacity: 0;
+  }
+
+  /* 悬停展开状态 */
+  .category-card.is-hover-expanded .category-content {
+    max-height: 1000px;
+    opacity: 1;
+  }
+
+  /* 手动折叠状态（优先级更高） */
+  .category-card.is-manually-collapsed .category-content {
+    max-height: 0;
+    opacity: 0;
+  }
+
+  /* 手动折叠时悬停也不展开 */
+  .category-card.is-manually-collapsed:hover .category-content {
+    max-height: 0;
+    opacity: 0;
+  }
+
+  /* 图标旋转 */
+  .chevron-icon {
+    transition: transform 0.3s ease;
+  }
+
+  /* 自动折叠状态的图标 */
+  .category-card.is-auto-collapsed .chevron-icon {
+    transform: rotate(-90deg);
+  }
+
+  /* 悬停展开状态的图标 */
+  .category-card.is-hover-expanded .chevron-icon {
+    transform: rotate(0deg);
+  }
+
+  /* 手动折叠状态的图标 */
+  .category-card.is-manually-collapsed .chevron-icon {
+    transform: rotate(-90deg);
   }
 </style>
