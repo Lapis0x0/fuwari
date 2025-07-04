@@ -62,16 +62,21 @@ projects:
 
       - id: Psychology-Neuroscience
         title: 心理学与神经科学
-        description: 从神经元到意识，探寻人类行为背后的生物基础与心理机制。
+        description: 穿越感知、情绪与神经回路，探寻心灵如何在生理与经验之间生成自我
         tags:
           - 心理学与神经科学
 
       - id: Religion
         title: 宗教研究
-        description: 探求三大世界宗教的演进发展
+        description: 从神圣的仪式与经典出发，追索信仰如何塑造群体、历史与秩序
         tags:
           - 基督教研究
-
+  
+      - id: Subculture
+        title: 亚文化研究
+        description: 在主流叙事的边缘，倾听异端、边界与反叛如何交织成另一种现实
+        tags:
+          - 亚文化研究
 ---
 
 
