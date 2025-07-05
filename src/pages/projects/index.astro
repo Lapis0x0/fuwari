@@ -95,7 +95,7 @@ const getProjectPosts = (item: ProjectItem) => {
               {project.items.map((item) => {
                 const projectPosts = getProjectPosts(item);
                 return (
-                  <div class="group project-card relative flex flex-col h-full overflow-hidden rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950/50 shadow-sm transition-all duration-300 hover:border-[var(--primary)] hover:shadow-lg">
+                  <div class="group project-card is-auto-collapsed relative flex flex-col h-full overflow-hidden rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950/50 shadow-sm transition-all duration-300 hover:border-[var(--primary)] hover:shadow-lg">
                     <div class="p-5 flex items-center justify-between cursor-pointer select-none">
                       <div class="flex items-center gap-4">
                         <Icon name="mdi:bookmark-outline" class="text-xl text-[var(--primary)]" />
@@ -120,10 +120,10 @@ const getProjectPosts = (item: ProjectItem) => {
                             <span>项目链接</span>
                           </a>
                         )}
-                        <Icon name="mdi:chevron-down" class="chevron-icon text-lg transform transition-transform duration-300 group-hover:rotate-180" />
+                        <Icon name="mdi:chevron-down" class="chevron-icon text-lg transform transition-transform duration-300" />
                       </div>
                     </div>
-                    <div class="details-content overflow-y-auto max-h-0 opacity-0 group-hover:max-h-96 group-hover:opacity-100 transition-all duration-500 ease-in-out">
+                    <div class="details-content overflow-y-auto transition-all duration-500 ease-in-out">
                       <div class="px-5 pb-5 pt-2">
                         {projectPosts.length > 0 ? (
                           <div class="grid grid-cols-1 gap-3 border-t border-zinc-200 dark:border-zinc-800 pt-4">
@@ -186,36 +186,77 @@ const getProjectPosts = (item: ProjectItem) => {
   document.addEventListener('astro:page-load', setupProjectLinks);
   setupProjectLinks();
 
+  // 使用事件委托，更优雅且不会因为DOM变化而失效
   function setupProjectCardToggle() {
-    const projectCards = document.querySelectorAll('.project-card');
-    projectCards.forEach(card => {
-        const header = card.querySelector('.p-5'); // The clickable header area
-        const content = card.querySelector('.details-content');
+    // 确保只绑定一次事件监听器
+    if (document.projectEventsInitialized) return;
+    document.projectEventsInitialized = true;
 
-        if (header && content) {
-            header.addEventListener('click', (e) => {
-                // 类型收窄，保证 e.target 存在且为 Element
-                const target = e.target;
-                if (target instanceof Element && target.closest('a')) {
-                    return;
-                }
-                
-                const isOpening = !card.classList.contains('is-open');
-                card.classList.toggle('is-open');
+    // 点击事件委托
+    document.addEventListener('click', (e) => {
+      const header = e.target.closest('.project-card .p-5');
+      if (!header) return;
 
-                if (isOpening) {
-                  // 只有 HTMLElement 才有 style
-                  if (content instanceof HTMLElement) {
-                    content.style.pointerEvents = 'none';
-                    setTimeout(() => {
-                        content.style.pointerEvents = '';
-                    }, 300); // A delay to absorb the ghost click
-                  }
-                }
-            });
-        }
+      // 防止点击链接时触发折叠
+      if (e.target.closest('a')) return;
+
+      const card = header.closest('.project-card');
+      if (!card) return;
+
+      console.log('Project header clicked');
+
+      // 检查当前状态
+      const isAutoCollapsed = card.classList.contains('is-auto-collapsed');
+      const isHoverExpanded = card.classList.contains('is-hover-expanded');
+      const isManuallyCollapsed = card.classList.contains('is-manually-collapsed');
+
+      console.log('Current state:', { isAutoCollapsed, isHoverExpanded, isManuallyCollapsed });
+
+      if (isAutoCollapsed || isHoverExpanded) {
+        // 从自动折叠/悬停展开状态变为手动折叠状态
+        card.classList.remove('is-auto-collapsed', 'is-hover-expanded');
+        card.classList.add('is-manually-collapsed');
+      } else if (isManuallyCollapsed) {
+        // 从手动折叠状态变为完全展开状态
+        card.classList.remove('is-manually-collapsed');
+      } else {
+        // 从完全展开状态变为手动折叠状态
+        card.classList.add('is-manually-collapsed');
+      }
+
+      // 折叠时禁用指针事件，防止误点击
+      const content = card.querySelector('.details-content');
+      if (card.classList.contains('is-manually-collapsed') && content) {
+        content.style.pointerEvents = 'none';
+        setTimeout(() => {
+          content.style.pointerEvents = '';
+        }, 500);
+      }
     });
+
+    // 悬停事件委托
+    document.addEventListener('mouseenter', (e) => {
+      const card = e.target.closest('.project-card');
+      if (!card) return;
+
+      if (card.classList.contains('is-auto-collapsed')) {
+        card.classList.add('is-hover-expanded');
+      }
+    }, true);
+
+    // 触摸事件委托（手机端）
+    document.addEventListener('touchstart', (e) => {
+      const card = e.target.closest('.project-card');
+      if (!card) return;
+
+      if (card.classList.contains('is-auto-collapsed')) {
+        card.classList.add('is-hover-expanded');
+      }
+    }, { passive: true, capture: true });
+
   }
+
+  // 页面加载时初始化
   document.addEventListener('astro:page-load', setupProjectCardToggle);
   setupProjectCardToggle();
 </script>
@@ -258,12 +299,63 @@ const getProjectPosts = (item: ProjectItem) => {
     scrollbar-color: var(--tw-prose-hr) transparent;
   }
 
-  .project-card.is-open .details-content {
-    max-height: 24rem; /* 96 in tailwind units */
+  /* 默认展开状态 */
+  .details-content {
+    max-height: 24rem;
     opacity: 1;
+    overflow-y: auto; /* 允许垂直滚动 */
   }
 
-  .project-card.is-open .chevron-icon {
+  /* 自动折叠状态（默认） */
+  .project-card.is-auto-collapsed .details-content {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden; /* 折叠时隐藏溢出 */
+  }
+
+  /* 悬停展开状态 */
+  .project-card.is-hover-expanded .details-content {
+    max-height: 24rem;
+    opacity: 1;
+    overflow-y: auto; /* 允许垂直滚动 */
+  }
+
+  /* 手动折叠状态（优先级更高） */
+  .project-card.is-manually-collapsed .details-content {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden; /* 折叠时隐藏溢出 */
+  }
+
+  /* 完全展开状态（没有任何状态类时） */
+  .project-card:not(.is-auto-collapsed):not(.is-hover-expanded):not(.is-manually-collapsed) .details-content {
+    max-height: 24rem;
+    opacity: 1;
+    overflow-y: auto;
+  }
+
+  /* 图标旋转 */
+  .chevron-icon {
+    transition: transform 0.3s ease;
+  }
+
+  /* 自动折叠状态的图标 */
+  .project-card.is-auto-collapsed .chevron-icon {
+    transform: rotate(-90deg);
+  }
+
+  /* 悬停展开状态的图标 */
+  .project-card.is-hover-expanded .chevron-icon {
+    transform: rotate(180deg);
+  }
+
+  /* 手动折叠状态的图标 */
+  .project-card.is-manually-collapsed .chevron-icon {
+    transform: rotate(-90deg);
+  }
+
+  /* 完全展开状态的图标 */
+  .project-card:not(.is-auto-collapsed):not(.is-hover-expanded):not(.is-manually-collapsed) .chevron-icon {
     transform: rotate(180deg);
   }
 </style>

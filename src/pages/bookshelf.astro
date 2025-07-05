@@ -180,58 +180,73 @@ const FALLBACK_STYLES = {
   <div style="margin-top: 20px;"></div>
 
   <script is:inline>
+    // 使用事件委托，更优雅且不会因为DOM变化而失效
     function setupCategoryToggle() {
-      const categoryCards = document.querySelectorAll('.category-card');
+      // 确保只绑定一次事件监听器
+      if (document.categoryEventsInitialized) return;
+      document.categoryEventsInitialized = true;
 
-      categoryCards.forEach((card, index) => {
-        const header = card.querySelector('.category-header');
+      // 点击事件委托
+      document.addEventListener('click', (e) => {
+        const header = e.target.closest('.category-card .category-header');
+        if (!header) return;
+
+        // 防止点击链接时触发折叠
+        if (e.target.closest('a')) return;
+
+        const card = header.closest('.category-card');
+        if (!card) return;
+
+        console.log('Category header clicked');
+
+        // 检查当前状态
+        const isAutoCollapsed = card.classList.contains('is-auto-collapsed');
+        const isHoverExpanded = card.classList.contains('is-hover-expanded');
+        const isManuallyCollapsed = card.classList.contains('is-manually-collapsed');
+
+        console.log('Current state:', { isAutoCollapsed, isHoverExpanded, isManuallyCollapsed });
+
+        if (isAutoCollapsed || isHoverExpanded) {
+          // 从自动折叠/悬停展开状态变为手动折叠状态
+          card.classList.remove('is-auto-collapsed', 'is-hover-expanded');
+          card.classList.add('is-manually-collapsed');
+        } else if (isManuallyCollapsed) {
+          // 从手动折叠状态变为完全展开状态
+          card.classList.remove('is-manually-collapsed');
+        } else {
+          // 从完全展开状态变为手动折叠状态
+          card.classList.add('is-manually-collapsed');
+        }
+
+        // 折叠时禁用指针事件，防止误点击
         const content = card.querySelector('.category-content');
-
-        if (header && content) {
-          // 悬停事件：只有在自动折叠状态下才响应悬停
-          card.addEventListener('mouseenter', () => {
-            if (card.classList.contains('is-auto-collapsed')) {
-              card.classList.add('is-hover-expanded');
-            }
-          });
-
-          // 点击事件
-          header.addEventListener('click', (e) => {
-            // 防止点击链接时触发折叠
-            const target = e.target;
-            if (target instanceof Element && target.closest('a')) {
-              return;
-            }
-
-            // 检查当前状态
-            const isAutoCollapsed = card.classList.contains('is-auto-collapsed');
-            const isHoverExpanded = card.classList.contains('is-hover-expanded');
-            const isManuallyCollapsed = card.classList.contains('is-manually-collapsed');
-
-            if (isAutoCollapsed || isHoverExpanded) {
-              // 从自动折叠/悬停展开状态变为手动折叠状态
-              card.classList.remove('is-auto-collapsed', 'is-hover-expanded');
-              card.classList.add('is-manually-collapsed');
-            } else if (isManuallyCollapsed) {
-              // 从手动折叠状态变为完全展开状态
-              card.classList.remove('is-manually-collapsed');
-            } else {
-              // 从完全展开状态变为手动折叠状态
-              card.classList.add('is-manually-collapsed');
-            }
-
-            // 折叠时禁用指针事件，防止误点击
-            if (card.classList.contains('is-manually-collapsed')) {
-              if (content instanceof HTMLElement) {
-                content.style.pointerEvents = 'none';
-                setTimeout(() => {
-                  content.style.pointerEvents = '';
-                }, 400);
-              }
-            }
-          });
+        if (card.classList.contains('is-manually-collapsed') && content) {
+          content.style.pointerEvents = 'none';
+          setTimeout(() => {
+            content.style.pointerEvents = '';
+          }, 400);
         }
       });
+
+      // 悬停事件委托
+      document.addEventListener('mouseenter', (e) => {
+        const card = e.target.closest('.category-card');
+        if (!card) return;
+
+        if (card.classList.contains('is-auto-collapsed')) {
+          card.classList.add('is-hover-expanded');
+        }
+      }, true);
+
+      // 触摸事件委托（手机端）
+      document.addEventListener('touchstart', (e) => {
+        const card = e.target.closest('.category-card');
+        if (!card) return;
+
+        if (card.classList.contains('is-auto-collapsed')) {
+          card.classList.add('is-hover-expanded');
+        }
+      }, { passive: true, capture: true });
     }
 
     // 页面加载时初始化
@@ -330,28 +345,38 @@ const FALLBACK_STYLES = {
 
   /* 默认展开状态 */
   .category-content {
-    max-height: 1000px;
+    max-height: 5000px; /* 设置一个足够大的值，确保能显示所有书籍 */
     opacity: 1;
     transition: max-height 0.4s ease-in-out, opacity 0.2s ease;
-    overflow: hidden;
+    overflow: visible; /* 允许内容正常显示 */
   }
 
   /* 自动折叠状态（默认） */
   .category-card.is-auto-collapsed .category-content {
     max-height: 0;
     opacity: 0;
+    overflow: hidden; /* 折叠时隐藏溢出 */
   }
 
   /* 悬停展开状态 */
   .category-card.is-hover-expanded .category-content {
-    max-height: 1000px;
+    max-height: 5000px; /* 设置一个足够大的值，确保能显示所有书籍 */
     opacity: 1;
+    overflow: visible; /* 展开时允许内容正常显示 */
   }
 
   /* 手动折叠状态（优先级更高） */
   .category-card.is-manually-collapsed .category-content {
     max-height: 0;
     opacity: 0;
+    overflow: hidden; /* 折叠时隐藏溢出 */
+  }
+
+  /* 完全展开状态（没有任何状态类时） */
+  .category-card:not(.is-auto-collapsed):not(.is-hover-expanded):not(.is-manually-collapsed) .category-content {
+    max-height: 5000px;
+    opacity: 1;
+    overflow: visible;
   }
 
   /* 手动折叠时悬停也不展开 */
