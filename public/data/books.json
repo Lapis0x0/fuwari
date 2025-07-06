@@ -2344,7 +2344,7 @@
               "local_path": "/images/books/a2d545eab3bc5599b0c8c35c6bac3f7f.webp"
             }
           ],
-          "阅读进度": "0.01",
+          "阅读进度": "0.04",
           "领域": "神学"
         },
         "id": "recuHq7SFnAHZ1",
@@ -2435,5 +2435,5 @@
     "total": 97
   },
   "msg": "success",
-  "last_updated": "2025-06-29T01:48:32.753542"
+  "last_updated": "2025-07-06T01:47:15.954403"
 }
