@@ -186,6 +186,35 @@ const FALLBACK_STYLES = {
       if (document.categoryEventsInitialized) return;
       document.categoryEventsInitialized = true;
 
+      // 用于跟踪触摸事件，避免触摸和点击事件冲突
+      let touchStartTime = 0;
+      let lastTouchedCard = null;
+      let justExpandedCard = null; // 记录刚刚展开的卡片
+
+      // 触摸开始事件
+      document.addEventListener('touchstart', (e) => {
+        const card = e.target.closest('.category-card');
+        if (!card) return;
+
+        touchStartTime = Date.now();
+        lastTouchedCard = card;
+
+        // 只在自动折叠状态下响应触摸展开
+        if (card.classList.contains('is-auto-collapsed')) {
+          card.classList.remove('is-auto-collapsed'); // 移除自动折叠状态
+          card.classList.add('is-hover-expanded');
+          justExpandedCard = card; // 标记为刚刚展开
+          console.log('Touch: Auto-collapsed -> Hover-expanded');
+
+          // 500ms后清除"刚展开"标记，允许后续点击折叠
+          setTimeout(() => {
+            if (justExpandedCard === card) {
+              justExpandedCard = null;
+            }
+          }, 500);
+        }
+      }, { passive: true, capture: true });
+
       // 点击事件委托
       document.addEventListener('click', (e) => {
         const header = e.target.closest('.category-card .category-header');
@@ -197,7 +226,10 @@ const FALLBACK_STYLES = {
         const card = header.closest('.category-card');
         if (!card) return;
 
-        console.log('Category header clicked');
+        // 检测是否是触摸设备的点击事件
+        const isTouchClick = (Date.now() - touchStartTime) < 500 && lastTouchedCard === card;
+
+        console.log('Category header clicked', { isTouchClick });
 
         // 检查当前状态
         const isAutoCollapsed = card.classList.contains('is-auto-collapsed');
@@ -205,6 +237,12 @@ const FALLBACK_STYLES = {
         const isManuallyCollapsed = card.classList.contains('is-manually-collapsed');
 
         console.log('Current state:', { isAutoCollapsed, isHoverExpanded, isManuallyCollapsed });
+
+        // 如果是触摸设备且是刚刚展开的卡片，则跳过这次点击
+        if (isTouchClick && justExpandedCard === card) {
+          console.log('Skipping touch click for just-expanded card');
+          return;
+        }
 
         if (isAutoCollapsed || isHoverExpanded) {
           // 从自动折叠/悬停展开状态变为手动折叠状态
@@ -228,25 +266,18 @@ const FALLBACK_STYLES = {
         }
       });
 
-      // 悬停事件委托
+      // 悬停事件委托（仅桌面端）
       document.addEventListener('mouseenter', (e) => {
         const card = e.target.closest('.category-card');
         if (!card) return;
 
-        if (card.classList.contains('is-auto-collapsed')) {
+        // 只在非触摸设备上响应悬停
+        if (!('ontouchstart' in window) && card.classList.contains('is-auto-collapsed')) {
+          card.classList.remove('is-auto-collapsed'); // 移除自动折叠状态
           card.classList.add('is-hover-expanded');
+          console.log('Mouse: Auto-collapsed -> Hover-expanded');
         }
       }, true);
-
-      // 触摸事件委托（手机端）
-      document.addEventListener('touchstart', (e) => {
-        const card = e.target.closest('.category-card');
-        if (!card) return;
-
-        if (card.classList.contains('is-auto-collapsed')) {
-          card.classList.add('is-hover-expanded');
-        }
-      }, { passive: true, capture: true });
     }
 
     // 页面加载时初始化
