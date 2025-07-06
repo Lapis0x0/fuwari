@@ -199,6 +199,7 @@ const getProjectPosts = (item: ProjectItem) => {
 
     // 触摸开始事件
     document.addEventListener('touchstart', (e) => {
+      if (!e.target || !(e.target instanceof Element)) return;
       const card = e.target.closest('.project-card');
       if (!card) return;
 
@@ -223,6 +224,7 @@ const getProjectPosts = (item: ProjectItem) => {
 
     // 点击事件委托
     document.addEventListener('click', (e) => {
+      if (!e.target || !(e.target instanceof Element)) return;
       const header = e.target.closest('.project-card .p-5');
       if (!header) return;
 
@@ -264,7 +266,7 @@ const getProjectPosts = (item: ProjectItem) => {
 
       // 折叠时禁用指针事件，防止误点击
       const content = card.querySelector('.details-content');
-      if (card.classList.contains('is-manually-collapsed') && content) {
+      if (card.classList.contains('is-manually-collapsed') && content instanceof HTMLElement) {
         content.style.pointerEvents = 'none';
         setTimeout(() => {
           content.style.pointerEvents = '';
@@ -274,6 +276,7 @@ const getProjectPosts = (item: ProjectItem) => {
 
     // 悬停事件委托（仅桌面端）
     document.addEventListener('mouseenter', (e) => {
+      if (!e.target || !(e.target instanceof Element)) return;
       const card = e.target.closest('.project-card');
       if (!card) return;
 
