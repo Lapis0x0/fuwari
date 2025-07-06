@@ -79,9 +79,15 @@ const FALLBACK_STYLES = {
   </style>
   <div class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative">
     <div class="card-base z-10 px-6 py-6 relative w-full">
-      {Object.entries(booksByCategory).map(([category, books]) => (
-        <div class="category-card is-auto-collapsed mb-8 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950/50 shadow-sm transition-all duration-300 hover:border-[var(--primary)] hover:shadow-lg overflow-hidden">
-          <div class="category-header p-5 flex items-center justify-between cursor-pointer select-none">
+      {Object.entries(booksByCategory).map(([category, books], categoryIndex) => {
+        const categoryId = `category-${category.replace(/\s+/g, '-').toLowerCase()}-${categoryIndex}`;
+        return (
+          <div class="category-card mb-8 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950/50 shadow-sm transition-all duration-300 hover:border-[var(--primary)] hover:shadow-lg overflow-hidden">
+          <button
+            data-toggle="collapse"
+            data-target={`#${categoryId}`}
+            class="category-header w-full p-5 flex items-center justify-between cursor-pointer select-none hover:bg-neutral-50 dark:hover:bg-neutral-800/50 transition-colors text-left"
+          >
             <div class="flex items-center gap-3">
               <Icon name="mdi:bookshelf" class="text-xl text-[var(--primary)]" />
               <h2 class="text-xl font-bold text-neutral-900 dark:text-neutral-100">
@@ -94,8 +100,11 @@ const FALLBACK_STYLES = {
               </span>
               <Icon name="mdi:chevron-down" class="chevron-icon text-lg transform transition-transform duration-300" />
             </div>
-          </div>
-          <div class="category-content overflow-hidden transition-all duration-500 ease-in-out">
+          </button>
+          <div
+            id={categoryId}
+            class="category-content overflow-hidden transition-all duration-500 ease-in-out"
+          >
             <div class="px-5 pb-5">
               <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
                 {books.map((book: BookRecord) => (
@@ -171,8 +180,9 @@ const FALLBACK_STYLES = {
               </div>
             </div>
           </div>
-        </div>
-      ))}
+          </div>
+        )
+      })}
     </div>
   </div>
 
@@ -180,112 +190,44 @@ const FALLBACK_STYLES = {
   <div style="margin-top: 20px;"></div>
 
   <script is:inline>
-    // 使用事件委托，更优雅且不会因为DOM变化而失效
-    function setupCategoryToggle() {
-      // 确保只绑定一次事件监听器
-      if (document.categoryEventsInitialized) return;
-      document.categoryEventsInitialized = true;
+    // 简化的折叠功能 - 使用数据属性和事件委托
+    function initCollapsibleCategories() {
+      // 防止重复绑定
+      if (window['categoryCollapseInitialized']) return;
+      window['categoryCollapseInitialized'] = true;
 
-      // 用于跟踪触摸事件，避免触摸和点击事件冲突
-      let touchStartTime = 0;
-      let lastTouchedCard = null;
-      let justExpandedCard = null; // 记录刚刚展开的卡片
-
-      // 触摸开始事件
-      document.addEventListener('touchstart', (e) => {
-        if (!e.target || !(e.target instanceof Element)) return;
-        const card = e.target.closest('.category-card');
-        if (!card) return;
-
-        touchStartTime = Date.now();
-        lastTouchedCard = card;
-
-        // 只在自动折叠状态下响应触摸展开
-        if (card.classList.contains('is-auto-collapsed')) {
-          card.classList.remove('is-auto-collapsed'); // 移除自动折叠状态
-          card.classList.add('is-hover-expanded');
-          justExpandedCard = card; // 标记为刚刚展开
-          console.log('Touch: Auto-collapsed -> Hover-expanded');
-
-          // 500ms后清除"刚展开"标记，允许后续点击折叠
-          setTimeout(() => {
-            if (justExpandedCard === card) {
-              justExpandedCard = null;
-            }
-          }, 500);
-        }
-      }, { passive: true, capture: true });
-
-      // 点击事件委托
+      // 单一事件监听器处理所有折叠交互
       document.addEventListener('click', (e) => {
         if (!e.target || !(e.target instanceof Element)) return;
-        const header = e.target.closest('.category-card .category-header');
-        if (!header) return;
+
+        const toggle = e.target.closest('[data-toggle="collapse"]');
+        if (!toggle) return;
 
         // 防止点击链接时触发折叠
         if (e.target.closest('a')) return;
 
-        const card = header.closest('.category-card');
-        if (!card) return;
+        const targetId = toggle.getAttribute('data-target');
+        if (!targetId) return;
 
-        // 检测是否是触摸设备的点击事件
-        const isTouchClick = (Date.now() - touchStartTime) < 500 && lastTouchedCard === card;
+        const content = document.querySelector(targetId);
+        if (!content) return;
 
-        console.log('Category header clicked', { isTouchClick });
+        // 切换折叠状态
+        content.classList.toggle('collapsed');
 
-        // 检查当前状态
-        const isAutoCollapsed = card.classList.contains('is-auto-collapsed');
-        const isHoverExpanded = card.classList.contains('is-hover-expanded');
-        const isManuallyCollapsed = card.classList.contains('is-manually-collapsed');
-
-        console.log('Current state:', { isAutoCollapsed, isHoverExpanded, isManuallyCollapsed });
-
-        // 如果是触摸设备且是刚刚展开的卡片，则跳过这次点击
-        if (isTouchClick && justExpandedCard === card) {
-          console.log('Skipping touch click for just-expanded card');
-          return;
-        }
-
-        if (isAutoCollapsed || isHoverExpanded) {
-          // 从自动折叠/悬停展开状态变为手动折叠状态
-          card.classList.remove('is-auto-collapsed', 'is-hover-expanded');
-          card.classList.add('is-manually-collapsed');
-        } else if (isManuallyCollapsed) {
-          // 从手动折叠状态变为完全展开状态
-          card.classList.remove('is-manually-collapsed');
-        } else {
-          // 从完全展开状态变为手动折叠状态
-          card.classList.add('is-manually-collapsed');
-        }
-
-        // 折叠时禁用指针事件，防止误点击
-        const content = card.querySelector('.category-content');
-        if (card.classList.contains('is-manually-collapsed') && content instanceof HTMLElement) {
-          content.style.pointerEvents = 'none';
-          setTimeout(() => {
-            content.style.pointerEvents = '';
-          }, 400);
+        // 更新图标
+        const icon = toggle.querySelector('.chevron-icon');
+        if (icon instanceof HTMLElement) {
+          icon.style.transform = content.classList.contains('collapsed')
+            ? 'rotate(-90deg)'
+            : 'rotate(0deg)';
         }
       });
-
-      // 悬停事件委托（仅桌面端）
-      document.addEventListener('mouseenter', (e) => {
-        if (!e.target || !(e.target instanceof Element)) return;
-        const card = e.target.closest('.category-card');
-        if (!card) return;
-
-        // 只在非触摸设备上响应悬停
-        if (!('ontouchstart' in window) && card.classList.contains('is-auto-collapsed')) {
-          card.classList.remove('is-auto-collapsed'); // 移除自动折叠状态
-          card.classList.add('is-hover-expanded');
-          console.log('Mouse: Auto-collapsed -> Hover-expanded');
-        }
-      }, true);
     }
 
     // 页面加载时初始化
-    document.addEventListener('astro:page-load', setupCategoryToggle);
-    setupCategoryToggle();
+    document.addEventListener('astro:page-load', initCollapsibleCategories);
+    initCollapsibleCategories();
   </script>
 
   <script src="https://giscus.app/client.js"
@@ -381,61 +323,19 @@ const FALLBACK_STYLES = {
   .category-content {
     max-height: 5000px; /* 设置一个足够大的值，确保能显示所有书籍 */
     opacity: 1;
-    transition: max-height 0.5s ease-in-out, opacity 0.5s ease-in-out;
-    overflow: visible; /* 允许内容正常显示 */
-  }
-
-  /* 自动折叠状态（默认） */
-  .category-card.is-auto-collapsed .category-content {
-    max-height: 0;
-    opacity: 0;
-    overflow: hidden; /* 折叠时隐藏溢出 */
-  }
-
-  /* 悬停展开状态 */
-  .category-card.is-hover-expanded .category-content {
-    max-height: 5000px; /* 设置一个足够大的值，确保能显示所有书籍 */
-    opacity: 1;
-    overflow: visible; /* 展开时允许内容正常显示 */
-  }
-
-  /* 手动折叠状态（优先级更高） */
-  .category-card.is-manually-collapsed .category-content {
-    max-height: 0;
-    opacity: 0;
-    overflow: hidden; /* 折叠时隐藏溢出 */
-  }
-
-  /* 完全展开状态（没有任何状态类时） */
-  .category-card:not(.is-auto-collapsed):not(.is-hover-expanded):not(.is-manually-collapsed) .category-content {
-    max-height: 5000px;
-    opacity: 1;
     overflow: visible;
+    transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
   }
 
-  /* 手动折叠时悬停也不展开 */
-  .category-card.is-manually-collapsed:hover .category-content {
+  /* 折叠状态 */
+  .category-content.collapsed {
     max-height: 0;
     opacity: 0;
+    overflow: hidden;
   }
 
-  /* 图标旋转 */
+  /* 图标过渡动画 */
   .chevron-icon {
     transition: transform 0.3s ease;
-  }
-
-  /* 自动折叠状态的图标 */
-  .category-card.is-auto-collapsed .chevron-icon {
-    transform: rotate(-90deg);
-  }
-
-  /* 悬停展开状态的图标 */
-  .category-card.is-hover-expanded .chevron-icon {
-    transform: rotate(0deg);
-  }
-
-  /* 手动折叠状态的图标 */
-  .category-card.is-manually-collapsed .chevron-icon {
-    transform: rotate(-90deg);
   }
 </style>
