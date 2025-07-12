@@ -41,7 +41,7 @@ services:
       - SILLYTAVERN_WHITELISTMODE=false    # ❗关闭IP白名单，避免换IP被封
       - SILLYTAVERN_BASICAUTHMODE=true     # 🔐 启用基础认证
       - SILLYTAVERN_BASICAUTHUSER_USERNAME=admin # 你的用户名
-      - SILLYTAVERN_BASICAUTHUSER_PASSWORD=supersecure123 # 你的秘密
+      - SILLYTAVERN_BASICAUTHUSER_PASSWORD=supersecure123 # 你的密码
       - TZ=Asia/Shanghai
     ports:
       - "8000:8000"                         # 本地访问端口
