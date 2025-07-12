@@ -73,7 +73,7 @@ services:
 
 **“万物皆可 RSS”** 是 RSSHub 的口号，也是它的灵魂。这个由国内开发者维护的开源项目，像一把万能钥匙，能解锁互联网上几乎所有平台的订阅可能——从微博热搜到 B 站 UP 主更新，从 GitHub 仓库动态到豆瓣小组新帖，甚至是淘宝商品降价提醒、机场航班延误播报……**只要你能想到的内容，几乎都能通过 RSSHub 转化为标准的 RSS 订阅源**。
 
-### **为什么选择 RSSHub？**
+### 为什么选择 RSSHub？
 
 - **破除平台封锁**：许多平台（比如某红书、某音）不提供原生 RSS 支持，RSSHub 通过解析网页或调用 API 强行“投喂”内容；
 - **规则丰富灵活**：社区贡献了 1000+ 条路由规则（[官方文档](https://docs.rsshub.app/)堪称 RSS 版“百科全书”），且支持自定义规则；
@@ -86,7 +86,7 @@ services:
 
 新一代高颜值RSS阅读器（我目前正在用的主力阅读器），但目前尚处测试阶段，性能方面似乎存在一定问题
 
-## **3.FreshRSS**
+## 3.FreshRSS
 
 ::github{repo="FreshRSS/FreshRSS"}
 
@@ -97,7 +97,7 @@ services:
 - **浏览器插件**：配套的[WebSub](https://github.com/FreshRSS/WebSub)扩展实现"一键订阅"
 - **多用户体系**：适合团队共享订阅源，支持OPML批量导入导出
 
-## **4.Miniflux**
+## 4.Miniflux
 
 ::github{repo="miniflux/v2"}
 

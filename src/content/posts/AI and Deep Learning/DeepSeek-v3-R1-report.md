@@ -206,7 +206,7 @@ draft: false
 
 MLA（Multi-Head Latent Attention）就是为了解决这个痛点而生的一种**低秩压缩**思路：它以较低维度的“潜表示（Latent Representation）”来替代原本的高维 Key/Value，极大地减少 KV 缓存需要的内存空间，并且在保持模型性能的同时降低推理或训练的成本。
 
-### **MLA的核心思路：先压缩，再缓存**
+### MLA的核心思路：先压缩，再缓存
 
 **Step 1.压缩 Key/Value（减少推理时的 KV 缓存）**
 
