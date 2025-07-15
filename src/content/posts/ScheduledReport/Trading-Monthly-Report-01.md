@@ -4,7 +4,7 @@ published: 2025-01-28
 description: "摘要： 本月收益32%，探讨如何在加密市场波动中建立可持续投资框架，强调耐心、预期管理与不败哲学，从短期交易转向长期主义，构建风险可控的收益体系。"
 image: ""
 tags: ["投资月报"]
-category: 定期报告
+category: 浅度报告
 draft: false
 ---
 

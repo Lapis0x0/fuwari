@@ -4,7 +4,7 @@ published: 2024-05-06
 description: "一、2024年大模型领域的热点：Agent 1.Agent基础 Agent（代理）一概念起源于哲学，描述了一种拥有欲望、信念、意图以及采取行动能力的实体。在大模型中，agent的含义为：具有自主性、反应性、交互性等特征的智能“代理”。 LLM给AI Agent底层提供了一个突破性技术方案：LLM带来"
 image: ""
 tags: ["Weekly通讯"]
-category: 定期报告
+category: 浅度报告
 draft: false
 ---
 
