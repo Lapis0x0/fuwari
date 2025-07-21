@@ -1,10 +1,17 @@
 name: dump-feishu-ids
-on: workflow_dispatch    # 只手动运行
+on: workflow_dispatch   # 手动触发，跑完就删
+
 jobs:
-  show:
+  dump:
     runs-on: ubuntu-latest
     steps:
-      - name: 输出 base64
+      - name: 保存 ID 到文件
         run: |
-          echo "BITABLE_ID=$(printf '%s' '${{ secrets.FEISHU_BITABLE_ID }}' | base64 -w0)"
-          echo "TABLE_ID=$(printf '%s' '${{ secrets.FEISHU_TABLE_ID }}' | base64 -w0)"
+          mkdir out
+          printf '%s' "${{ secrets.FEISHU_BITABLE_ID }}" > out/bitable_id.txt
+          printf '%s' "${{ secrets.FEISHU_TABLE_ID }}"  > out/table_id.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: feishu-ids
+          path: out
+          retention-days: 1        # 取完就删，别留隐患
